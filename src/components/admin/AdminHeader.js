@@ -1,3 +1,9 @@
+/**
+ * @filename    : AdminHeader.js
+ * @author      : 이병민 (https://github.com/Byeongminlee)
+ * @description : 관리자 페이지 헤더
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
