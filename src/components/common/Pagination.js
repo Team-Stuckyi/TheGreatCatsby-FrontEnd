@@ -1,3 +1,9 @@
+/**
+ * @filename    : Pagination.js
+ * @author      : 이슬기 (https://github.com/abcabcp)
+ * @description : 페이지네이션 컴포넌트
+ */
+
 import styled, { css } from "styled-components";
 
 const PageButton = styled.button`
@@ -11,12 +17,12 @@ const PageButton = styled.button`
     cursor: pointer;
     
     &[disabled] {
-        color: #e5e5e5;
+        color: var(--gray200);
         cursor: revert;
         transform: revert;
       }
     &[aria-current] {
-    background: #eeeeee;
+    background: var(--gray100);
     font-weight: bold;
     cursor: revert;
     transform: revert;
@@ -26,7 +32,7 @@ const PageButton = styled.button`
     `}
     ${(props) => props.hover && css`
         :hover {
-            background: #eeeeee;
+            background: var(--gray100);
         }
     `}
 `;
