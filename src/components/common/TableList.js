@@ -62,11 +62,13 @@ const TableList = ({columns, data}) => {
                         {data.map((cur) => (
                             <tr key={cur}>
                                 {Object.keys(cur).map((key) => (
-                                <TableData><Input value={cur[key]} /></TableData>
+                                    typeof cur[key] === "boolean" ? 
+                                    <TableData><input type="checkbox" checked={cur[key]}/></TableData> :
+                                    <TableData><Input value={cur[key]} /></TableData>
                                 ))}
-
-                                <TableData><Button>수정</Button></TableData>
-                                <TableData><ButtonDanger>삭제</ButtonDanger></TableData>
+                                {isModifiable ? <TableData><Button>수정</Button></TableData> : null}
+                                
+                                {isRemovable ? <TableData><ButtonDanger>삭제</ButtonDanger></TableData> : null}
                             </tr>
                         ))}
                     </tbody>
