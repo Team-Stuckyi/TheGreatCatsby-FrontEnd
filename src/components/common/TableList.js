@@ -7,6 +7,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import Button from './Button';
 
 const Table = styled.table`
     text-align: center;
@@ -31,29 +32,12 @@ const TableData = styled.td`
     padding: 10px;
 `;
 
-const Button = styled.button`
-    border: none;
-    height: calc(100% - 50px);
-    padding: 5px;
-    border-radius: 5px;
-    color: var(--white);
-    background-color: var(--blue300);
-    cursor: pointer;
-    width: 100%;
-`;
-
-const ButtonDanger = styled(Button) `
-    background-color: var(--primary);
-`;
-
-
-
-const TableList = ({columns, data}) => {
+const TableList = ({columns, data, isModifiable, isRemovable}) => {
     return (
         <div>
             <Table>
                     <thead>
-                            {columns.map((column, index) => (
+                            {columns.map((column) => (
                                 <TableHeader key={column}>{column}</TableHeader>         
                             ))}
                             <TableHeader colSpan="2">관리</TableHeader>
@@ -61,14 +45,15 @@ const TableList = ({columns, data}) => {
                     <tbody>
                         {data.map((cur) => (
                             <tr key={cur}>
-                                {Object.keys(cur).map((key) => (
+                                {Object.keys(cur).map((key, index) => (
+                                    index === 0 ? <TableData>{cur[key]}</TableData> : 
                                     typeof cur[key] === "boolean" ? 
-                                    <TableData><input type="checkbox" checked={cur[key]}/></TableData> :
+                                    <TableData><Input type="checkbox" checked={cur[key]}/></TableData> :
                                     <TableData><Input value={cur[key]} /></TableData>
                                 ))}
-                                {isModifiable ? <TableData><Button>수정</Button></TableData> : null}
+                                {isModifiable ? <TableData><Button bgColor={'var(--blue300)'}>수정</Button></TableData> : null}
                                 
-                                {isRemovable ? <TableData><ButtonDanger>삭제</ButtonDanger></TableData> : null}
+                                {isRemovable ? <TableData><Button bgColor={'var(--primary)'}>삭제</Button></TableData> : null}
                             </tr>
                         ))}
                     </tbody>
