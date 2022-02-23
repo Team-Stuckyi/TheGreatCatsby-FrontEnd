@@ -1,3 +1,9 @@
+/**
+ * @filename    : Button.js
+ * @author      : 이병민 (https://github.com/Byeongminlee)
+ * @description : 버튼 컴포넌트
+ */
+
 import styled from 'styled-components';
 
 /*

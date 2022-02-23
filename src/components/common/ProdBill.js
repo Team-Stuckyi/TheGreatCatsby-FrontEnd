@@ -1,3 +1,9 @@
+/**
+ * @filename    : ProdBill.js
+ * @author      : 이병민 (https://github.com/Byeongminlee)
+ * @description : 결제 금액 영수증 컴포넌트 (총 상품금액, 배송비, 총 결제 금액)
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 
