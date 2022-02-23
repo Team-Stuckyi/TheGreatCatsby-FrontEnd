@@ -10,7 +10,7 @@ import styled from 'styled-components';
 const Container = styled.div`
     width: 100%;
     padding: 5px;
-    border-top: 2px solid #808080;
+    border-top: 2px solid 'var(--gray500)';
 `;
 
 const PriceBox = styled.div`

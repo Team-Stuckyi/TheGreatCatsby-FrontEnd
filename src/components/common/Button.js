@@ -23,8 +23,8 @@ const Button = styled.button`
     margin: 2px;
 
     width: calc(${props => props.width || '100%'} - 4px);
-    background-color: ${props => props.bgColor || '#f76b8a'};
-    color: ${props => props.fontColor || '#fff'};
+    background-color: ${props => props.bgColor || 'var(--primary)'};
+    color: ${props => props.fontColor || 'var(--white)'};
     border: ${props => props.border || 'none'};
     padding: ${props => {
             if (props.size === 'lg' || !props.size) return '12px';
