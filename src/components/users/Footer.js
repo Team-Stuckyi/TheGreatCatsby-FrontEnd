@@ -49,13 +49,17 @@ const FooterTopList = styled.div`
     justify-content: center;
     align-items: center;
     ul {
-        width: 80%;
+        width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
+    }
+    li {
+        height: 75px;
     }
     img {
-        width: 300px;
+        width: 270px;
+        margin-top: 6px;
     }
 `;
 
@@ -66,38 +70,41 @@ const FooterBottomContainer = styled.div`
 `;
 
 const FooterBottom = styled.div`
-    height: 400px;
+    height: 335px;
     background-color: var(--gray100);
     width: 1200px;
     margin: 0 auto;
-
-    &.phone {
-        display: inline;
-        position: relative;
-        bottom: 7px;
-        left: 10px;          
-    }
-
-    &.opperation-time {
-        display: block;
-    }
-
 `; 
 
 const BottomInner = styled.div`
     width: 98%;
     margin: 0 auto;
-    padding-top: 30px;
+    padding-top: 50px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-item: center;
 `;
 
 const FooterLeft = styled.div`
-    &.phone {
-        display: inline;
-        position: relative;
-        bottom: 7px;
-        left: 10px;   
+    padding-top: 15px;
+    img {
+        width: 32px;
+    }
+    p {
+        &.phone {
+            display: inline;
+            position: relative;
+            bottom: 7px;
+            left: 10px;   
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            font-weight: bold;
+        }
+        &.opperation-time {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
     }
 `;
 
@@ -105,12 +112,21 @@ const FooterRight = styled.div`
     color: var(--gray400);
     ul {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
     li {
         display: flex;
         justify-content: flex-end;
-    }
+        &.bold {
+            fontWeight: bold;
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+        &.text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        }
 `;
 
 const FooterAwards = styled.div`
@@ -123,7 +139,7 @@ const FooterAwards = styled.div`
         width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         border-top: 2px solid var(--gray300);
         margin-bottom: 50px;
     }
@@ -131,7 +147,7 @@ const FooterAwards = styled.div`
         margin-top: 50px;
     }
     img {
-        height: 50px;
+        height: 40px;
         width: 100%;
     }
 `;
@@ -143,13 +159,18 @@ const Copyright = styled.div`
 
     p {
         display: inline;
+        font-size: 0.85rem;
+        line-height: 1rem;
+        color: var(--gray500);
+
+        &.stuckyi {
+            color: var(--primary);
+            display: inline;
+            fontWeight: bold;
+            }
     }
     a {
         color: var(--blue200);
-        display: inline;
-    }
-    &.stuckyi {
-        color: var(--primary);
         display: inline;
     }
 `;
@@ -178,12 +199,12 @@ const Footer = () => {
                             <BottomInner>
                                 <FooterLeft>
                                         <img src={SupportImage} alt="고객상담" />
-                                        <p className="phone text-xl bold">1234-1234</p>
-                                        <p className="text-sm opperation-time">운영 시간: 평일 10:00 ~ 18:00 / 주말, 공휴일 휴무</p>
+                                        <p className="phone">1234-1234</p>
+                                        <p className="opperation-time">운영 시간: 평일 10:00 ~ 18:00 / 주말, 공휴일 휴무</p>
                                 </FooterLeft>
                                 <FooterRight>
                                     <ul>
-                                        <li className="bold text-2xl">
+                                        <li className="bold">
                                         위대한 캣츠비
                                         </li>
                                         <li className="text-sm">
@@ -224,7 +245,7 @@ const Footer = () => {
                         <div className="copyright-container">
                             <Copyright>
                                 <p>
-                                    copyright <p className="stuckyi bold">Team STUCKYI</p> clone coding by 고양이대통령 power by <a href="https://github.com/Team-Stuckyi">https://github.com/Team-Stuckyi</a>
+                                    copyright <p className="stuckyi">Team STUCKYI</p> clone coding by 고양이대통령 power by <a href="https://github.com/Team-Stuckyi">https://github.com/Team-Stuckyi</a>
                                 </p>
                             </Copyright>
                         </div>   
