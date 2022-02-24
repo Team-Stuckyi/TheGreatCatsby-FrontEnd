@@ -17,7 +17,7 @@ const ReviewContainer = styled.div`
         ${(props) => props.container && css`
             padding-bottom: 20px;
             margin-top: 25px;
-            border-bottom: 1px solid #c4c4c4;
+            border-bottom: 1px solid var(--gray300);
         `}
 
         ${(props) => props.info && css`
@@ -37,8 +37,8 @@ const ReviewUl = styled.ul`
 `;
 
 const ReviewLi = styled.li`
-    border-right: 1px solid #c4c4c4;
-    color: #a3a3a3;
+    border-right: 1px solid var(--gray300);
+    color: var(--gray400);
     padding: 0 7px 0 7px;
     height: 20px;
     font-size: 0.875rem;
@@ -52,7 +52,7 @@ const ReviewLi = styled.li`
 const ReviewContents = styled.p`
     padding: 5px 0 5px 0;   
     ${(props) => props.name && css`
-        color: #a3a3a3;
+        color: var(--gray400);
         font-size: 0.875rem;
         line-height: 1.25rem;
         padding-bottom: 15px;

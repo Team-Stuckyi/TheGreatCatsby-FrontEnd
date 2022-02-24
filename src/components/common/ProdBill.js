@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const PriceBox = styled.div`
-    border-bottom: 1px solid #e1e1e1;
+    border-bottom: 1px solid 'var(--gray200)';
 `;
 
 const PriceTitle = styled.span`
@@ -23,7 +23,7 @@ const PriceTitle = styled.span`
     width: 180px;
     height: 55px;
     line-height: 35px;
-    background-color: #eeeeee;
+    background-color: 'var(--gray100)';
     text-indent: 20px;
 `;
 
