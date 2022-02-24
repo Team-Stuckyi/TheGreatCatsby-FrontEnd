@@ -4,7 +4,7 @@
  * @description : 별점 컴포넌트
  */
 
-const Stars = ({ starCount = 5, starSize = 20 }) => {
+const Stars = ({ starCount = 5, starSize = 30 }) => {
     // 별 문자열을 조합하는 함수 (empty 인자는 빈 별인지, 아닌지를 구분하기 위해 사용)
     const createStars = (empty = false) => {
         // 별점 문자열을 저장할 변수 초기화
@@ -21,9 +21,9 @@ const Stars = ({ starCount = 5, starSize = 20 }) => {
         <>
             <p>
                 {/* 받은 별점 출력 */}
-                <span style={{ fontSize: 40, color: 'var(--yellowstar)' }}>{createStars()}</span>
+                <span style={{ fontSize: starSize, color: 'var(--yellowstar)' }}>{createStars()}</span>
                 {/* 빈 별점 출력 */}
-                <span style={{ fontSize: 40, color: 'var(--gray100)' }}>{createStars(true)}</span>
+                <span style={{ fontSize: starSize, color: 'var(--gray100)' }}>{createStars(true)}</span>
             </p>
         </>
     );
