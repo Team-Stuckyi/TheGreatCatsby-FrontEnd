@@ -10,11 +10,11 @@ import styled from 'styled-components';
 const Container = styled.div`
     width: 100%;
     padding: 5px;
-    border-top: 2px solid 'var(--gray500)';
+    border-top: 2px solid var(--gray500);
 `;
 
 const PriceBox = styled.div`
-    border-bottom: 1px solid 'var(--gray200)';
+    border-bottom: 1px solid var(--gray200);
 `;
 
 const PriceTitle = styled.span`
@@ -23,7 +23,7 @@ const PriceTitle = styled.span`
     width: 180px;
     height: 55px;
     line-height: 35px;
-    background-color: 'var(--gray100)';
+    background-color: var(--gray100);
     text-indent: 20px;
 `;
 
