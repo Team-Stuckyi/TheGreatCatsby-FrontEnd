@@ -5,7 +5,7 @@ const InputFull = styled.input`
 width: calc(100% - 8px);
 height: 38px;
 border-radius: 5px;
-border: 1px solid #f76b8a;
+border: 1px solid var(--primary);
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -16,7 +16,7 @@ const InputMiddle = styled.input`
 width: calc(75% - 8px);
 height: 38px;
 border-radius: 5px;
-border: 1px solid #f76b8a;
+border: 1px solid var(--primary);
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -27,7 +27,7 @@ const InputHalf = styled.input`
 width: calc(50% - 8px);
 height: 38px;
 border-radius: 5px;
-border: 1px solid #f76b8a;
+border: 1px solid var(--primary);
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -38,7 +38,7 @@ const InputSmall = styled.input`
 width: calc(35% - 8px);
 height: 38px;
 border-radius: 5px;
-border: 1px solid #f76b8a;
+border: none;
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -48,8 +48,8 @@ background-color: ${(props) => props.InpColor};
 const Input = ({
   Inptype = 'small',
   InpWidth = '100%',
-  fontColor = '#222',
-  InpColor = '#fff',
+  fontColor = 'var(--gray400)',
+  InpColor = 'var(--white)',
   text = '입력',
   onChange,
   placeholder,
