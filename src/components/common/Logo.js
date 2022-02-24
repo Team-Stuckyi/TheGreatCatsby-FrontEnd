@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CenterLogo from '../../img/TheGreatCatsby-Center-Pink-logo.png';
-import LightLogo from '../../img/TheGreatCatsby-light-logo.png';
+import CenterLogo from 'img/TheGreatCatsby-Center-Pink-logo.png';
+import LightLogo from 'img/TheGreatCatsby-light-logo.png';
 
 /*
  * @param   {string} width 가로 길이 (기본 100%)

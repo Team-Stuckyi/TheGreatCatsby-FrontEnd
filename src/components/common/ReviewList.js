@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import ReviewCard from "./ReviewCard";
+import ReviewCard from "components/common/ReviewCard";
 
 const ReviewList = () => {
     const [review, setReview] = useState([]);

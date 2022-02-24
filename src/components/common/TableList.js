@@ -6,7 +6,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'Button';
+import Button from 'components/common/Button';
 
 const Table = styled.table`
     text-align: center;

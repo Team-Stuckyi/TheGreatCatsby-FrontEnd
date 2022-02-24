@@ -4,8 +4,8 @@
  * @description : 검색 컴포넌트
  */
 
-import Button from 'Button';
-import Input from 'Input';
+import Button from 'components/common/Button';
+import Input from 'components/common/Input';
 
 const Search = ({
     categoryName = '전체회원',

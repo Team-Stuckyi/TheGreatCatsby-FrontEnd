@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/common/Button.js';
+import Button from 'components/common/Button';
 
 const AlertDiv = styled.div`
 position: fixed;
@@ -44,7 +44,7 @@ const Alert = ({ text }) => {
                 <AlertText >
                     {text}
                 </AlertText>
-                <Button {width = '300px'}>확인</Button>
+                <Button width='300px'>확인</Button>
             </AlertContainer>
             <BgBlack />
         </AlertDiv>
