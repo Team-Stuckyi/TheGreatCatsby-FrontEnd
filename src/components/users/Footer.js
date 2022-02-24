@@ -19,7 +19,9 @@ import AwardImage4 from 'img/footer/award-image4.png';
 import AwardImage5 from 'img/footer/award-image5.png';
 import AwardImage6 from 'img/footer/award-image6.png';
 
-const Body = styled.div`
+const Div = styled.div`
+    margin: 0 auto;
+    width: 1200px;
     overflow-x: hidden;
 `;
 
@@ -160,7 +162,7 @@ const Copyright = styled.div`
 
 const Footer = () => {
     return (
-        <Body>
+        <Div>
             <FooterWrap>
                 <FooterTopContainer>
                     <FooterTop>
@@ -231,7 +233,7 @@ const Footer = () => {
                         </div>   
                 </FooterBottomContainer>
             </FooterWrap>
-        </Body>
+        </Div>
     );
 };
 
