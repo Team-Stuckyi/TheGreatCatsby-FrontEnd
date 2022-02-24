@@ -20,14 +20,11 @@ import AwardImage5 from 'img/footer/award-image5.png';
 import AwardImage6 from 'img/footer/award-image6.png';
 
 const Div = styled.div`
-    margin: 0 auto;
-    width: 1200px;
     overflow-x: hidden;
 `;
 
 const FooterWrap = styled.footer`
     width: 100%;
-    height: 300px;
     margin-top: 150px;
 `;
 
