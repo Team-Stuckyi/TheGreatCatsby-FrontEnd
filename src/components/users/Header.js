@@ -5,10 +5,10 @@
  */
 
 import React from 'react';
-import Logo from '../common/Logo';
+import Logo from 'components/common/Logo';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
-import Login from '../../img/login.png';
+import Login from 'img/login.png';
 
 const Container = styled.div`
 width: 100%;
@@ -48,7 +48,7 @@ const P = styled.p`
 color: var(--black);
 `;
 
-const UserHeader = () => {
+const Header = () => {
     return (
         <Container>
             <TitleBar>
@@ -69,4 +69,4 @@ const UserHeader = () => {
 
 }
 
-export default UserHeader;
+export default Header;

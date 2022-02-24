@@ -7,17 +7,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import InfoImage1 from '/src/img/footer/info-image1.png';
-import InfoImage2 from '/src/img/footer/info-image2.png';
-import InfoImage3 from '/src/img/footer/info-image3.png';
-import InfoImage4 from '/src/img/footer/info-image4.png';
-import SupportImage from '/src/img/footer/support.png';
-import AwardImage1 from '/src/img/footer/award-image1.png';
-import AwardImage2 from '/src/img/footer/award-image2.png';
-import AwardImage3 from '/src/img/footer/award-image3.png';
-import AwardImage4 from '/src/img/footer/award-image4.png';
-import AwardImage5 from '/src/img/footer/award-image5.png';
-import AwardImage6 from '/src/img/footer/award-image6.png';
+import InfoImage1 from 'img/footer/info-image1.png';
+import InfoImage2 from 'img/footer/info-image2.png';
+import InfoImage3 from 'img/footer/info-image3.png';
+import InfoImage4 from 'img/footer/info-image4.png';
+import SupportImage from 'img/footer/support.png';
+import AwardImage1 from 'img/footer/award-image1.png';
+import AwardImage2 from 'img/footer/award-image2.png';
+import AwardImage3 from 'img/footer/award-image3.png';
+import AwardImage4 from 'img/footer/award-image4.png';
+import AwardImage5 from 'img/footer/award-image5.png';
+import AwardImage6 from 'img/footer/award-image6.png';
 
 const Body = styled.div`
     overflow-x: hidden;
