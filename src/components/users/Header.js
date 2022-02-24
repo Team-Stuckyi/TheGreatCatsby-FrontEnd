@@ -10,9 +10,10 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 import Login from 'img/login.png';
 
-const Container = styled.div`
+const HeaderContainer = styled.div`
 width: 100%;
 height: 100px;
+margin-top: 100px;
 justify-content: center;
 align-items: center;
 position: fixed;
@@ -20,6 +21,8 @@ box-shadow: 0 12px 10px -5px var(--gray300);
 margin: auto;
 left: 0;
 top: 0;
+right: 0;
+background-color: var(--white);
 `;
 
 const TitleBar = styled.div`
@@ -50,7 +53,7 @@ color: var(--black);
 
 const Header = () => {
     return (
-        <Container>
+        <HeaderContainer>
             <TitleBar>
                 <LogoBox>
                     <Link to={'/'}>
@@ -64,7 +67,7 @@ const Header = () => {
                     </Link>
                 </LoginBox>
             </TitleBar>
-        </Container>
+        </HeaderContainer>
     )
 
 }
