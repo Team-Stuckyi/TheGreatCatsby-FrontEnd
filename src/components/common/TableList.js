@@ -1,4 +1,3 @@
-
 /**
  * @filename    : TableList.js
  * @author      : 노희재 (heejj1206@naver.com)
@@ -7,7 +6,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Button from './Button';
+import Button from 'Button';
 
 const Table = styled.table`
     text-align: center;
@@ -32,35 +31,48 @@ const TableData = styled.td`
     padding: 10px;
 `;
 
-const TableList = ({columns, data, isModifiable, isRemovable}) => {
+const TableList = ({ columns, data, isModifiable, isRemovable }) => {
     return (
         <div>
             <Table>
-                    <thead>
-                            {columns.map((column) => (
-                                <TableHeader key={column}>{column}</TableHeader>         
-                            ))}
-                            <TableHeader colSpan="2">관리</TableHeader>
-                    </thead>
-                    <tbody>
-                        {data.map((cur) => (
-                            <tr key={cur}>
-                                {Object.keys(cur).map((key, index) => (
-                                    index === 0 ? <TableData>{cur[key]}</TableData> : 
-                                    typeof cur[key] === "boolean" ? 
-                                    <TableData><Input type="checkbox" checked={cur[key]}/></TableData> :
-                                    <TableData><Input value={cur[key]} /></TableData>
-                                ))}
-                                {isModifiable ? <TableData><Button bgColor={'var(--blue300)'}>수정</Button></TableData> : null}
-                                
-                                {isRemovable ? <TableData><Button bgColor={'var(--primary)'}>삭제</Button></TableData> : null}
-                            </tr>
-                        ))}
-                    </tbody>
+                <thead>
+                    {columns.map(column => (
+                        <TableHeader key={column}>{column}</TableHeader>
+                    ))}
+                    <TableHeader colSpan="2">관리</TableHeader>
+                </thead>
+                <tbody>
+                    {data.map(cur => (
+                        <tr key={cur}>
+                            {Object.keys(cur).map((key, index) =>
+                                index === 0 ? (
+                                    <TableData>{cur[key]}</TableData>
+                                ) : typeof cur[key] === 'boolean' ? (
+                                    <TableData>
+                                        <Input type="checkbox" checked={cur[key]} />
+                                    </TableData>
+                                ) : (
+                                    <TableData>
+                                        <Input value={cur[key]} />
+                                    </TableData>
+                                ),
+                            )}
+                            {isModifiable ? (
+                                <TableData>
+                                    <Button bgColor={'var(--blue300)'}>수정</Button>
+                                </TableData>
+                            ) : null}
+
+                            {isRemovable ? (
+                                <TableData>
+                                    <Button bgColor={'var(--primary)'}>삭제</Button>
+                                </TableData>
+                            ) : null}
+                        </tr>
+                    ))}
+                </tbody>
             </Table>
-            
         </div>
-        
     );
 };
 
