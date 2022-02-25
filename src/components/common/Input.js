@@ -5,7 +5,7 @@ const InputFull = styled.input`
 width: calc(100% - 8px);
 height: 38px;
 border-radius: 5px;
-border: 1px solid var(--primary);
+border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -13,10 +13,10 @@ background-color: ${(props) => props.InpColor};
 `;
 
 const InputMiddle = styled.input`
-width: calc(75% - 8px);
+width: calc(75 % - 8px);
 height: 38px;
 border-radius: 5px;
-border: 1px solid var(--primary);
+border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -24,10 +24,10 @@ background-color: ${(props) => props.InpColor};
 `;
 
 const InputHalf = styled.input`
-width: calc(50% - 8px);
+width: calc(50 % - 8px);
 height: 38px;
 border-radius: 5px;
-border: 1px solid var(--primary);
+border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -35,10 +35,10 @@ background-color: ${(props) => props.InpColor};
 `;
 
 const InputSmall = styled.input`
-width: calc(35% - 8px);
+width: calc(35 % - 8px);
 height: 38px;
 border-radius: 5px;
-border: none;
+border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
@@ -52,6 +52,7 @@ const Input = ({
   InpColor = 'var(--white)',
   text = '입력',
   onChange,
+  borderColor,
   placeholder,
   type,
 }) => {
@@ -65,6 +66,7 @@ const Input = ({
           InpColor={InpColor}
           onChange={onChange}
           placeholder={placeholder}
+          borderColor={borderColor}
           text={text}
         />
         : (Inptype === 'middle' ?
@@ -75,6 +77,7 @@ const Input = ({
             InpColor={InpColor}
             onChange={onChange}
             placeholder={placeholder}
+            borderColor={borderColor}
             text={text}
           />
           : (Inptype === 'half' ?
@@ -85,6 +88,7 @@ const Input = ({
               InpColor={InpColor}
               onChange={onChange}
               placeholder={placeholder}
+              borderColor={borderColor}
               text={text}
             />
             : <InputSmall
@@ -94,6 +98,7 @@ const Input = ({
               InpColor={InpColor}
               onChange={onChange}
               placeholder={placeholder}
+              borderColor={borderColor}
               text={text}
             />
           ))}
