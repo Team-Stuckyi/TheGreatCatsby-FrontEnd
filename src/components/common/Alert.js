@@ -1,3 +1,9 @@
+/**
+ * @filename    : Alert.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : 관리자 페이지 Alert 컴포넌트
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';

@@ -1,3 +1,9 @@
+/**
+ * @filename    : InPut.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : Input 컴포넌트
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -44,6 +50,14 @@ max-width: ${(props) => props.InpWidth};
 color: ${(props) => props.fontColor};
 background-color: ${(props) => props.InpColor};
 `;
+
+/*
+ * @param   {string} Inpwidth 가로 길이
+ * @param   {string} Inptype 각 type에 대한 크기조절 가능
+ * @param   {string} InpColor 인풋 배경 색
+ * @param   {string} fontColor  텍스트 색
+ * @param   {string} borderColor 버튼 선 (기본 #f76b8a)
+ */
 
 const Input = ({
   Inptype = 'small',
