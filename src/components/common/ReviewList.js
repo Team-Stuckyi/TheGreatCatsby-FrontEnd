@@ -1,12 +1,12 @@
 /**
  * @filename    : ReviewList.js
  * @author      : 이슬기 (https://github.com/abcabcp)
- * @description : 서버에서 연동한 reviews를 화면에 출력하는 공통 컴포넌트 
+ * @description : 서버에서 연동한 reviews를 화면에 출력하는 공통 컴포넌트
  */
 
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
-import ReviewCard from "components/common/ReviewCard";
+import React, { useState, useEffect } from 'react';
+import ReviewCard from 'components/common/ReviewCard';
 
 const ReviewList = () => {
     const [review, setReview] = useState([]);
@@ -14,22 +14,22 @@ const ReviewList = () => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get('address');
+                const response = await axios.get('https://tgc.xeros.dev/reviews/look');
                 setReview(response.data.item);
             } catch (err) {
                 console.log(err);
-                alert("연동 실패");
+                alert('연동 실패');
             }
         })();
     }, []);
 
     return (
         <div>
-            {review.map((item) => (
+            {review.map(item => (
                 <ReviewCard key={item.id} ReviewObj={item} />
             ))}
         </div>
-    )
-}
+    );
+};
 
 export default ReviewList;
