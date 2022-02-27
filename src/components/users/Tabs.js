@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
-import styled, {css} from 'styled-components';
-import ProdCard from 'components/users/ProdCard';
-import ProdCardList from "components/users/ProdCardList";
-import Pagination from 'components/common/Pagination';
-import ListBar from 'components/users/ListBar';
+
+import styled, { css } from 'styled-components';
+import { useState, useEffect } from 'react';
+import ListBar from "components/users/ListBar_test";
 
 const Tab = styled.li`
     display: inline-block;
@@ -16,81 +14,48 @@ const Tab = styled.li`
     cursor: pointer;
     margin-bottom: 20px;
 
-    ${(props) => props.active && css`
-        background-color: #f76b8a;
-        color: #fff;
-    `}
-`
-
-const CardListContainer = styled.div`
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, 250px);
+    ${props =>
+        props.active &&
+        css`
+            background-color: #f76b8a;
+            color: #fff;
+        `}
 `;
 
-// 여기 안에 가격정렬 선택함수 넣기
-// 태그 정렬 -> 안에 가격정렬
-// 태그 정렬할 때 -> 안에 가격정렬 초기화
+const Tabs = ({ Prod }) => {
 
-const Tabs = ({ ProdObj }) => {
+    //페이지네이션
+    const tabTitle = ["전체", "사료", "간식", "모래", "캣타워"];
+    const [list, setList] = useState(Prod);
+    const [cateList, setCateList] = useState(Prod);
 
-    //기존 카테고리를 저장하고 있을 상태
-    const [state,setState] = useState([]);
-    //카테고리에 따라 다른 꿀팁을 그때그때 저장관리할 상태
-    const [cateState,setCateState] = useState([]);
 
-    const [ready,setReady] = useState(true)
-
-    useEffect(()=>{
-        //1초 뒤에 실행되는 코드들이 담겨 있는 함수
-        setTimeout(()=>{
-            //데이터로 모두 초기화 준비
-            let item = ProdObj.item;
-            setState(item)
-            setCateState(item)
-            setReady(false) 
-        },1000)
-    },[]);
-
-    const onSelect = (cate) => {
-        if(cate === "전체"){
-            //전체보기면 원래 데이터를 담고 있는 상태값으로 다시 초기화
-            setCateState(state);
-
-        }else{
-            setCateState(state.filter((d)=>{
-                return d.category === cate
-            }))
+    const onClickTab = (idx) => {
+        const value = tabTitle[`${idx}`];
+        if(idx ===0){
+            return setCateList(Prod);
         }
+        setCateList(list.filter((d) => {
+            return d.category === value
+        }))
+        
     }
-    console.log(cateState);
-    
-    console.log(cateState.length)
-
+    console.log(cateList);
 
     return (
-        <>
         <div>
-        <Tab onClick={()=> { onSelect("전체") }}>전체</Tab>
-        <Tab onClick={()=> { onSelect("사료")}}>사료</Tab>
-        <Tab onClick={()=> { onSelect("모래") }}>모래</Tab>
-        <Tab onClick={()=> { onSelect("장난감")}}>장난감</Tab>
-        <Tab onClick={()=> { onSelect("캣타워")}}>캣타워</Tab>
-        </div>
-        <ListBar SortObj={ProdObj}/>
-        <CardListContainer>
-            {/* 하나의 카드 영역을 나타내는 View */}
-            {
-            cateState.map((content,i)=>{
+            {tabTitle.map((title, idx) => {
                 return (
-                <ProdCard key={i} content={content} />)
-            })
-            }   
-        </CardListContainer>
-
-        <Pagination total={cateState.length} page={1} limit={15} setPage={1}/>
-        </>
+                    <Tab
+                    key={idx}
+                    onClick={() => {
+                        onClickTab(idx)}}
+                    >{title}</Tab>
+                )
+            })}
+            <ListBar TabList={cateList} />
+        </div>
     )
-}
+};
 
 export default Tabs;
