@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 
 export const getMainProdList = createAsyncThunk("/main/getMainProdList", async (payload, {rejectWithValue}) => {
     let result = null;
-
     try {
         result = await axios.get("http://121.160.207.51/products/main");
     } catch (e) {
@@ -24,6 +23,7 @@ export const mainProductSlice = createSlice({
         rtmsg: null, //에러메시지
         item: [], //ajax 처리를 통해 수신된 데이터
         loading: false,
+        prod: null,
     },
     reducers: {},
     extraReducers: {
@@ -37,6 +37,7 @@ export const mainProductSlice = createSlice({
                 rt: payload.status,
                 rtmsg: payload.statusText,
                 item: payload.data,
+                prods: payload.data.item,
                 loading: false
             }
         },
