@@ -7,6 +7,7 @@
 // Core Modules
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 // Components
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
@@ -42,7 +43,7 @@ const InputWrapper = styled('div')`
     width: 100%;
 `;
 
-const App = () => {
+const AdminLogin = () => {
     // Cocument Style Reset
     <GlobalStyles />;
     // User email, password를 입력받기 위한 state 생성
@@ -55,7 +56,16 @@ const App = () => {
 
     // Login 요청 함수
     const requestLogin = e => {
-        console.log(email, password);
+        axios
+            // 로그인 POST 요청
+            .post('https://tgc.xeros.dev/admins/login', {
+                email: email,
+                password: password,
+            })
+            // 요청 성공시
+            .then(response => console.log(response))
+            // 에러 발생시
+            .catch(err => console.log(err));
     };
 
     return (
@@ -76,4 +86,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default AdminLogin;
