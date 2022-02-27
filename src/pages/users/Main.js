@@ -1,32 +1,40 @@
-import {useEffect, useState} from "react";
-import ProdCardList from "components/users/ProdCardList";
+import { useEffect, useState } from "react";
 import Container from "components/common/Container";
 import Header from "components/users/Header";
 import Footer from 'components/users/Footer';
 import {getMainProdList} from "slices/users/MainProductSlice";
 import { useSelector, useDispatch} from "react-redux";
-import Tabs from "components/users/Tabs";
-import Pagination from 'components/common/Pagination';
+import Tabs from "components/users/Tabs_test";
 
 const Main = () => {
-
     useEffect(() => console.clear(), []);
-    const {rt, rtmsg, item, loading} = useSelector((state) => state.mainprod);
+    const [prod, setProd] = useState();
+    const {rt, rtmsg, item, loading, prods} = useSelector((state) => state.mainprod);
     const dispatch = useDispatch();
+    
+    useEffect(() => {
+        if(rt ===200){
+            setProd(prods)
+        }
+    }, [rt]);
+
     if(loading) {
         return (<div>Loading ...</div>)
     }
 
     if(rt !== 200){
-        return dispatch(getMainProdList());
+        return (
+            dispatch(getMainProdList())
+        );
     }
-    console.log(item);
+
 
     return (
         <>
         <Header></Header>
         <Container>
-        <Tabs ProdObj={item}/>
+        {prod? 
+        <Tabs Prod={prod}/>: <div>환영합니다.</div>}
         </Container>
         <Footer></Footer>
         </>
