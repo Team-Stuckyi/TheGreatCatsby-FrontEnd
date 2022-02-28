@@ -80,8 +80,8 @@ const ListBar = ({ TabList }) => {
     };
 
     useEffect(() => {
-        if (selected === '선택 하세요') {
-            ascSortHandler('선택 하세요', 'prod_id');
+        if (selected === '최근 등록순') {
+            ascSortHandler('최근 등록순', 'prod_id');
         } else if (selected === '별점 높은순') {
             ascSortHandler('별점 높은순', 'stars_avg');
         } else if (selected === '가격 낮은순') {
@@ -100,8 +100,8 @@ const ListBar = ({ TabList }) => {
                 <SelecContainer>
                     <Label>정렬</Label>
                     <Select onChange={event => handleSelect(event)}>
-                        <option value="선택 하세요" key={1}>
-                            선택 하세요
+                        <option value="최근 등록순" key={1}>
+                            최근 등록순
                         </option>
                         <option value="별점 높은순" key={2}>
                             별점 높은순
