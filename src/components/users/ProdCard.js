@@ -5,10 +5,7 @@
  */
 
 import styled from 'styled-components';
-import Stars from "components/common/Stars";
-import Tabs from "components/users/Tabs";
-import Pagination from 'components/common/Pagination';
-import { useState} from "react";
+import Stars from 'components/common/Stars';
 
 const Card = styled.div`
     padding-bottom: 50px;
@@ -45,22 +42,22 @@ const Flex = styled.div`
  * @param ProdObj 상위 컴포넌트인 ProdCardList에서 전달된 props
  */
 
-
-const ProdCard = ({content}) => { ;
+// {data && obj[activeTab]}
+const ProdCard = ({ content }) => {
     return (
         <>
-        <Card>
-            <Img src={content.thumbnail_photo} alt="썸네일 이미지"/>
-            <Info>
-            <p style={{fontSize: "14px"}}>{content.name}</p>
-            <Flex>
-                <Stars starCount={Math.round(content.stars_avg)} starSize={17}/>
-                <Price>{content.price.toLocaleString()}원</Price>
-            </Flex>
-            </Info>
-        </Card>
+            <Card>
+                <Img src={content.thumbnail_photo} alt="썸네일 이미지" />
+                <Info>
+                    <p style={{ fontSize: '14px' }}>{content.name}</p>
+                    <Flex>
+                        <Stars starCount={Math.round(content.stars_avg)} starSize={17} />
+                        <Price>{content.price.toLocaleString()}원</Price>
+                    </Flex>
+                </Info>
+            </Card>
         </>
     );
-}
+};
 
 export default ProdCard;
