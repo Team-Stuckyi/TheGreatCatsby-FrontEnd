@@ -1,61 +1,72 @@
-
 import styled, { css } from 'styled-components';
-import { useState, useEffect } from 'react';
-import ListBar from "components/users/ListBar_test";
+import { useState } from 'react';
+import ListBar from 'components/users/ListBar';
 
-const Tab = styled.li`
+const Tab = styled.button`
     display: inline-block;
     border-radius: 22px;
+    font-family: 'InfinitySansR-Regular';
     background-color: #eeeeee;
-    padding: 2px 17px;
-    display: inline-block;
+    padding: 5px 18px;
     margin-right: 10px;
     font-size: 14px;
     cursor: pointer;
     margin-bottom: 20px;
+    border: none;
 
     ${props =>
-        props.active &&
+        props.focus &&
         css`
             background-color: #f76b8a;
             color: #fff;
         `}
+    ${props =>
+        props.focusOut &&
+        css`
+            background-color: #fff;
+            color: #f76b8a;
+        `}
 `;
 
 const Tabs = ({ Prod }) => {
-
     //페이지네이션
-    const tabTitle = ["전체", "사료", "간식", "모래", "캣타워"];
+    const tabTitle = ['전체', '사료', '간식', '모래', '캣타워'];
     const [list, setList] = useState(Prod);
     const [cateList, setCateList] = useState(Prod);
+    //페이지 진입 시 탭
+    const [focus, setFocus] = useState(0);
 
-
-    const onClickTab = (idx) => {
+    const onClickTab = idx => {
         const value = tabTitle[`${idx}`];
-        if(idx ===0){
+        if (idx === 0) {
             return setCateList(Prod);
         }
-        setCateList(list.filter((d) => {
-            return d.category === value
-        }))
-        
-    }
-    console.log(cateList);
+        setCateList(
+            list.filter(d => {
+                return d.category === value;
+            }),
+        );
+    };
 
     return (
         <div>
-            {tabTitle.map((title, idx) => {
+            {tabTitle.map((title, idx, ac) => {
                 return (
                     <Tab
-                    key={idx}
-                    onClick={() => {
-                        onClickTab(idx)}}
-                    >{title}</Tab>
-                )
+                        key={idx}
+                        onClick={() => {
+                            onClickTab(idx);
+                            setFocus(idx);
+                        }}
+                        focus={focus === idx && true}
+                    >
+                        {title}
+                    </Tab>
+                );
             })}
             <ListBar TabList={cateList} />
         </div>
-    )
+    );
 };
 
 export default Tabs;
