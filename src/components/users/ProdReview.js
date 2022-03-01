@@ -7,9 +7,9 @@
 // Core Modules
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // Components
-import GlobalStyles from 'GlobalStyles';
 import Stars from 'components/common/Stars';
 import ReviewList from 'components/common/ReviewList';
 
@@ -67,20 +67,19 @@ const ReviewCountText = styled('span')`
     left: 182px;
 `;
 
-const ProdReview = ({ starAvg = '4.8', reviewCount = '(1,842)' }) => {
-    <GlobalStyles />;
+const ProdReview = ({ stars_avg = '4.8', review_count = '(1,842)', stars = 4, star_size = '24px' }) => {
     return (
         <ReviewContainer>
             <ReviewTitle>구매후기</ReviewTitle>
             {/* 아래 a태그는 추후 Link 태그로 수정해야함 */}
-            <a href="./review.html" class="review-plus text-sm bold">
+            <Link to="./review.html" class="review-plus text-sm bold">
                 <ReviewPlus>+</ReviewPlus>
-            </a>
+            </Link>
             <StarContainer>
                 <StarBox>
-                    <Stars starCount={4} starSize="24px" />
-                    <StarAvgText>{starAvg}</StarAvgText>
-                    <ReviewCountText>{reviewCount}</ReviewCountText>
+                    <Stars starCount={stars} starSize={star_size} />
+                    <StarAvgText>{stars_avg}</StarAvgText>
+                    <ReviewCountText>{review_count}</ReviewCountText>
                 </StarBox>
                 <ReviewList />
             </StarContainer>
