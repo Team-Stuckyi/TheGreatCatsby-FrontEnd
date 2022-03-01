@@ -29,13 +29,15 @@ const ReviewTitle = styled('h2')`
 const ReviewPlus = styled('span')`
     display: inline-block;
     position: absolute;
-    top: 3px;
+    color: var(--black) !important;
+    top: 18px;
     left: 77px;
     width: 23px;
     height: 23px;
     text-align: center;
     font-size: 0.875rem;
     line-height: 1.25rem;
+    font-weight: bold;
 `;
 
 const StarContainer = styled('div')`
@@ -67,12 +69,11 @@ const ReviewCountText = styled('span')`
     left: 182px;
 `;
 
-const ProdReview = ({ stars_avg = '4.8', review_count = '(1,842)', stars = 4, star_size = '24px' }) => {
+const ProdReview = ({ stars_avg = '4.8', review_count = '(1,842)', stars = 4, star_size = '24px', review_link = './review' }) => {
     return (
         <ReviewContainer>
             <ReviewTitle>구매후기</ReviewTitle>
-            {/* 아래 a태그는 추후 Link 태그로 수정해야함 */}
-            <Link to="./review.html" class="review-plus text-sm bold">
+            <Link to={review_link}>
                 <ReviewPlus>+</ReviewPlus>
             </Link>
             <StarContainer>
