@@ -11,7 +11,7 @@ import axios from 'axios';
 // Components
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
-import GlobalStyles from 'GlobalStyles';
+import Alert from 'components/common/Alert';
 
 // Styles
 import 'css/AdminLogin.css';
@@ -44,8 +44,6 @@ const InputWrapper = styled('div')`
 `;
 
 const AdminLogin = () => {
-    // Cocument Style Reset
-    <GlobalStyles />;
     // User email, password를 입력받기 위한 state 생성
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -54,18 +52,24 @@ const AdminLogin = () => {
     const onChangeEmail = e => setEmail(e.target.value);
     const onChangePassword = e => setPassword(e.target.value);
 
+    // 잘못된 로그인 시도시 실행할 함수
+    const badRequestLogin = err => {
+        alert('존재하지 않는 이메일 혹은 잘못된 패스워드입니다.');
+        console.log(err);
+    };
+
     // Login 요청 함수
     const requestLogin = e => {
         axios
             // 로그인 POST 요청
-            .post('https://tgc.xeros.dev/admins/login', {
+            .post(process.env.REACT_APP_SERVER_URL + '/admins/login', {
                 email: email,
                 password: password,
             })
             // 요청 성공시
             .then(response => console.log(response))
             // 에러 발생시
-            .catch(err => console.log(err));
+            .catch(err => badRequestLogin(err));
     };
 
     return (
