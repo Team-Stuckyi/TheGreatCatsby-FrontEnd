@@ -6,6 +6,7 @@
 
 // Core Modules
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import axios from 'axios';
 // Components
@@ -44,6 +45,9 @@ const InputWrapper = styled('div')`
 `;
 
 const AdminLogin = () => {
+    // userHistory 객체 초기화
+    const history = useHistory();
+
     // User email, password를 입력받기 위한 state 생성
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -53,9 +57,14 @@ const AdminLogin = () => {
     const onChangePassword = e => setPassword(e.target.value);
 
     // 잘못된 로그인 시도시 실행할 함수
-    const badRequestLogin = err => {
+    const badLoginRequest = err => {
         alert('존재하지 않는 이메일 혹은 잘못된 패스워드입니다.');
         console.log(err);
+    };
+
+    // 성공적인 로그인 시도시 실행할 함수
+    const successLoginRequest = res => {
+        history.push(process.env.REACT_APP_SERVER_URL + '/admins/manageadmin');
     };
 
     // Login 요청 함수
@@ -67,9 +76,9 @@ const AdminLogin = () => {
                 password: password,
             })
             // 요청 성공시
-            .then(response => console.log(response))
+            .then(res => successLoginRequest(res))
             // 에러 발생시
-            .catch(err => badRequestLogin(err));
+            .catch(err => badLoginRequest(err));
     };
 
     return (
