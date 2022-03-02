@@ -1,11 +1,17 @@
 /**
  * @filename    : ProdCard.js
  * @author      : 이슬기 (https://github.com/abcabcp)
- * @description : 상위 컴포넌트인 ProdCardList에 들어갈 항목을 정의한 스타일 컴포넌트
+ * @description : 상위 컴포넌트인 ListBar에게 전달받은 상품 정보를 토대로 상품 카드를 출력하는 컴포넌트
  */
 
 import styled from 'styled-components';
 import Stars from 'components/common/Stars';
+
+const CardListContainer = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 250px);
+`;
 
 const Card = styled.div`
     padding-bottom: 50px;
@@ -38,24 +44,26 @@ const Flex = styled.div`
     top: 260px;
 `;
 
-/**
- * @param ProdObj 상위 컴포넌트인 ProdCardList에서 전달된 props
- */
-
-// {data && obj[activeTab]}
-const ProdCard = ({ content }) => {
+const ProdCard = ({ content, page }) => {
+    const offset = (page - 1) * 20;
     return (
         <>
-            <Card>
-                <Img src={content.thumbnail_photo} alt="썸네일 이미지" />
-                <Info>
-                    <p style={{ fontSize: '14px' }}>{content.name}</p>
-                    <Flex>
-                        <Stars starCount={Math.round(content.stars_avg)} starSize={17} />
-                        <Price>{content.price.toLocaleString()}원</Price>
-                    </Flex>
-                </Info>
-            </Card>
+            <CardListContainer>
+                {content?.slice(offset, offset + 20).map((content, i) => {
+                    return (
+                        <Card key={i}>
+                            <Img src={content.thumbnail_photo} alt="썸네일 이미지" />
+                            <Info>
+                                <p style={{ fontSize: '14px' }}>{content.name}</p>
+                                <Flex>
+                                    <Stars starCount={Math.round(content.stars_avg)} starSize={17} />
+                                    <Price>{content.price.toLocaleString()}원</Price>
+                                </Flex>
+                            </Info>
+                        </Card>
+                    );
+                })}
+            </CardListContainer>
         </>
     );
 };
