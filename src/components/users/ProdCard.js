@@ -6,6 +6,7 @@
 
 import styled from 'styled-components';
 import Stars from 'components/common/Stars';
+import { Link } from 'react-router-dom';
 
 const CardListContainer = styled.div`
     width: 100%;
@@ -13,10 +14,12 @@ const CardListContainer = styled.div`
     grid-template-columns: repeat(5, 250px);
 `;
 
-const Card = styled.div`
-    padding-bottom: 50px;
+const Card = styled(Link)`
+    display: inline-block;
     position: relative;
-    height: 340px;
+    height: 310px;
+    width: 200px;
+    margin-bottom: 60px;
 `;
 
 const Img = styled.img`
@@ -46,12 +49,13 @@ const Flex = styled.div`
 
 const ProdCard = ({ content, page }) => {
     const offset = (page - 1) * 20;
+    console.log(content);
     return (
         <>
             <CardListContainer>
                 {content?.slice(offset, offset + 20).map((content, i) => {
                     return (
-                        <Card key={i}>
+                        <Card to={`/product/${content.prod_id}`} key={i}>
                             <Img src={content.thumbnail_photo} alt="썸네일 이미지" />
                             <Info>
                                 <p style={{ fontSize: '14px' }}>{content.name}</p>
