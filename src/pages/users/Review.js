@@ -1,6 +1,12 @@
+/**
+ * @filename    : Review.js
+ * @author      : 이병민 (https://github.com/Byeongminlee)
+ * @description : 리뷰 목록 페이지
+ */
+
 import React, { useEffect, useState } from 'react';
-import { getReviewProdList } from 'slices/users/ReviewProductSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Container from 'components/common/Container';
 import Footer from 'components/users/Footer';
@@ -9,6 +15,7 @@ import ProdReviewInfo from 'components/users/ProdReviewInfo';
 import ReviewList from 'components/common/ReviewList';
 import Pagination from 'components/common/Pagination';
 import ReviewWrite from 'components/users/ReviewWrite';
+import { getReviewList } from 'slices/users/ReviewListSlice';
 
 const PaginationContainer = styled.div`
     text-align: center;
@@ -17,28 +24,41 @@ const PaginationContainer = styled.div`
 `;
 
 const Review = () => {
-    useEffect(() => console.clear(), []);
-
-    const { rt, rtmsg, item, loading } = useSelector(state => state.reviewprod);
+    let { prodId } = useParams();
+    const [reviewData, setReviewData] = useState([]);
+    const { rt, rtmsg, item, loading } = useSelector(state => state.reviewDataList);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [reviewDataFilter, setReviewDataFilter] = useState();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getReviewProdList());
+        dispatch(getReviewList(prodId));
     }, []);
 
-    console.log('value', item);
+    useEffect(() => {
+        if (rt === 200) {
+            setReviewData(item);
+            console.log(item);
+        }
+    }, [item]);
 
-    const [test, setTest] = useState([30, 10, 1, 1]);
+    useEffect(() => {
+        setTotal(reviewData.length);
+        setReviewDataFilter(reviewData.filter((number, index) => index >= page * limit - 10 && index < page * limit));
+    }, [reviewData, page]);
+
     return (
         <>
             <Header />
             <Container>
-                <ProdReviewInfo />
+                <ProdReviewInfo prodId={prodId} />
                 <ReviewWrite />
-                <ReviewList />
+                <ReviewList reviewData={reviewDataFilter} />
                 <PaginationContainer>
-                    <Pagination total={test[0]} limit={test[1]} page={test[2]} setpage={test[3]} />
+                    <Pagination total={total} limit={limit} page={page} setPage={setPage} />
                 </PaginationContainer>
             </Container>
             <Footer />
