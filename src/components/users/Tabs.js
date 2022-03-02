@@ -1,3 +1,9 @@
+/**
+ * @filename    : Tabs.js
+ * @author      : 이슬기 (https://github.com/abcabcp)
+ * @description : 메인 페이지에서 상품 정보를 받아온 후, 탭 선택 시 상품 카테고리 분류 후 하위 컴포넌트인 ListBar에게 전달하는 컴포넌트
+ */
+
 import styled, { css } from 'styled-components';
 import { useState } from 'react';
 import ListBar from 'components/users/ListBar';
