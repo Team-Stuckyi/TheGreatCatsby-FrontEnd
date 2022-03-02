@@ -8,20 +8,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ServerUrl } from 'key';
 
-export const getReviewList = createAsyncThunk(
-    process.env.REACT_APP_SERVER_URL + '/review/getReviewList',
-    async (payload, { rejectWithValue }) => {
-        let result = null;
+export const getReviewList = createAsyncThunk('/review/getReviewList', async (payload, { rejectWithValue }) => {
+    let result = null;
 
-        try {
-            result = await axios.get(ServerUrl + `/review/${payload}`);
-        } catch (e) {
-            result = rejectWithValue(e.response);
-        }
+    try {
+        result = await axios.get(ServerUrl + `/review/${payload}`);
+    } catch (e) {
+        result = rejectWithValue(e.response);
+    }
 
-        return result;
-    },
-);
+    return result;
+});
 
 export const reviewListSlice = createSlice({
     name: 'reviewDataList',
