@@ -1,12 +1,13 @@
+/**
+ * @filename    : ListBar.js
+ * @author      : 이슬기 (https://github.com/abcabcp)
+ * @description : 상위 컴포넌트인 Tabs에서 분류된 상품 정보를 받아온 후, 최근 등록순, 가격낮은순, 가격높은순, 리뷰많은순으로 정렬하며, 하위 컴포넌트인 ProdCard에게 전달하는 컴포넌트
+ */
+
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import ProdCard from 'components/users/ProdCard';
-
-const CardListContainer = styled.div`
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, 250px);
-`;
+import Pagination from 'components/common/Pagination';
 
 const ListContainer = styled.div`
     height: 40px;
@@ -49,9 +50,12 @@ const ListBar = ({ TabList }) => {
     const [sortList, setSortList] = useState();
     const [selected, setSelected] = useState('선택 하세요');
 
+    const [page, setPage] = useState(1);
+
     //기본 빈 배열에 받아온 props를 담아서 바뀔때마다 렌더링
     useEffect(() => {
         setSortList(TabList);
+        setPage(1);
     }, [TabList]);
 
     //정렬 상태 => 기본값 "선택하세요"
@@ -118,11 +122,8 @@ const ListBar = ({ TabList }) => {
                     </Select>
                 </SelecContainer>
             </ListContainer>
-            <CardListContainer>
-                {sortList?.map((content, i) => {
-                    return <ProdCard key={i} content={content} />;
-                })}
-            </CardListContainer>
+            {sortList && <ProdCard content={sortList} page={page} />}
+            <Pagination total={TabList.length} limit={20} page={page} setPage={setPage} />
         </>
     );
 };
