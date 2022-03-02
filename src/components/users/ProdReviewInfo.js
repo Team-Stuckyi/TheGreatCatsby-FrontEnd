@@ -4,10 +4,12 @@
  * @description : 리뷰 페이지에서 해당 리뷰의 상품 정보를 보여주는 컴포넌트
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NoImg from 'img/noImg.png';
 import Stars from 'components/common/Stars';
+import { useDispatch, useSelector } from 'react-redux';
+import { getReviewProdInfo } from 'slices/users/ReviewProdInfoSlice';
 
 const ProdInfoContainer = styled.div`
     width: 100%;
@@ -67,24 +69,60 @@ const ReviewCountText = styled.span`
     margin-bottom: 10px;
 `;
 
-const ProdReviewInfo = ({ ProdImg, starCount = 4.9, reviewCount = 24 }) => {
+const ProdReviewInfo = ({ prodId }) => {
+    const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
+    const [prodItem, setProdItem] = useState();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getReviewProdInfo(prodId));
+    }, []);
+
+    useEffect(() => {
+        if (rt === 200) {
+            setProdItem(item[0]);
+        }
+        console.log(prodItem);
+    }, [item]);
+
     return (
         <>
             <ProdInfoContainer>
-                <ProdInfo>
-                    <ProdInfoBox>
-                        <ProdTitle>상품 제목 부분이다다다다다다다다.!!!</ProdTitle>
-                        {!ProdImg || ProdImg === undefined ? <ProdImgs alt="상품" src={NoImg} /> : <ProdImgs alt="상품" src={ProdImg} />}
-                    </ProdInfoBox>
-                    <ProdInfoBox>
-                        <ProdDetail>
-                            <RatingText>평점</RatingText>
-                            <RatingScoreText>{starCount}</RatingScoreText>
-                            <ReviewCountText>({reviewCount})</ReviewCountText>
-                            <Stars starCount={Math.floor(starCount)} starSize="40px"></Stars>
-                        </ProdDetail>
-                    </ProdInfoBox>
-                </ProdInfo>
+                {prodItem ? (
+                    <ProdInfo>
+                        <ProdInfoBox>
+                            <ProdTitle>{prodItem.name}</ProdTitle>
+                            {prodItem.thumbnail_photo ? (
+                                <ProdImgs alt={prodItem.name} src={prodItem.thumbnail_photo} />
+                            ) : (
+                                <ProdImgs alt="이미지 준비중" src={NoImg} />
+                            )}
+                        </ProdInfoBox>
+                        <ProdInfoBox>
+                            <ProdDetail>
+                                <RatingText>평점</RatingText>
+                                <RatingScoreText>{prodItem.stars_avg.toFixed(1)}</RatingScoreText>
+                                <ReviewCountText>({prodItem.review_count})</ReviewCountText>
+                                <Stars starCount={Math.floor(prodItem.stars_avg)} starSize="40px"></Stars>
+                            </ProdDetail>
+                        </ProdInfoBox>
+                    </ProdInfo>
+                ) : (
+                    <ProdInfo>
+                        <ProdInfoBox>
+                            <ProdTitle>준비중</ProdTitle>
+                            <ProdImgs alt="이미지 준비중" src={NoImg} />
+                        </ProdInfoBox>
+                        <ProdInfoBox>
+                            <ProdDetail>
+                                <RatingText>평점</RatingText>
+                                <RatingScoreText>0.0</RatingScoreText>
+                                <ReviewCountText>(0)</ReviewCountText>
+                                <Stars starCount={Math.floor(5)} starSize="40px"></Stars>
+                            </ProdDetail>
+                        </ProdInfoBox>
+                    </ProdInfo>
+                )}
             </ProdInfoContainer>
         </>
     );
