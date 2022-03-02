@@ -1,6 +1,6 @@
+import { ServerUrl } from 'key';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 /** 비동기 함수 구현 */
 // payload는 이 함수를 호출할 때 전달되는 파라미터.
@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 export const getMainProdList = createAsyncThunk('/main/getMainProdList', async (payload, { rejectWithValue }) => {
     let result = null;
     try {
-        result = await axios.get('address');
+        result = await axios.get(ServerUrl + '/products/main');
     } catch (e) {
         result = rejectWithValue(e.response);
     }
