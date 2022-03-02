@@ -49,13 +49,16 @@ const TableData = styled.td`
 * @param   {string} data                테이블 td 에 들어갈 데이터
 * @param   {boolean} isModifiable       true 일 때 수정 버튼 생성
 * @param   {boolean} isRemovable        true 일 때 삭제 버튼 생성
-* @param   {string} removeButtonText    삭제 버튼에 들어갈 text (예시: 탈퇴)
+* @param   {string} removeButtonText    remove 버튼에 들어갈 text, 기본값은 "삭제"
 * @param   {function} onModifyButtonClick 수정 버튼의 클릭이벤트
 * @param   {function} onRemoveButtonClick 삭제 버튼의 클릭이벤트
+* @param   {function} onChange          Input type="text" 태그의 수정을 위한 콜백함수
+* @param   {function} onChecked         Input type="checkbox" 태그의 수정을 위한 콜백함수
+
 */
 
 
-const TableList = ({ columns, data, isModifiable, isRemovable, removeButtonText, onModifyButtonClick, onRemoveButtonClick }) => {
+const TableList = ({ columns, data, isModifiable, isRemovable, onModifyButtonClick, onRemoveButtonClick, removeButtonText, onChange, onChecked }) => {
 
     return (
         <div>
@@ -67,18 +70,18 @@ const TableList = ({ columns, data, isModifiable, isRemovable, removeButtonText,
                     <TableHeader colSpan="2">관리</TableHeader>
                 </thead>
                 <tbody>
-                    {data.map(cur => (
+                    {data.map((cur, cIndex) => (
                         <tr key={cur}>
                             {Object.keys(cur).map((key, index) =>
                                 index === 0 ? (
                                     <TableData>{cur[key]}</TableData>
                                 ) : typeof cur[key] === 'boolean' ? (
                                     <TableData>
-                                        <Input className="checkBox" type="checkbox" checked={cur[key]} />
+                                        <Input id={cIndex} name={key} className="checkBox" type="checkbox" checked={cur[key]} onChange={onChecked} />
                                     </TableData>
                                 ) : (
                                     <TableData>
-                                        <Input type="text" value={cur[key]} />
+                                        <Input type="text" id={cIndex} name={key} value={cur[key]} onChange={onChange} />
                                     </TableData>
                                 ),
                             )}
@@ -90,7 +93,7 @@ const TableList = ({ columns, data, isModifiable, isRemovable, removeButtonText,
 
                             {isRemovable ? (
                                 <TableData>
-                                    <Button size='8px' bgColor={'var(--primary)'} onClick={onRemoveButtonClick}>{removeButtonText}</Button>
+                                    <Button size='8px' bgColor={'var(--primary)'} onClick={onRemoveButtonClick}>{removeButtonText || "삭제"}</Button>
                                 </TableData>
                             ) : null}
                         </tr>
