@@ -7,6 +7,7 @@ import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 
 const Search = ({
+    margin = '0 0 10px 0',
     categoryName = '전체회원',
     categoryCount = 0,
     unit = '명',
@@ -24,7 +25,7 @@ const Search = ({
     ));
 
     return (
-        <form onSubmit={onSubmit}>
+        <form style={{ margin: margin }} onSubmit={onSubmit}>
             {/** countBox 렌더링 **/}
             <div style={{ maxWidth: '150px', maxHeight: '40px', display: 'flex', marginBottom: '5px' }}>
                 <span
