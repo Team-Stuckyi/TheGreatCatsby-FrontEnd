@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import OrderItem from 'img/pay-item.jpg';
 
+
 const Wrapper = styled.div`
 width: 100%;
 `;
@@ -70,10 +71,12 @@ margin-right: -100px;
 const NumberText = styled.p`
 color: var(--gray500);
 `;
-const ProdOrder = ({ OrderImg, OrderTitle, OrderPrice, OrderNum }) => {
+
+const ProdOrder = ({orderItem}) => {
+    
     return (
         <>
-            <Wrapper>
+            <Wrapper>                   
                 <Container>
                     <OrderText>주문상품</OrderText>
                     <PayContainer>
@@ -82,16 +85,16 @@ const ProdOrder = ({ OrderImg, OrderTitle, OrderPrice, OrderNum }) => {
                     <ProdContainer>
                         <ProdSub>
                             <ImgBox>
-                                <img src={OrderImg} width={'130px'} />
+                                <img src={orderItem.thumbnail_photo} width={'130px'} />
                             </ImgBox>
                             <TextBox>
-                                <TitleText>{OrderTitle}</TitleText>
-                                <PriceText>{OrderPrice}원</PriceText>
-                                <NumberText>{OrderNum}</NumberText>
+                                <TitleText>{orderItem.name}</TitleText>
+                                <PriceText>{orderItem.price}원</PriceText>
+                                <NumberText>수량 1개</NumberText>
                             </TextBox>
                         </ProdSub>
                     </ProdContainer>
-                </Container>
+                </Container>                
             </Wrapper>
         </>
     )
