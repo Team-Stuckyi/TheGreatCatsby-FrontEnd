@@ -57,13 +57,45 @@ const InputFileName = styled.p`
     white-space: nowrap;
 `;
 
-const ReviewWrite = ({ starCount = 4.1 }) => {
+// star 부분
+const ClickStar = styled.span`
+    font-size: 40px;
+    color: ${props => (props.on ? 'var(--yellowstar)' : 'var(--gray100)')};
+    cursor: pointer;
+`;
+// star 부분
+
+const ReviewWrite = () => {
     const [imgFileName, setImgFileName] = useState('');
+    const [starCount, setStarCount] = useState();
+    const [clickStarValue, setClickStarValue] = useState([false, false, false, false, false]);
+
     const handleInputFile = event => {
         const imgFile = event.target.files[0];
 
         setImgFileName(imgFile.name);
     };
+
+    const starHandler = e => {
+        let data = [];
+        let target = parseInt(e.target.dataset.count);
+        setStarCount(target + 1);
+
+        if (clickStarValue[0] === true && clickStarValue[1] === false && target === 0) {
+            return setClickStarValue(() => [false, false, false, false, false]);
+        }
+
+        for (let i = 0; i < 5; i++) {
+            if (i < starCount) {
+                data.push(true);
+            } else {
+                data.push(false);
+            }
+        }
+
+        setClickStarValue(() => data);
+    };
+
     return (
         <Container>
             <WriterBox>
@@ -72,12 +104,18 @@ const ReviewWrite = ({ starCount = 4.1 }) => {
                 </InputBox>
                 <InputFileBox>
                     {imgFileName ? <InputFileName>{imgFileName}</InputFileName> : <InputFileName>이미지를 선택해주세요.</InputFileName>}
-                    <InputFile for="input-file">사진 선택</InputFile>
+                    <InputFile htmlfor="input-file">사진 선택</InputFile>
 
                     <input type="file" id="input-file" style={{ display: 'none' }} onChange={handleInputFile} />
                 </InputFileBox>
                 <Box>
-                    <Stars starCount={Math.floor(starCount)} starSize="40px" />
+                    <div>
+                        {clickStarValue.map((value, idx) => (
+                            <ClickStar on={clickStarValue[idx]} data-count={idx} onClick={starHandler}>
+                                ★
+                            </ClickStar>
+                        ))}
+                    </div>
                     <Button size="lg">버튼</Button>
                 </Box>
             </WriterBox>
