@@ -8,9 +8,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const InputFull = styled.input`
+font-family: 'InfinitySansR-Regular';
 width: calc(100% - 8px);
 height: 38px;
-border-radius: 5px;
+padding: 10px;
+
+border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
@@ -19,9 +22,12 @@ background-color: ${(props) => props.InpColor};
 `;
 
 const InputMiddle = styled.input`
+font-family: 'InfinitySansR-Regular';
 width: calc(75 % - 8px);
 height: 38px;
-border-radius: 5px;
+padding: 10px;
+
+border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
@@ -30,9 +36,11 @@ background-color: ${(props) => props.InpColor};
 `;
 
 const InputHalf = styled.input`
+font-family: 'InfinitySansR-Regular';
 width: calc(50 % - 8px);
 height: 38px;
-border-radius: 5px;
+padding: 10px;
+border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
@@ -41,9 +49,11 @@ background-color: ${(props) => props.InpColor};
 `;
 
 const InputSmall = styled.input`
+font-family: 'InfinitySansR-Regular';
 width: calc(35 % - 8px);
 height: 38px;
-border-radius: 5px;
+padding: 10px;
+border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
 max-width: ${(props) => props.InpWidth};
@@ -61,13 +71,14 @@ background-color: ${(props) => props.InpColor};
 
 const Input = ({
   Inptype = 'small',
-  InpWidth = '100%',
+  InpWidth,
   fontColor = 'var(--gray400)',
   InpColor = 'var(--white)',
   text = '입력',
   onChange,
   borderColor,
   placeholder,
+  Radius,
   type,
 }) => {
   return (
@@ -82,6 +93,7 @@ const Input = ({
           placeholder={placeholder}
           borderColor={borderColor}
           text={text}
+          Radius={Radius}
         />
         : (Inptype === 'middle' ?
           <InputMiddle
