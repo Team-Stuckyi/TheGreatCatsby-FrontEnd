@@ -13,12 +13,10 @@ import axios from 'axios';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import Alert from 'components/common/Alert';
+import Logo from 'components/common/Logo';
 
 // Styles
 import 'css/AdminLogin.css';
-
-// Resources
-import AdminLoginLogo from 'img/TheGreatCatsby-Center-Pink-logo.png';
 
 const LoginFormContainer = styled('div')`
     width: 350px;
@@ -84,7 +82,7 @@ const AdminLogin = () => {
     return (
         <>
             <LoginFormContainer>
-                <img src={AdminLoginLogo} alt="AdminLoginLogoImage" width="260px" height="100px" />
+                <Logo.ImgCenter alt="AdminLoginLogoImage" Imgwidth="280px" Imgheight="100px" />
                 <InputWrapper>
                     <InputTitle>이메일</InputTitle>
                     <Input Inptype="full" borderColor="var(--white)" type="email" name="email" onChange={onChangeEmail} />
