@@ -1,11 +1,12 @@
 import GlobalStyles from 'GlobalStyles';
+import Main from "pages/users/Main";
 
 function App() {
     return (
-        <div>
+        <>
             <GlobalStyles />
-            <div>no.1 위대한 캣츠비</div>
-        </div>
+            <Main />
+        </>
     );
 }
 
