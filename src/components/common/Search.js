@@ -13,8 +13,8 @@ import Input from 'components/common/Input';
 
 const SearchBox = styled.div`
     > Input {
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: 4px;
+        margin-right: 4px;
         padding-left: 10px;
         height: 38px;
         line-height: 38px;
