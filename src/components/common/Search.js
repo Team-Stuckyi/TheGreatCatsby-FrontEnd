@@ -3,11 +3,25 @@
  * @author      : 김우영 (https://github.com/0x000613)
  * @description : 검색 컴포넌트
  */
+
+// Core
+import styled from 'styled-components';
+
+// Components
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 
+const SearchBox = styled.div`
+    > Input {
+        margin-left: 5px;
+        margin-right: 5px;
+        padding-left: 10px;
+        height: 38px;
+        line-height: 38px;
+    }
+`;
+
 const Search = ({
-    margin = '0 0 10px 0',
     categoryName = '전체회원',
     categoryCount = 0,
     unit = '명',
@@ -25,7 +39,7 @@ const Search = ({
     ));
 
     return (
-        <form style={{ margin: margin }} onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
             {/** countBox 렌더링 **/}
             <div style={{ maxWidth: '150px', maxHeight: '40px', display: 'flex', marginBottom: '5px' }}>
                 <span
@@ -59,35 +73,37 @@ const Search = ({
                     {unit}
                 </span>
             </div>
-            {/* SelectBox 렌더링 */}
+            <SearchBox>
+                {/* SelectBox 렌더링 */}
 
-            <select
-                style={{
-                    width: '130px',
-                    height: '42px',
-                    backgroundColor: 'var(--gray200)',
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                }}
-                onChange={onChange}
-            >
-                {optionList}
-            </select>
-            {/* InputBox 렌더링 */}
-            <Input
-                Inptype="full"
-                InpWidth="250px"
-                borderColor="var(--black)"
-                placeholder={inputBoxPlaceholder}
-                onChange={onQueryChange}
-            ></Input>
+                <select
+                    style={{
+                        width: '130px',
+                        height: '42px',
+                        backgroundColor: 'var(--gray200)',
+                        borderRadius: '6px',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                    }}
+                    onChange={onChange}
+                >
+                    {optionList}
+                </select>
+                {/* InputBox 렌더링 */}
+                <Input
+                    Inptype="full"
+                    InpWidth="250px"
+                    borderColor="var(--black)"
+                    placeholder={inputBoxPlaceholder}
+                    onChange={onQueryChange}
+                ></Input>
 
-            {/* Button 렌더링 **/}
-            <Button type="submit" width="100px" height="38px" bgColor="var(--blue300)">
-                검색
-            </Button>
+                {/* Button 렌더링 **/}
+                <Button type="submit" width="100px" height="38px" bgColor="var(--blue300)">
+                    검색
+                </Button>
+            </SearchBox>
         </form>
     );
 };
