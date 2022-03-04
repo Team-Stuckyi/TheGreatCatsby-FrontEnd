@@ -10,9 +10,9 @@ import styled from 'styled-components';
 const InputFull = styled.input`
 font-family: 'InfinitySansR-Regular';
 width: calc(100% - 8px);
-height: 38px;
-padding: 10px;
-
+height: ${(props) => props.height || '38px'};
+padding: ${(props) => props.Padding || '10px'};
+outline: ${(props) => props.Outline || 'none'};
 border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
@@ -24,9 +24,9 @@ background-color: ${(props) => props.InpColor};
 const InputMiddle = styled.input`
 font-family: 'InfinitySansR-Regular';
 width: calc(75 % - 8px);
-height: 38px;
-padding: 10px;
-
+height: ${(props) => props.height || '38px'};
+padding: ${(props) => props.Padding || '10px'};
+outline: ${(props) => props.Outline || 'none'};
 border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
@@ -38,8 +38,9 @@ background-color: ${(props) => props.InpColor};
 const InputHalf = styled.input`
 font-family: 'InfinitySansR-Regular';
 width: calc(50 % - 8px);
-height: 38px;
-padding: 10px;
+height: ${(props) => props.height || '38px'};
+padding: ${(props) => props.Padding || '10px'};
+outline: ${(props) => props.Outline || 'none'};
 border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
@@ -51,8 +52,9 @@ background-color: ${(props) => props.InpColor};
 const InputSmall = styled.input`
 font-family: 'InfinitySansR-Regular';
 width: calc(35 % - 8px);
-height: 38px;
-padding: 10px;
+height: ${(props) => props.height || '38px'};
+padding: ${(props) => props.Padding || '10px'};
+outline: ${(props) => props.Outline || 'none'};
 border-radius: ${(props) => props.Radius || '5px'};
 border: 1px solid ${(props) => props.borderColor || 'var(--primary)'};
 
@@ -70,7 +72,7 @@ background-color: ${(props) => props.InpColor};
  */
 
 const Input = ({
-  Inptype = 'small',
+  Inptype,
   InpWidth,
   fontColor = 'var(--gray400)',
   InpColor = 'var(--white)',
@@ -80,6 +82,9 @@ const Input = ({
   placeholder,
   Radius,
   type,
+  height,
+  Padding,
+  Outline,
 }) => {
   return (
     <>
@@ -94,6 +99,9 @@ const Input = ({
           borderColor={borderColor}
           text={text}
           Radius={Radius}
+          Outline={Outline}
+          height={height}
+          Padding={Padding}
         />
         : (Inptype === 'middle' ?
           <InputMiddle
@@ -105,6 +113,10 @@ const Input = ({
             placeholder={placeholder}
             borderColor={borderColor}
             text={text}
+            Radius={Radius}
+            Outline={Outline}
+            height={height}
+            Padding={Padding}
           />
           : (Inptype === 'half' ?
             <InputHalf
@@ -116,6 +128,10 @@ const Input = ({
               placeholder={placeholder}
               borderColor={borderColor}
               text={text}
+              Radius={Radius}
+              Outline={Outline}
+              height={height}
+              Padding={Padding}
             />
             : <InputSmall
               type={type}
@@ -126,6 +142,10 @@ const Input = ({
               placeholder={placeholder}
               borderColor={borderColor}
               text={text}
+              Radius={Radius}
+              Outline={Outline}
+              height={height}
+              Padding={Padding}
             />
           ))}
     </>
