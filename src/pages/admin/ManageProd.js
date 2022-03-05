@@ -4,9 +4,8 @@
  * @description : 상품 관리 페이지
  */
 
-import {ServerUrl} from 'key';
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 
 import Container from 'components/common/Container';
@@ -17,55 +16,47 @@ import TableList from 'components/common/TableList';
 //import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
 
+import { manageProdSlice, getProducts } from 'slices/admin/ManageProdSlice';
+
 const TitleContainer = styled.div`
-    margin: 50px 0 50px 0;
+    margin: 50px 0;
 `;
 
 const ManageProd = () => {
 
-    const [prod, setProd] = useState([]);
+    const { rt, products } = useSelector(state => state.manageProd);
+    const dispatch = useDispatch();
+
     const columns = ['상품 번호', '상품명', '재고', '판매'];
     const selectBoxItems = ['번호', '상품명', '재고', '판매'];
 
     const onChange = (e) => {
-        const { id, name, value} = e.target;
-            setProd(
-            prod.map((p, index) => {
-                return index == id ? {
-                    ...p,
-                    [name] : value
-                  } : p
-            })
-        );
+        const { id, name, value } = e.target;
+
+        dispatch(manageProdSlice.actions.changeProducts(products.map((p, index) => {
+            return index == id ? {
+                ...p,
+                [name] : value
+              } : p
+        })));
     };
 
     const onChecked = (e) => {
         const { id, name, checked } = e.target;
-            setProd(
-                prod.map((p, index) => {
-                    return index == id? {
-                        ...p,
-                        [name] : checked
-                    } : p
-                })
-            );
+        dispatch(manageProdSlice.actions.changeProducts(products.map((p, index) => {
+            return index == id ? {
+                ...p,
+                [name] : checked
+              } : p
+        })));
         };
-    
-    useEffect (() => {
-        axios.get(ServerUrl + "/products/main")
-        .then(response => setProd(response.data.item.map(i => {
-            return {
-                prod_id: i.prod_id,
-                name: i.name,
-                stock: i.stock,
-                status: i.status === 'Y'
+
+    useEffect(() => {
+        dispatch(getProducts())
+            if(rt !== 200 && rt !== null) {
+                alert("상품 리스트 불러오기 실패");
             }
-        })))
-        .catch(err => {
-            console.log(err);
-            alert("Error");
-        })
-    }, []);
+        }, [rt]);
 
     return (
             <Container>
@@ -74,7 +65,8 @@ const ManageProd = () => {
                     <Title content={"상품 관리"} />
                 </TitleContainer>
                 <Search selectBoxItems={selectBoxItems} categoryName={"전체 상품"}/>
-                <TableList columns={columns} data={prod} isModifiable={true} isRemovable={true} onChange={onChange} onChecked={onChecked} />
+                <TableList columns={columns} data={products}
+                isModifiable={true} isRemovable={true} onChange={onChange} onChecked={onChecked} />
                 {/* <Pagination /> */}
             </Container>
             
