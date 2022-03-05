@@ -64,30 +64,30 @@ const TableList = ({ columns, data, isModifiable, isRemovable, onModifyButtonCli
         <div>
             <Table>
                 <thead>
-                    {columns.map(column => (
-                        <TableHeader key={column}>{column}</TableHeader>
+                    {columns.map((column, index) => (
+                        <TableHeader key={index}>{column}</TableHeader>
                     ))}
                     <TableHeader colSpan="2">관리</TableHeader>
                 </thead>
                 <tbody>
                     {data.map((cur, cIndex) => (
-                        <tr key={cur}>
+                        <tr key={cur.prod_id}>
                             {Object.keys(cur).map((key, index) =>
                                 index === 0 ? (
                                     <TableData>{cur[key]}</TableData>
                                 ) : typeof cur[key] === 'boolean' ? (
                                     <TableData>
-                                        <Input id={cIndex} name={key} className="checkBox" type="checkbox" checked={cur[key]} onChange={onChecked} />
+                                        <Input key={cIndex} id={cIndex} name={key} className="checkBox" type="checkbox" checked={cur[key]} onChange={onChecked} />
                                     </TableData>
                                 ) : (
                                     <TableData>
-                                        <Input type="text" id={cIndex} name={key} value={cur[key]} onChange={onChange} />
+                                        <Input type="text" key={cIndex} id={cIndex} name={key} value={cur[key]} onChange={onChange} />
                                     </TableData>
                                 ),
                             )}
                             {isModifiable ? (
                                 <TableData>
-                                    <Button size='8px' bgColor={'var(--blue300)'} onClick={onModifyButtonClick}>수정</Button>
+                                    <Button key = "modifyButton" size='8px' bgColor={'var(--blue300)'} onClick={onModifyButtonClick}>수정</Button>
                                 </TableData>
                             ) : null}
 
@@ -97,7 +97,7 @@ const TableList = ({ columns, data, isModifiable, isRemovable, onModifyButtonCli
                                 </TableData>
                             ) : null}
                         </tr>
-                    ))}
+                            ))}
                 </tbody>
             </Table>
         </div>
