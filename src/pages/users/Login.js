@@ -51,7 +51,7 @@ const ButtonWrapper = styled.div`
 const Login = () => {
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('hehejae53');
+    const [password, setPassword] = useState('');
     const { rt, rtmsg, data, loading } = useSelector(state => state.login);
     const dispatch = useDispatch();
     const navigate = useNavigate();
