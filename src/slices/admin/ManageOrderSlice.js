@@ -13,9 +13,20 @@ export const getOrders = createAsyncThunk("GET_ORDERS", async (payload, { reject
         let result = null;
  
         try {
-            result = await axios.get(ServerUrl + '/orders/all');
+            result = await axios.get(ServerUrl + '/orders/all' + '?page=' + payload.page);
     }   catch (err) {
             result = rejectWithValue(err.response);
+    }
+    return result;
+});
+
+export const putOrders = createAsyncThunk("PUT_ORDERS", async (payload, { rejectWithValue }) => {
+    let result = null;
+
+    try {
+        result = await axios.put(ServerUrl + '/orders/' + payload.order_id, {order_date: payload.order_date, order_price: payload.order_price, order_status: payload.order_status ? 'Y' : 'N' });
+    } catch (err) {
+        result = rejectWithValue(err.response);
     }
     return result;
 });
@@ -27,6 +38,8 @@ export const manageOrderSlice = createSlice({
     initialState: {
         rt: null,
         orders: [],
+        actionType: "",
+        totalCount: 10
     },
  
     reducers: {changeOrders: (state, action) => {
@@ -34,9 +47,6 @@ export const manageOrderSlice = createSlice({
     }},
  
     extraReducers: {
-        [getOrders.pending]: (state, {payload}) => {
-            return {...state, loading: true}
-        },
         [getOrders.fulfilled]: (state, {payload}) => {
             return{
                 ...state,
@@ -47,18 +57,37 @@ export const manageOrderSlice = createSlice({
                         name: i.name,
                         order_date: i.order_date,
                         email: i.email,
-                        order_price: i.order_price
+                        order_price: i.order_price,
+                        order_status: i.order_status === 'Y',
                     }
                 }),
+                actionType: "GET_ORDERS",
+                totalCount: payload.data.totalCount
             }
         },
         [getOrders.rejected]: (state, {payload}) => {
             return {
                 ...state,
                 rt: payload.status,
+                actionType: "GET_ORDERS"
             }
-        }
-    },    
+        },
+        [putOrders.fulfilled]: (state, {payload}) => {
+            return{
+                ...state,
+                rt: payload.status,
+                actionType: "PUT_ORDERS"
+            }
+        },
+        [putOrders.rejected]: (state, {payload}) => {
+            console.log(payload);
+            return {
+                ...state,
+                rt: payload.status,
+                actionType: "PUT_ORDERS"
+            }
+        },
+    },
 });
  
 export default manageOrderSlice.reducer;
