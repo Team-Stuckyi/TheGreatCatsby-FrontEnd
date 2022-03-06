@@ -13,7 +13,7 @@ export const getProducts = createAsyncThunk("GET_PRODUCTS", async (payload, { re
     let result = null;
  
     try {
-        result = await axios.get(ServerUrl + '/products/main');
+        result = await axios.get(ServerUrl + '/products/all' + '?page=' + payload.page);
     } catch (err) {
         result = rejectWithValue(err.response);
     }
@@ -38,7 +38,8 @@ export const manageProdSlice = createSlice({
     initialState: {
         rt: null,
         products: [],
-        actionType: ""
+        actionType: "",
+        totalCount: 10
     },
  
     reducers: {changeProducts: (state, action) => {
@@ -58,7 +59,8 @@ export const manageProdSlice = createSlice({
                             status: i.status === 'Y'
                         }
                 }),
-                actionType: "GET_PRODUCTS"
+                actionType: "GET_PRODUCTS",
+                totalCount: payload.data.totalCount
             }
         },
         [getProducts.rejected]: (state, {payload}) => {

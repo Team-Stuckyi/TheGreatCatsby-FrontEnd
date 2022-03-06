@@ -4,7 +4,7 @@
  * @description : 상품 관리 페이지
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 
@@ -13,7 +13,7 @@ import Container from 'components/common/Container';
 import Search from 'components/common/Search';
 //import AddProd from 'components/admin/AddProd';
 import TableList from 'components/common/TableList';
-//import Pagination from 'components/common/Pagination';
+import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
 
 import { manageProdSlice, getProducts, putProducts } from 'slices/admin/ManageProdSlice';
@@ -24,7 +24,8 @@ const TitleContainer = styled.div`
 
 const ManageProd = () => {
 
-    const { rt, products, actionType } = useSelector(state => state.manageProd);
+    const { rt, products, actionType, totalCount } = useSelector(state => state.manageProd);
+    const [page, setPage] = useState(1);
     const dispatch = useDispatch();
 
     const columns = ['상품 번호', '상품명', '재고', '판매'];
@@ -60,7 +61,6 @@ const ManageProd = () => {
 
 
     useEffect(() => {
-        console.log(actionType)
         if(actionType === "GET_PRODUCTS") {
             if(rt != 200) {
                 alert("상품 리스트 불러오기 실패");
@@ -68,16 +68,20 @@ const ManageProd = () => {
         } else if(actionType === "PUT_PRODUCTS") {
             if(rt == 200) {
                 alert("수정되었습니다");
-                dispatch(getProducts());
+                dispatch(getProducts({page: page}));
             }
             else{
                 alert("수정 실패");
             }
         } else {
-            dispatch(getProducts());
+            dispatch(getProducts({page: page}));
         }
         
         }, [rt, actionType]);
+
+        useEffect(() => {
+            dispatch(getProducts({page: page}));
+        }, [page])
 
 
     return (
@@ -90,7 +94,7 @@ const ManageProd = () => {
                 <TableList columns={columns} data={products}
                 isModifiable={true} isRemovable={false} onChange={onChange} onChecked={onChecked}
                 onModifyButtonClick={onModifyButtonClick} />
-                {/* <Pagination /> */}
+                <Pagination total={totalCount} limit={10} page={page} setPage={setPage} />
             </Container>
             
     );
