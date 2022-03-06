@@ -1,9 +1,3 @@
-/**
- * @filename    : TableList.js
- * @author      : 노희재 (heejj1206@naver.com)
- * @description : 관리자 페이지 Table UI 컴포넌트
- */
-
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
@@ -54,7 +48,6 @@ const TableData = styled.td`
 * @param   {function} onRemoveButtonClick 삭제 버튼의 클릭이벤트
 * @param   {function} onChange          Input type="text" 태그의 수정을 위한 콜백함수
 * @param   {function} onChecked         Input type="checkbox" 태그의 수정을 위한 콜백함수
-
 */
 
 
@@ -71,7 +64,7 @@ const TableList = ({ columns, data, isModifiable, isRemovable, onModifyButtonCli
                 </thead>
                 <tbody>
                     {data.map((cur, cIndex) => (
-                        <tr key={cur.prod_id}>
+                        <tr key={cIndex}>
                             {Object.keys(cur).map((key, index) =>
                                 index === 0 ? (
                                     <TableData>{cur[key]}</TableData>
@@ -87,13 +80,13 @@ const TableList = ({ columns, data, isModifiable, isRemovable, onModifyButtonCli
                             )}
                             {isModifiable ? (
                                 <TableData>
-                                    <Button key = "modifyButton" size='8px' bgColor={'var(--blue300)'} onClick={onModifyButtonClick}>수정</Button>
+                                    <Button key={cIndex} id={cIndex} size='8px' bgColor={'var(--blue300)'} onClick={onModifyButtonClick}>수정</Button>
                                 </TableData>
                             ) : null}
 
                             {isRemovable ? (
                                 <TableData>
-                                    <Button size='8px' bgColor={'var(--primary)'} onClick={onRemoveButtonClick}>{removeButtonText || "삭제"}</Button>
+                                    <Button key={cIndex} id={cIndex} size='8px' bgColor={'var(--primary)'} onClick={onRemoveButtonClick}>{removeButtonText || "삭제"}</Button>
                                 </TableData>
                             ) : null}
                         </tr>
