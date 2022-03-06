@@ -41,7 +41,6 @@ const Review = () => {
     useEffect(() => {
         if (rt === 200) {
             setReviewData(item);
-            console.log(item);
         }
     }, [item]);
 
@@ -55,7 +54,7 @@ const Review = () => {
             <Header />
             <Container>
                 <ProdReviewInfo prodId={prodId} />
-                <ReviewWrite />
+                <ReviewWrite prodId={prodId} />
                 <ReviewList reviewData={reviewDataFilter} />
                 <PaginationContainer>
                     <Pagination total={total} limit={limit} page={page} setPage={setPage} />
