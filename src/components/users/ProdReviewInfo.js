@@ -82,7 +82,6 @@ const ProdReviewInfo = ({ prodId }) => {
         if (rt === 200) {
             setProdItem(item[0]);
         }
-        console.log(prodItem);
     }, [item]);
 
     return (
