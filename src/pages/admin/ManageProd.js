@@ -16,7 +16,7 @@ import TableList from 'components/common/TableList';
 //import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
 
-import { manageProdSlice, getProducts } from 'slices/admin/ManageProdSlice';
+import { manageProdSlice, getProducts, putProducts } from 'slices/admin/ManageProdSlice';
 
 const TitleContainer = styled.div`
     margin: 50px 0;
@@ -24,7 +24,7 @@ const TitleContainer = styled.div`
 
 const ManageProd = () => {
 
-    const { rt, products } = useSelector(state => state.manageProd);
+    const { rt, products, actionType } = useSelector(state => state.manageProd);
     const dispatch = useDispatch();
 
     const columns = ['상품 번호', '상품명', '재고', '판매'];
@@ -51,12 +51,34 @@ const ManageProd = () => {
         })));
         };
 
+    const onModifyButtonClick = (e) => {
+        const { id } = e.target;
+        const curProd = products[id];
+
+        dispatch(putProducts(curProd))
+    }
+
+
     useEffect(() => {
-        dispatch(getProducts())
-            if(rt !== 200 && rt !== null) {
+        console.log(actionType)
+        if(actionType === "GET_PRODUCTS") {
+            if(rt != 200) {
                 alert("상품 리스트 불러오기 실패");
             }
-        }, [rt]);
+        } else if(actionType === "PUT_PRODUCTS") {
+            if(rt == 200) {
+                alert("수정되었습니다");
+                dispatch(getProducts());
+            }
+            else{
+                alert("수정 실패");
+            }
+        } else {
+            dispatch(getProducts());
+        }
+        
+        }, [rt, actionType]);
+
 
     return (
             <Container>
@@ -66,7 +88,8 @@ const ManageProd = () => {
                 </TitleContainer>
                 <Search selectBoxItems={selectBoxItems} categoryName={"전체 상품"}/>
                 <TableList columns={columns} data={products}
-                isModifiable={true} isRemovable={true} onChange={onChange} onChecked={onChecked} />
+                isModifiable={true} isRemovable={false} onChange={onChange} onChecked={onChecked}
+                onModifyButtonClick={onModifyButtonClick} />
                 {/* <Pagination /> */}
             </Container>
             

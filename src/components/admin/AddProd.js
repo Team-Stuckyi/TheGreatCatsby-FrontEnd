@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
@@ -7,6 +7,7 @@ import Input from 'components/common/Input';
 const ModalContainer = styled.div`
     border-radius: 5px;
     width: 600px;
+    height: 800px;
     padding: 30px 50px 30px 50px;
     background-color: var(--gray100);
     position: fixed;
@@ -14,6 +15,7 @@ const ModalContainer = styled.div`
     left: calc(50% - 300px);
     z-index: 2000;
     box-shadow: 5px 5px 15px 5px var(--gray400);
+    overflow-y: scroll;
 `;
 
 const ModalClose = styled.button`
@@ -74,8 +76,45 @@ const BackgroundBlack = styled.div`
     opacity: 0.1;
 `;
 
+const InputFileBox = styled.div`
+    display: inline-block;
+    text-align: center;
+    padding: 20px 0;
+    width: 250px;
+    margin-top: 60px;
+    margin: 10px 40px 0 10px;
+`;
+
+const InputFile = styled.label`
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 10px;
+`;
+
+const InputFileName = styled.p`
+    max-width: 200px;
+    font-size: 12px;
+    text-align: center;
+    padding: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
 
 const AddProd = () => {
+    const [imgFileName, setImgFileName] = useState('');
+    const [imgFile, setImgFile] = useState('');
+    const handleInputFile = event => {
+        // 파일이름 저장
+        setImgFileName(event.target.files[0].name);
+        // 파일 저장
+        setImgFile(event.target.files[0]);
+
+        console.log(imgFileName);
+        console.log(imgFile);
+    };
     return (
         <div>
         <ModalContainer>
@@ -117,6 +156,11 @@ const AddProd = () => {
             <ModalFull>
                 <Button id="modalSubmit" bgColor={"var(--blue300)"}>상품 등록</Button>
             </ModalFull>
+            <InputFileBox>
+                    {imgFileName ? <InputFileName>{imgFileName}</InputFileName> : <InputFileName>이미지를 선택해주세요.</InputFileName>}
+                    <InputFile htmlFor="input-file">사진 선택</InputFile>
+                    <input type="file" name="imgFile" id="input-file" style={{ display: 'none' }} onChange={handleInputFile} />
+            </InputFileBox>
         </ModalContainer>
         <BackgroundBlack></BackgroundBlack>
     </div>
