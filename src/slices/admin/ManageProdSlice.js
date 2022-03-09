@@ -13,7 +13,14 @@ export const getProducts = createAsyncThunk("GET_PRODUCTS", async (payload, { re
     let result = null;
  
     try {
-        result = await axios.get(ServerUrl + '/products/all' + '?page=' + payload.page);
+        let apiUrl = ServerUrl + '/products/all' + '?page=' + payload.page;
+
+        if (payload.searchKey) {
+            apiUrl += '&' + payload.searchKey + '=' + payload.searchValue;
+        }
+
+        result = await axios.get(apiUrl);
+
     } catch (err) {
         result = rejectWithValue(err.response);
     }

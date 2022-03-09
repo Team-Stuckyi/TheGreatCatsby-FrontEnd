@@ -41,6 +41,12 @@ const ManageProd = () => {
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
+    
+    /** 검색어를 저장할 State */
+    const [searchQuery, setSearchQuery] = useState('');
+    
+    /** 검색 카테고리를 저장할 state */
+    const [selectQuery, setSelectQuery] = useState('prod_id');
 
     const columns = ['상품 번호', '상품명', '재고', '판매'];
     const selectBoxItems = ['번호', '상품명', '재고', '판매'];
@@ -97,10 +103,40 @@ const ManageProd = () => {
         
         }, [rt, actionType]);
 
-        useEffect(() => {
-            dispatch(getProducts({page: page}));
-        }, [page])
+    useEffect(() => {
+        dispatch(getProducts( selectQuery === '' ? {page: page} : {page: page, searchKey: selectQuery, searchValue: searchQuery}));
+    }, [page])
 
+
+        /** 선택한 Select를 저장하는 이벤트 */
+        const onChangeSelect = e => {
+
+            const value = e.target.value;
+
+            if (value === '상품 번호') {
+                setSelectQuery('prod_id');
+            } else if (value === '상품명') {
+                setSelectQuery('name');
+            } else if (value === '재고') {
+                setSelectQuery('stock');
+            } else if (value === '판매') {
+                setSelectQuery('status');
+            }
+        };
+    
+        /** 검색어를 저장하는 이벤트 */
+        const onQueryChange = e => {
+            setSearchQuery(e.target.value);
+        };
+    
+        /** 검색 클릭 이벤트 */
+        // 컬럼명과 Select의 이름이 일치할 경우만 사용가능
+        const onSubmit = e => {
+            e.preventDefault();
+            setPage(1);
+            dispatch(getProducts({page: page, searchKey: selectQuery, searchValue: searchQuery}));
+        };
+    
 
     return (
             <Container>
@@ -108,7 +144,15 @@ const ManageProd = () => {
                 <TitleContainer>
                     <Title content={"상품 관리"} />
                 </TitleContainer>
-                <Search selectBoxItems={selectBoxItems} categoryName={"전체 상품"}/>
+                <Search selectBoxItems={selectBoxItems}
+                        categoryName={"전체 상품"}
+                        categoryCount={products.length}
+                        unit={'개'}
+                        selectBoxItems={['상품 번호', '상품명', '재고', '판매']}
+                        onChange={onChangeSelect}
+                        onQueryChange={onQueryChange}
+                        onSubmit={onSubmit}
+                        />
                 <AddProdButton onClick={ClickAddProd}>+</AddProdButton>
                 {openModal && <AddProd closeModal={setOpenModal} />}
                 <TableList columns={columns} data={products}
