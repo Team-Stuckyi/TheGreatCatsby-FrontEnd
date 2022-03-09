@@ -16,6 +16,26 @@ export const getAdminUserList = createAsyncThunk('/adminUser/getAdminUserList', 
     return result;
 });
 
+export const editAdminUserList = createAsyncThunk('/adminUser/editAdminUserList', async (payload, { rejectWithValue }) => {
+    let result = null;
+    try {
+        result = await axios.put(ServerUrl + '/admins/edit/' + payload.user_id, { name: payload.name, email: payload.email });
+    } catch (e) {
+        result = rejectWithValue(e.response);
+    }
+    return result;
+});
+
+export const delAdminUserList = createAsyncThunk('/adminUser/delAdminUserList', async (payload, { rejectWithValue }) => {
+    let result = null;
+    try {
+        result = await axios.put(ServerUrl + '/admims/getout/' + payload);
+    } catch (e) {
+        result = rejectWithValue(e.response);
+    }
+    return result;
+});
+
 export const adminUserSlice = createSlice({
     name: 'adminuser',
     initialState: {
@@ -24,7 +44,7 @@ export const adminUserSlice = createSlice({
         item: [], //ajax 처리를 통해 수신된 데이터
         adminUser: null,
         loading: false,
-        prod: null,
+        del: null,
     },
     reducers: {},
     extraReducers: {
@@ -37,8 +57,7 @@ export const adminUserSlice = createSlice({
                 ...state,
                 rt: payload.status,
                 rtmsg: payload.statusText,
-                item: payload.data,
-                prods: payload.data.item,
+                item: payload.data.item,
                 loading: false,
             };
         },
@@ -48,7 +67,6 @@ export const adminUserSlice = createSlice({
                 rt: payload.status,
                 rtmsg: payload.statusText,
                 item: payload.data,
-                prods: payload.data.item,
                 loading: false,
             };
         },
