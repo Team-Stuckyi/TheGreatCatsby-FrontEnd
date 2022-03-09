@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import SuccessImg from 'img/user/regsuccess/regsuccess.jpg';
 import Button from 'components/common/Button';
@@ -14,7 +15,7 @@ const RegSuccessWrapper = styled.div`
 `;
 
 const RegSuccessImage = styled.div`
-    margin: 30px 0 30px 0;
+    margin: 100px 0 30px 0;
 
     img {
         width: 600px;
@@ -30,13 +31,17 @@ const RegSuccessText = styled.div`
 
 const HomeButton = styled.div`
     margin-top: 50px;
-
-    a {
-        font-size: 1rem;
-    }
+    font-size: 1rem;
 `;
 
 const Success = () => {
+
+    const navigate = useNavigate();
+    
+    const ClickHome = (e) => {
+        navigate('/');
+    }
+
     return (
         <RegSuccessWrapper>
             <RegSuccessImage>
@@ -46,8 +51,8 @@ const Success = () => {
                 <p>위대한 캣츠비에 오신것을 환영합니다!!</p>
             </RegSuccessText>
             <HomeButton>
-                <Button width='400px' size='12px' bgColor={'var(--primary)'}>
-                    <a href="pages/users/main">홈으로</a>
+                <Button width='400px' size='12px' bgColor={'var(--primary)'} onClick={ClickHome}>
+                        홈으로
                 </Button>
             </HomeButton>
         </RegSuccessWrapper>
