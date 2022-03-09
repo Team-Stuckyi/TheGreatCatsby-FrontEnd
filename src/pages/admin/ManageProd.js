@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import Container from 'components/common/Container';
 //import AdminHeader from 'components/admin/AdminHeader';
 import Search from 'components/common/Search';
-//import AddProd from 'components/admin/AddProd';
+import AddProd from 'components/admin/AddProd';
 import TableList from 'components/common/TableList';
 import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
@@ -22,11 +22,25 @@ const TitleContainer = styled.div`
     margin: 50px 0;
 `;
 
+const AddProdButton = styled.button`
+    border: 1px solid var(--blue300);
+    border-radius: 50%;
+    padding: 10px 16px;
+    background-color: var(--blue300);
+    color: var(--white);
+    font-size: 1.25rem;
+    display: absolute;
+    float: right;
+    margin: -45px 40px 0 0;
+    cursor: pointer;
+`;
+
 const ManageProd = () => {
 
     const { rt, products, actionType, totalCount } = useSelector(state => state.manageProd);
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
+    const [openModal, setOpenModal] = useState(false);
 
     const columns = ['상품 번호', '상품명', '재고', '판매'];
     const selectBoxItems = ['번호', '상품명', '재고', '판매'];
@@ -59,6 +73,10 @@ const ManageProd = () => {
         dispatch(putProducts(curProd))
     }
 
+    const ClickAddProd = (e) => {
+        setOpenModal(true);
+        console.log(openModal);
+    }
 
     useEffect(() => {
         if(actionType === "GET_PRODUCTS") {
@@ -91,6 +109,8 @@ const ManageProd = () => {
                     <Title content={"상품 관리"} />
                 </TitleContainer>
                 <Search selectBoxItems={selectBoxItems} categoryName={"전체 상품"}/>
+                <AddProdButton onClick={ClickAddProd}>+</AddProdButton>
+                {openModal && <AddProd closeModal={setOpenModal} />}
                 <TableList columns={columns} data={products}
                 isModifiable={true} isRemovable={false} onChange={onChange} onChecked={onChecked}
                 onModifyButtonClick={onModifyButtonClick} />

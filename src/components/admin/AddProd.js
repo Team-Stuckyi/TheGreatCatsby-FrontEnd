@@ -29,6 +29,7 @@ const ModalClose = styled.button`
     font-weight: bold;
     font-size: 1.125rem;
     line-height: 1.75rem;
+    cursor: pointer;
 `;
 
 const Title = styled.h3`
@@ -69,11 +70,12 @@ const ModalTextarea = styled.textarea`
 const BackgroundBlack = styled.div`
     position: fixed;
     top: 0;
+    left: 0;
     z-index: 1500;
     width: 100%;
     height: 100%;
     background-color: var(--gray600);
-    opacity: 0.1;
+    opacity: 0.3;
 `;
 
 const InputFileBox = styled.div`
@@ -103,9 +105,14 @@ const InputFileName = styled.p`
     white-space: nowrap;
 `;
 
-const AddProd = () => {
+const AddProd = ({ closeModal }) => {
     const [imgFileName, setImgFileName] = useState('');
     const [imgFile, setImgFile] = useState('');
+
+    const ClickClose = (e) => {
+        closeModal(false);
+    }
+
     const handleInputFile = event => {
         // 파일이름 저장
         setImgFileName(event.target.files[0].name);
@@ -118,7 +125,7 @@ const AddProd = () => {
     return (
         <div>
         <ModalContainer>
-            <ModalClose>X</ModalClose>
+            <ModalClose onClick={ClickClose}>X</ModalClose>
 
             <Title>상품 등록</Title>
             <ModalHalf>
