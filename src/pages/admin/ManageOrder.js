@@ -29,6 +29,12 @@ const ManageOrder = () => {
 
     const columns = ['주문 번호', '주문 상품', '주문 날짜', '이메일', '주문 금액', '주문 상태'];
     const selectBoxItems = ['주문 번호', '주문 상품', '주문 날짜', '이메일', '주문 금액', '주문 상태'];
+
+    /** 검색어를 저장할 State */
+    const [searchQuery, setSearchQuery] = useState('');
+    
+    /** 검색 카테고리를 저장할 state */
+    const [selectQuery, setSelectQuery] = useState('order_id');
  
     const onChange = (e) => {
         const { id, name, value } = e.target;
@@ -54,7 +60,6 @@ const ManageOrder = () => {
     const onModifyButtonClick = (e) => {
         const { id } = e.target;
         const curOrder = orders[id];
-        console.log("curOrder " + curOrder);
 
         dispatch(putOrders(curOrder))
     }
@@ -78,7 +83,42 @@ const ManageOrder = () => {
         
         }, [rt, actionType]);
 
-    useEffect(() => dispatch(getOrders({page: page})), [page]);
+    useEffect(() => {
+        dispatch(getOrders( selectQuery === '' ? {page: page} : {page: page, searchKey: selectQuery, searchValue: searchQuery}));
+    }, [page])
+
+    /** 선택한 Select를 저장하는 이벤트 */
+    const onChangeSelect = e => {
+
+        const value = e.target.value;
+        
+        if (value === '주문 번호') {
+            setSelectQuery('order_id');
+        } else if (value === '주문 상품') {
+            setSelectQuery('name');
+        } else if (value === '주문 날짜') {
+            setSelectQuery('order_date');
+        } else if (value === '이메일') {
+            setSelectQuery('email');
+        } else if (value === '주문 가격') {
+            setSelectQuery('order_price');
+        } else if (value === '주문 상태') {
+            setSelectQuery('order_status');
+        }
+    };
+            
+    /** 검색어를 저장하는 이벤트 */
+    const onQueryChange = e => {
+        setSearchQuery(e.target.value);
+    };
+            
+    /** 검색 클릭 이벤트 */
+    // 컬럼명과 Select의 이름이 일치할 경우만 사용가능
+    const onSubmit = e => {
+        e.preventDefault();
+        setPage(1);
+        dispatch(getOrders({page: page, searchKey: selectQuery, searchValue: searchQuery}));
+    };
  
     return (
         <Container>
@@ -86,7 +126,14 @@ const ManageOrder = () => {
             <TitleContainer>
                 <Title content={"주문 관리"} />
             </TitleContainer>
-            <Search selectBoxItems={selectBoxItems} categoryName={"전체 주문"}/>
+            <Search selectBoxItems={selectBoxItems}
+                    categoryName={"주문 번호"}
+                    categoryCount={orders.length}
+                    unit={'건'}
+                    selectBoxItems={['주문 번호', '주문 상품', '주문 날짜', '이메일', '주문 금액', '주문 상태']}
+                    onChange={onChangeSelect}
+                    onQueryChange={onQueryChange}
+                    onSubmit={onSubmit} />
             <TableList columns={columns} data={orders}
             isModifiable={true} isRemovable={false} onChange={onChange} onChecked={onChecked}
             onModifyButtonClick={onModifyButtonClick} />

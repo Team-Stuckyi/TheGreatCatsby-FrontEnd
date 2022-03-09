@@ -11,9 +11,16 @@ import {ServerUrl} from 'key';
  
 export const getOrders = createAsyncThunk("GET_ORDERS", async (payload, { rejectWithValue })  => {
         let result = null;
- 
+
         try {
-            result = await axios.get(ServerUrl + '/orders/all' + '?page=' + payload.page);
+            let apiUrl = ServerUrl + '/orders/all' + '?page=' + payload.page;
+
+            if (payload.searchKey) {
+                apiUrl += '&' + payload.searchKey + '=' + payload.searchValue;
+            }
+
+            result = await axios.get(apiUrl);
+
     }   catch (err) {
             result = rejectWithValue(err.response);
     }
@@ -80,7 +87,6 @@ export const manageOrderSlice = createSlice({
             }
         },
         [putOrders.rejected]: (state, {payload}) => {
-            console.log(payload);
             return {
                 ...state,
                 rt: payload.status,
