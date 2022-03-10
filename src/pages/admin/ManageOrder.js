@@ -20,6 +20,16 @@ import { manageOrderSlice, getOrders, putOrders } from 'slices/admin/ManageOrder
 const TitleContainer = styled.div`
      margin: 50px 0 50px 0;
 `;
+
+const Notice = styled.div`
+    float: right;
+    margin-top: 20px;
+    p {
+        color: var(--gray300);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }   
+`;
  
 const ManageOrder = () => {
  
@@ -134,6 +144,7 @@ const ManageOrder = () => {
                     onChange={onChangeSelect}
                     onQueryChange={onQueryChange}
                     onSubmit={onSubmit} />
+            <Notice><p>*주문 상품명, 주문자 이메일은 현재페이지에서 수정이 불가합니다.</p></Notice>
             <TableList columns={columns} data={orders}
             isModifiable={true} isRemovable={false} onChange={onChange} onChecked={onChecked}
             onModifyButtonClick={onModifyButtonClick} />
