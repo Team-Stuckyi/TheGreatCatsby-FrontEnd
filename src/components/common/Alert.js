@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 
@@ -45,16 +45,27 @@ const ButtonBox = styled.div`
     left: 50px;
 `;
 
-const Alert = ({ text, onClick }) => {
+const Alert = ({ text, onClickConfirm, onClickCancel }) => {
     return (
         <AlertDiv>
             <BgBlack />
             <AlertContainer>
                 <AlertText>{text}</AlertText>
                 <ButtonBox>
-                    <Button size="md" width="300px" onClick={onClick}>
-                        확인
-                    </Button>
+                    {!onClickCancel ? (
+                        <Button size="md" width="300px" bgColor="var(--blue300)" onClick={onClickConfirm}>
+                            확인
+                        </Button>
+                    ) : (
+                        <>
+                            <Button size="md" width="150px" bgColor="var(--blue300)" onClick={onClickConfirm}>
+                                확인
+                            </Button>
+                            <Button size="md" width="150px" onClick={onClickCancel}>
+                                취소
+                            </Button>
+                        </>
+                    )}
                 </ButtonBox>
             </AlertContainer>
         </AlertDiv>
@@ -62,4 +73,3 @@ const Alert = ({ text, onClick }) => {
 };
 
 export default Alert;
-

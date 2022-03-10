@@ -1,107 +1,148 @@
-/**
- * @filename    : TableList.js
- * @author      : 노희재 (heejj1206@naver.com)
- * @description : 관리자 페이지 Table UI 컴포넌트
- */
-
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import Pagination from './Pagination';
 
 const Table = styled.table`
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid var(--black);
     width: 100%;
     border-collapse: collapse;
     margin-top: 50px;
 `;
 
-const Input = styled.input`
-    text-align: center;
-    width: 90%;
-    border: none !important;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    
-    &.checkBox {
-    zoom: 1.5;
-    vertical-align: middle;
-    }
-`;
-
-const TableHeader = styled.th`
-    border: 1px solid black;
+const Th = styled.th`
+    border: 1px solid var(--black);
+    background-color: var(--gray200);
     padding: 10px;
-    background-color: #e1e1e1;
     font-size: 1rem;
     line-height: 1rem;
     font-weight: bold;: ;
+    width : ${props => props.columnsWidth};
 `;
 
-const TableData = styled.td`
-    border: 1px solid black;
+const Td = styled.td`
+    font-size: 13px;
+    border: 1px solid var(--black);
     padding: 10px;
 `;
 
+const Input = styled.input`
+    text-align: center;
+    width: 95%;
+    padding: 5px;
+    border: none !important;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+`;
+/**
+ * @columns 컬럼명 (필수)
+ * @data 데이터 (필수)
+ * @columnsWidth 각 컬럼 길이 (선택)
+ * @columnSpecial 관리탭 옵션 (필수)
+ * @objLen 컬럼의 길이 (필수)
+ * @onChange - 값 수정시 사용될 이벤트 (선택)
+ * @onClick1 - 첫번째 버튼 클릭이벤트 (필수)
+ * @onClick2 - 두번째 버튼 클릭이벤트 (선택)
+ * @total 페이지네이션 - 총 게시물수 (필수)
+ * @limit 페이지네이션 - 한 페이지에 보여질 게시물 수 (필수)
+ * @page 페이지네이션 - 시작 페이지 번호 (필수)
+ * @setPage 페이지네이션 - 현재 페이지 번호 (필수)
+ */
 
-/*
-* @param   {string} columns             th에 들어갈 항목의 배열 (수정, 삭제 버튼이 들어갈 관리 th 는 고정해두었으므로 자동 생성)
-* @param   {string} data                테이블 td 에 들어갈 데이터
-* @param   {boolean} isModifiable       true 일 때 수정 버튼 생성
-* @param   {boolean} isRemovable        true 일 때 삭제 버튼 생성
-* @param   {string} removeButtonText    remove 버튼에 들어갈 text, 기본값은 "삭제"
-* @param   {function} onModifyButtonClick 수정 버튼의 클릭이벤트
-* @param   {function} onRemoveButtonClick 삭제 버튼의 클릭이벤트
-* @param   {function} onChange          Input type="text" 태그의 수정을 위한 콜백함수
-* @param   {function} onChecked         Input type="checkbox" 태그의 수정을 위한 콜백함수
+const TableList = ({
+    columns,
+    data,
+    columnsWidth,
+    columnSpecial,
+    objLen,
+    onChange,
+    onClick1,
+    onClick2,
+    total,
+    limit,
+    page,
+    setPage,
+}) => {
+    /** 테이블 Header구성 */
+    const HeadPrint = columns.map((value, idx) => (
+        <>
+            <Th key={value} columnsWidth={columnsWidth[idx]}>
+                {value}
+            </Th>
+            {columnSpecial[1] && columns.length === idx + 1 ? (
+                <Th colSpan={columnSpecial[1]} key={columnSpecial[0]}>
+                    {columnSpecial[0]}
+                </Th>
+            ) : (
+                <></>
+            )}
+        </>
+    ));
 
-*/
-
-
-const TableList = ({ columns, data, isModifiable, isRemovable, onModifyButtonClick, onRemoveButtonClick, removeButtonText, onChange, onChecked }) => {
+    /** 테이블 Body 구성 */
+    const BodyPrint = data.map((dataValue, dataIdx) => (
+        <tr key={dataIdx}>
+            {Object.keys(dataValue).map((key, index) => (
+                <>
+                    {dataValue[key] ? (
+                        <Td>
+                            <Input id={index} key={dataValue[key]} type="text" defaultValue={dataValue[key]} onChange={onChange} />
+                        </Td>
+                    ) : (
+                        <Td>
+                            <Input id={index} key={dataValue[key]} type="text" defaultValue={dataValue[key]} onChange={onChange} />
+                        </Td>
+                    )}
+                    {index === objLen ? (
+                        <>
+                            {columnSpecial[2] ? (
+                                <Td>
+                                    <Button
+                                        key={`btn1` + key}
+                                        data-id={Object.values(dataValue)[0]}
+                                        size="sm"
+                                        bgColor={columnSpecial[3]}
+                                        onClick={onClick1}
+                                    >
+                                        {columnSpecial[2]}
+                                    </Button>
+                                </Td>
+                            ) : null}
+                            {columnSpecial[4] ? (
+                                <Td>
+                                    <Button
+                                        key={`btn2` + key}
+                                        data-id={Object.values(dataValue)[0]}
+                                        size="sm"
+                                        bgColor={columnSpecial[5]}
+                                        onClick={onClick2}
+                                    >
+                                        {columnSpecial[4]}
+                                    </Button>
+                                </Td>
+                            ) : null}
+                        </>
+                    ) : null}
+                </>
+            ))}
+        </tr>
+    ));
 
     return (
-        <div>
-            <Table>
-                <thead>
-                    {columns.map(column => (
-                        <TableHeader key={column}>{column}</TableHeader>
-                    ))}
-                    <TableHeader colSpan="2">관리</TableHeader>
-                </thead>
-                <tbody>
-                    {data.map((cur, cIndex) => (
-                        <tr key={cur}>
-                            {Object.keys(cur).map((key, index) =>
-                                index === 0 ? (
-                                    <TableData>{cur[key]}</TableData>
-                                ) : typeof cur[key] === 'boolean' ? (
-                                    <TableData>
-                                        <Input id={cIndex} name={key} className="checkBox" type="checkbox" checked={cur[key]} onChange={onChecked} />
-                                    </TableData>
-                                ) : (
-                                    <TableData>
-                                        <Input type="text" id={cIndex} name={key} value={cur[key]} onChange={onChange} />
-                                    </TableData>
-                                ),
-                            )}
-                            {isModifiable ? (
-                                <TableData>
-                                    <Button size='8px' bgColor={'var(--blue300)'} onClick={onModifyButtonClick}>수정</Button>
-                                </TableData>
-                            ) : null}
-
-                            {isRemovable ? (
-                                <TableData>
-                                    <Button size='8px' bgColor={'var(--primary)'} onClick={onRemoveButtonClick}>{removeButtonText || "삭제"}</Button>
-                                </TableData>
-                            ) : null}
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+        <>
+            <div style={{ height: '600px' }}>
+                <Table>
+                    <thead>
+                        <tr>{HeadPrint}</tr>
+                    </thead>
+                    <tbody>{BodyPrint}</tbody>
+                </Table>
+            </div>
+            <Pagination total={total} limit={limit} page={page} setPage={setPage} />
+        </>
     );
 };
 
 export default TableList;
+
