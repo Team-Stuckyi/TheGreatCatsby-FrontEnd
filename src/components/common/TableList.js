@@ -50,7 +50,7 @@ const Input = styled.input`
  * @setPage 페이지네이션 - 현재 페이지 번호 (필수)
  */
 
-const TestTableList = ({
+const TableList = ({
     columns,
     data,
     columnsWidth,
@@ -144,4 +144,5 @@ const TestTableList = ({
     );
 };
 
-export default TestTableList;
+export default TableList;
+
