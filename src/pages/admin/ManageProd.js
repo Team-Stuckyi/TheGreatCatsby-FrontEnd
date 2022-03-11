@@ -12,7 +12,7 @@ import Container from 'components/common/Container';
 //import AdminHeader from 'components/admin/AdminHeader';
 import Search from 'components/common/Search';
 import AddProd from 'components/admin/AddProd';
-import TableList from 'components/common/TableList';
+import TableList from 'components/common/TableListWithoutPagination';
 import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
 
@@ -41,6 +41,7 @@ const ManageProd = () => {
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
+    const [addProdClose, setAddProdClose] = useState(true);
     
     /** 검색어를 저장할 State */
     const [searchQuery, setSearchQuery] = useState('');
@@ -81,7 +82,6 @@ const ManageProd = () => {
 
     const ClickAddProd = (e) => {
         setOpenModal(true);
-        console.log(openModal);
     }
 
     useEffect(() => {
@@ -106,6 +106,12 @@ const ManageProd = () => {
     useEffect(() => {
         dispatch(getProducts( selectQuery === '' ? {page: page} : {page: page, searchKey: selectQuery, searchValue: searchQuery}));
     }, [page])
+
+    useEffect(() => {
+        if (openModal == false) {
+            dispatch(getProducts({page: page}));
+        }
+    }, [openModal]);
 
 
         /** 선택한 Select를 저장하는 이벤트 */
@@ -146,7 +152,7 @@ const ManageProd = () => {
                 </TitleContainer>
                 <Search selectBoxItems={selectBoxItems}
                         categoryName={"전체 상품"}
-                        categoryCount={products.length}
+                        categoryCount={totalCount}
                         unit={'개'}
                         selectBoxItems={['상품 번호', '상품명', '재고', '판매']}
                         onChange={onChangeSelect}

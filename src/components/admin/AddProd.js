@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { postProduct } from 'slices/admin/AddProdSlice';
 
 
@@ -127,6 +127,7 @@ const AddProd = ({ closeModal }) => {
     const [description, setDescription] = useState('');
     const [stock, setStock] = useState('');
     const dispatch = useDispatch();
+    const {rt} = useSelector(state => state.addProd);
 
     const ClickClose = (e) => {
         closeModal(false);
@@ -183,6 +184,15 @@ const AddProd = ({ closeModal }) => {
 
         dispatch(postProduct(formData));
     }
+
+    useEffect(() => {
+        if(rt == 200) {
+            alert("상품이 추가되었습니다.");
+            closeModal(false);
+        } else if (rt != null) {
+            alert("상품 추가 실패")
+        }
+    }, [rt]);
 
     return (
         <div>

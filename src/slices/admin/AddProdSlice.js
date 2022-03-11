@@ -30,10 +30,6 @@ export const addProdSlice = createSlice({
     },
     reducers: {},
     extraReducers: {
-        [postProduct.pending]: (state, { payload }) => {
-            return { ...state, loading: true };
-        },
-
         [postProduct.fulfilled]: (state, { payload }) => {
             return {
                 ...state,
