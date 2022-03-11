@@ -5,18 +5,25 @@
  */
 
 // Core Modules
-import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
 // Components
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import Alert from 'components/common/Alert';
-import Logo from 'components/common/Logo';
+
+import { login } from 'slices/admin/LoginSlice';
+import { appSlice } from 'slices/admin/appSlice';
 
 // Styles
 import 'css/AdminLogin.css';
+
+// Resources
+import AdminLoginLogo from 'img/TheGreatCatsby-Center-Pink-logo.png';
 
 const LoginFormContainer = styled('div')`
     width: 350px;
@@ -43,12 +50,15 @@ const InputWrapper = styled('div')`
 `;
 
 const AdminLogin = () => {
-    // userHistory 객체 초기화
-    const history = useHistory();
+    // useNavigate, useDispatch 객체 초기화
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // User email, password를 입력받기 위한 state 생성
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { rt, rtmsg, data, loading } = useSelector(state => state.login);
 
     // User email, password Input 변경 핸들러 함수
     const onChangeEmail = e => setEmail(e.target.value);
@@ -62,27 +72,40 @@ const AdminLogin = () => {
 
     // 성공적인 로그인 시도시 실행할 함수
     const successLoginRequest = res => {
-        history.push(process.env.REACT_APP_SERVER_URL + '/admins/manageadmin');
+        navigate('/admin/manageadmin');
     };
 
     // Login 요청 함수
     const requestLogin = e => {
-        axios
-            // 로그인 POST 요청
-            .post(process.env.REACT_APP_SERVER_URL + '/admins/login', {
+        dispatch(
+            login({
                 email: email,
                 password: password,
-            })
-            // 요청 성공시
-            .then(res => successLoginRequest(res))
-            // 에러 발생시
-            .catch(err => badLoginRequest(err));
+            }),
+        );
     };
+
+    useEffect(() => {
+        if (rt === 200) {
+            dispatch(
+                appSlice.actions.changeLoginState({
+                    loginSuccess: true,
+                    email: data.email,
+                    name: data.name,
+                    tel: data.tel,
+                    user_id: data.user_id,
+                }),
+            );
+            successLoginRequest();
+        } else if (rt !== null) {
+            badLoginRequest();
+        }
+    }, [rt]);
 
     return (
         <>
             <LoginFormContainer>
-                <Logo.ImgCenter alt="AdminLoginLogoImage" Imgwidth="280px" Imgheight="100px" />
+                <img src={AdminLoginLogo} alt="AdminLoginLogoImage" width="260px" height="100px" />
                 <InputWrapper>
                     <InputTitle>이메일</InputTitle>
                     <Input Inptype="full" borderColor="var(--white)" type="email" name="email" onChange={onChangeEmail} />
