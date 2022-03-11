@@ -18,6 +18,7 @@ import Button from 'components/common/Button';
 import NotFoundImage from 'img/common/ImageNotFound.png';
 
 const ImageContainer = styled.div`
+    margin-top: 40px;
     text-align: center;
 `;
 
@@ -30,7 +31,7 @@ const InfoImage = styled.div`
     overflow: hidden;
 `;
 
-const ProdImg = ({ ProdInfoImageURL = NotFoundImage }) => {
+const ProdImg = ({ prodInfoImageURL = NotFoundImage }) => {
     // 상품 정보 더보기 버튼 State
     const [viewMore, setViewMore] = useState(true);
     // 상품 정보 더보기 State를 변경할 함수
@@ -40,7 +41,7 @@ const ProdImg = ({ ProdInfoImageURL = NotFoundImage }) => {
         <ImageContainer>
             <InfoImage isHidden={viewMore}>
                 <div className="content">
-                    <img src={ProdInfoImageURL} alt="상품 상세정보 이미지" />
+                    <img src={prodInfoImageURL} alt="상품 상세정보 이미지" />
                 </div>
             </InfoImage>
             <Button

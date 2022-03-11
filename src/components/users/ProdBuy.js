@@ -7,10 +7,11 @@
 // Cores
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link, useParams } from 'react-router-dom';
 
 // Components
-import Button from 'components/common/Button';
-import Stars from 'components/common/Stars';
+import Button from '../common/Button';
+import Stars from '../common/Stars';
 
 // Not Found Image
 import NotFoundImage from 'img/common/ImageNotFound.png';
@@ -40,6 +41,7 @@ const ProdPurchaseContainer = styled('div')`
 
 const ProdTitle = styled('h2')`
     margin-top: 100px;
+    margin-bottom: 20px;
     font-size: 1.5rem;
     line-height: 2rem;
 `;
@@ -52,8 +54,8 @@ const ReviewContainer = styled('div')`
 const ReviewCount = styled('span')`
     display: inline-block;
     position: absolute;
-    top: 7px;
-    left: 125px;
+    top: 0;
+    left: 110px;
     color: var(--blue200);
 `;
 
@@ -153,7 +155,7 @@ const ProdAmountText = styled('div')`
     text-align: center;
     vertical-align: top;
     padding-top: 11px;
-    padding-bottom: 11px;
+    padding-bottom: 8px;
     background-color: white;
     border: 1px solid var(--gray500);
     border-left: none;
@@ -176,6 +178,8 @@ const ProdBuy = ({
     prodSellPrice = '6,500',
     prodShippingPrice = '3,000',
 }) => {
+    // prodId를 확보하기 위한 변수
+    const { prod_id } = useParams();
     // 상품 구매 개수를 관리할 State
     const [prodCount, setProdCount] = useState(1);
     return (
@@ -236,7 +240,10 @@ const ProdBuy = ({
                         {parseInt(prodSellPrice.replace(',', '')) * parseInt(prodCount) + parseInt(prodShippingPrice.replace(',', ''))}
                     </TotalPriceText>
                 </ProdAmountContainer>
-                <Button>바로 구매</Button>
+                {/* /showmethemoney/상품ID/상품구매수량 */}
+                <Link to={`/showmethemoney/${prod_id}/${prodCount}`}>
+                    <Button>바로 구매</Button>
+                </Link>
             </ProdPurchaseContainer>
         </ProdContainer>
     );
