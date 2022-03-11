@@ -146,7 +146,7 @@ const ManageProd = () => {
                 </TitleContainer>
                 <Search selectBoxItems={selectBoxItems}
                         categoryName={"전체 상품"}
-                        categoryCount={products.length}
+                        categoryCount={totalCount}
                         unit={'개'}
                         selectBoxItems={['상품 번호', '상품명', '재고', '판매']}
                         onChange={onChangeSelect}
