@@ -241,7 +241,7 @@ const ProdBuy = ({
                     </TotalPriceText>
                 </ProdAmountContainer>
                 {/* /showmethemoney/상품ID/상품구매수량 */}
-                <Link to={`/showmethemoney/${prod_id}/${prodCount}`}>
+                <Link to={`/showmethemoney/${prod_id}?prod_count=${prodCount}`}>
                     <Button>바로 구매</Button>
                 </Link>
             </ProdPurchaseContainer>
