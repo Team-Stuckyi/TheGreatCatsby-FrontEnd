@@ -16,6 +16,7 @@ import Logo from 'components/common/Logo';
 import Input from 'components/common/Input';
 import Button from 'components/common/Button';
 import { login } from 'slices/users/LoginSlice';
+import { appSlice } from 'slices/users/AppSlice';
 
 const LoginWrapper = styled.div`
     width: 100%;
@@ -51,7 +52,8 @@ const ButtonWrapper = styled.div`
 const Login = () => {
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('hehejae53');
+    const [password, setPassword] = useState('');
+    const [loginSuccess, setLoginSuccess] = useState('');
     const { rt, rtmsg, data, loading } = useSelector(state => state.login);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -73,17 +75,14 @@ const Login = () => {
 
     useEffect(() => {
         if (rt === 200) {
-            navigate(
-                '/',
-                { 
-                    state: {
-                        email: data.email,
-                        name: data.name,
-                        tel: data.tel,
-                        user_id: data.user_id
-                    } 
-                }
-            );
+            dispatch(appSlice.actions.changeLoginState({
+                loginSuccess: true,
+                email: data.email,
+                name: data.name,  
+                tel: data.tel,
+                user_id: data.user_id
+            }));
+            navigate('/');
         } else if (rt !== null) {
             alert('로그인 실패');
         }
