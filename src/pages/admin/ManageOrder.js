@@ -9,9 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
  
 import Container from 'components/common/Container';
-//import AdminHeader from 'components/admin/AdminHeader';
+import AdminHeader from 'components/admin/AdminHeader';
 import Search from 'components/common/Search';
-import TableList from 'components/common/TableList';
+import TableList from 'components/common/TableListWithoutPagination';
 import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
  
@@ -132,13 +132,13 @@ const ManageOrder = () => {
  
     return (
         <Container>
-            {/* <AdminHeader /> */}
+            <AdminHeader />
             <TitleContainer>
                 <Title content={"주문 관리"} />
             </TitleContainer>
             <Search selectBoxItems={selectBoxItems}
                     categoryName={"주문 번호"}
-                    categoryCount={orders.length}
+                    categoryCount={totalCount}
                     unit={'건'}
                     selectBoxItems={['주문 번호', '주문 상품', '주문 날짜', '이메일', '주문 금액', '주문 상태']}
                     onChange={onChangeSelect}
