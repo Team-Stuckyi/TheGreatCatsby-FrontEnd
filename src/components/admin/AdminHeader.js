@@ -103,44 +103,52 @@ const LogOut = styled.div`
     }
 `;
 
+const Box = styled.div`
+    height: 120px;
+`;
+
 const AdminHeader = () => {
     const navigate = useNavigate();
     const onClickLogOut = () => {
         navigate('/admin');
     };
     return (
-        <Wrapper>
-            <Container>
-                <LogoBox>
-                    <Link to={'/'}>
-                        <Logo Imgwidth="50px" />
+        <>
+            <Wrapper>
+                <Container>
+                    <LogoBox>
+                        <Link to={'/'}>
+                            <Logo Imgwidth="50px" />
+                        </Link>
+                    </LogoBox>
+                    <MenuContainer>
+                        <Link to="/admin/manageadmin">
+                            <Menu first="first">관리자 회원관리</Menu>
+                        </Link>
+                        <Link to="/admin/managemember">
+                            <Menu>일반 회원관리</Menu>
+                        </Link>
+                        <Link to="/admin/manageprod">
+                            <Menu>상품 관리</Menu>
+                        </Link>
+                        <Link to="/admin/managereview">
+                            <Menu>리뷰 관리</Menu>
+                        </Link>
+                        <Link to="/admin/manageorder">
+                            <Menu last="last">주문 관리</Menu>
+                        </Link>
+                    </MenuContainer>
+                    <Link to="/admin">
+                        <LogOut last="last" onClick={onClickLogOut}>
+                            로그아웃
+                        </LogOut>
                     </Link>
-                </LogoBox>
-                <MenuContainer>
-                    <Link to="/admin/manageadmin">
-                        <Menu first="first">관리자 회원관리</Menu>
-                    </Link>
-                    <Link to="/admin/managemember">
-                        <Menu>일반 회원관리</Menu>
-                    </Link>
-                    <Link to="/admin/manageprod">
-                        <Menu>상품 관리</Menu>
-                    </Link>
-                    <Link to="/admin/managereview">
-                        <Menu>리뷰 관리</Menu>
-                    </Link>
-                    <Link to="/admin/manageorder">
-                        <Menu last="last">주문 관리</Menu>
-                    </Link>
-                </MenuContainer>
-                <Link to="/admin">
-                    <LogOut last="last" onClick={onClickLogOut}>
-                        로그아웃
-                    </LogOut>
-                </Link>
-            </Container>
-        </Wrapper>
+                </Container>
+            </Wrapper>
+            <Box />
+        </>
     );
 };
 
 export default AdminHeader;
+

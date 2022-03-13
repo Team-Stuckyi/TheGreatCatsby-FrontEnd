@@ -1,11 +1,20 @@
 import GlobalStyles from 'GlobalStyles';
+import Main from "pages/users/Main";
+import Login from "pages/users/Login";
+
+import { useSelector } from "react-redux";
 
 function App() {
+
+    /* Login 관련 */
+    const {loginSuccess, email, name, tel, user_id} = useSelector(state => state.appLogin);
+
     return (
-        <div>
+        <>
             <GlobalStyles />
-            <div>no.1 위대한 캣츠비</div>
-        </div>
+            <Main />
+            <Login />
+        </>
     );
 }
 
