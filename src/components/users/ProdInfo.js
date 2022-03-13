@@ -53,17 +53,7 @@ const ProdInfo = ({ prod_explain = '상품 설명이 비어있습니다.', prod_
                 <ProdSubtitle>설명</ProdSubtitle>
                 <ProdExplainBox>{prod_explain}</ProdExplainBox>
                 <ProdSubtitle>특징</ProdSubtitle>
-                {/*
-                    상품 특징이 배열일 경우에만 화면에 렌더링
-                    (배열을 순회하며 한줄씩 <p> 태그에 넣어 렌더링)
-                */}
-                <div>
-                    {typeof prod_characteristic === 'object'
-                        ? // prod_characteristic의 자료형이 object(배열)일 경우
-                          prod_characteristic.map((content, key) => <p key={key}>- {content} </p>)
-                        : // prod_characteristic의 자료형이 object(배열)이 아닐 경우
-                          '상품 특징이 비어있습니다.'}
-                </div>
+                <div>{prod_characteristic}</div>
             </ProdInfoBox>
         </ProdDetailInfo>
     );
