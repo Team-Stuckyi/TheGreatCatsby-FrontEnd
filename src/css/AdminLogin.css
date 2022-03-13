@@ -1,0 +1,5 @@
+html, body {
+    background-color: var(--whitegray);
+    width: 99%;
+    height: 99%;
+}
