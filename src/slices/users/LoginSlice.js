@@ -1,3 +1,9 @@
+/**
+ * @filename    : LoginSlice.js
+ * @author      : 노희재 (heejj1206@naver.com)
+ * @description : 회원 로그인 기능을 위한 슬라이스
+ */
+
 import { ServerUrl } from 'key';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';

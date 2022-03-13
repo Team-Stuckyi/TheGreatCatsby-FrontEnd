@@ -1,7 +1,7 @@
 /**
  * @filename    : ManageOrder.js
  * @author      : 노희재 (heejj1206@naver.com)
- * @description : 상품 관리 페이지
+ * @description : 주문 관리 페이지
  */
 
 import React, { useEffect, useState } from 'react';

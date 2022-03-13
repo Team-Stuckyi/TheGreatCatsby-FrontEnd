@@ -1,3 +1,9 @@
+/**
+ * @filename    : AddProd.js
+ * @author      : 노희재 (heejj1206@naver.com)
+ * @description : 상품 관리 페이지에서 상품 추가 기능을 위한 컴포넌트
+ */
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';

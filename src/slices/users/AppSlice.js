@@ -1,3 +1,9 @@
+/**
+ * @filename    : AppSlice.js
+ * @author      : 노희재 (heejj1206@naver.com)
+ * @description : 로그인, 로그아웃 상태를 위한 슬라이스
+ */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 export const appSlice = createSlice({
