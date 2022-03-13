@@ -5,6 +5,7 @@ import { adminUserSlice } from 'slices/admin/AdminUserSlice';
 import productsReducer from 'slices/users/products';
 import { loginSlice } from "slices/users/LoginSlice";
 import { appSlice } from "slices/users/AppSlice";
+import { manageOrderSlice } from 'slices/admin/ManageOrderSlice';
 
 const logger = createLogger();
 
@@ -14,7 +15,8 @@ const store = configureStore({
         adminuser: adminUserSlice.reducer,
         products: productsReducer,
         login: loginSlice.reducer,
-        appLogin: appSlice.reducer
+        appLogin: appSlice.reducer,
+        manageOrder: manageOrderSlice.reducer
     },
     middleware: [...getDefaultMiddleware({ serializableCheck: false }), logger],
     devTools: true,
