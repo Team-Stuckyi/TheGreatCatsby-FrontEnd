@@ -7,6 +7,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
 // 전체 div
 const Container = styled.div`
 width: 100%;
@@ -42,29 +45,52 @@ font-size: 17px;
 float: left;
 `;
 
-const PayAdress = ({ Receiver, Phone, Adress, PayMent }) => {
+const PayAdress = () => {
+
+    /** RecentAdress의 값 받아오기 */
+    let { oldaddrId } = useParams();
+
+    const { rt2, rtmsg2, item2, loading2 } = useSelector(state => state.recentMember);
+    const [recent, setRecent] = React.useState([]);
+
+    const dispatch2 = useDispatch();
+
+    React.useEffect(() => {
+        dispatch2(getAdressMember(oldaddrId));
+    }, [oldaddrId]);
+
+    React.useEffect(() => {
+        if (rt2 === 200) {
+            setRecent(item2[0]);
+        }
+        console.log(item2);
+    }, [item2])
+
     return (
         <>
             <Container>
+
                 <PayBox>
                     <TextBox>
                         <PayText>받는 사람</PayText>
-                        <PaySub>{Receiver}</PaySub>
+                        <PaySub>찬민</PaySub>
                     </TextBox>
                     <TextBox>
                         <PayText>휴대 전화</PayText>
-                        <PaySub>{Phone}</PaySub>
+                        <PaySub>{recent.tel}</PaySub>
                     </TextBox>
                     <TextBox>
                         <PayText>배송 주소</PayText>
-                        <PaySub>{Adress}</PaySub>
+                        <PaySub>{recent.addr1}</PaySub>
                     </TextBox>
                     <TextBox>
                         <PayText>결제 방법</PayText>
-                        <PaySub>{PayMent}</PaySub>
+                        <PaySub>카카오</PaySub>
                     </TextBox>
                 </PayBox>
             </Container>
+
+
         </>
 
     );
