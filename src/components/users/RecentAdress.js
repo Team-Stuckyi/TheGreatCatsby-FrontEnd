@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
 
 const Wrapper = styled.div`
 width: 100%;
@@ -56,7 +59,7 @@ width: 1100px;
 const AdressInfo = styled.div`
 width: 1100px;
 margin-left: 20px;
-margin-top: 20px;
+margin-top: 40px;
 `;
 // 배송 요청사항 text
 const InfoText = styled.p`
@@ -80,7 +83,8 @@ color: var(--gray600);
 margin-top: -20px;
 font-family: InfinitySansR-Regular;
 `;
-const RecentAdress = () => {
+const RecentAdress = ({ recent }) => {
+
     return (
         <>
             <Wrapper>
@@ -93,11 +97,11 @@ const RecentAdress = () => {
                             </TextBox>
                             <TextBox>
                                 <PayText>휴대 전화</PayText>
-                                <PaySub>전찬민</PaySub>
+                                <PaySub>{recent.tel}</PaySub>
                             </TextBox>
                             <TextBox>
                                 <PayText>배송 주소</PayText>
-                                <PaySub>전찬민</PaySub>
+                                <PaySub>{recent.addr1}</PaySub>
                             </TextBox>
                         </AdressText>
                         <AdressTextsub>
@@ -106,7 +110,7 @@ const RecentAdress = () => {
                             </AdressInfo>
                             <AdressRequest>
                                 <Select>
-                                    <option value="0" selected>배송 요청 사항을 선택하세요.</option>
+                                    <option value="0">배송 요청 사항을 선택하세요.</option>
                                     <option value="1">부재 시 연락 부탁드려요.</option>
                                     <option value="1">문 앞으로 배송 부탁드려요.</option>
                                     <option value="1">배송 전 연락 부탁드려요.</option>
