@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
+=======
+/**
+ * @filename    : Alert.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : 관리자 페이지 Alert 컴포넌트
+ */
+
+import React from 'react';
+>>>>>>> fd7229b1c20332507d8ab3c8dc38d1c3a3aca2d9
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 

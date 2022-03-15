@@ -86,6 +86,7 @@ const Input = ({
   Padding,
   Outline,
   value,
+  name
 }) => {
   return (
     <>
@@ -104,6 +105,7 @@ const Input = ({
           height={height}
           Padding={Padding}
           value={value}
+          name={name}
         />
         : (Inptype === 'middle' ?
           <InputMiddle
@@ -120,6 +122,7 @@ const Input = ({
             height={height}
             Padding={Padding}
             value={value}
+            name={name}
           />
           : (Inptype === 'half' ?
             <InputHalf
@@ -136,6 +139,7 @@ const Input = ({
               height={height}
               Padding={Padding}
               value={value}
+              name={name}
             />
             : <InputSmall
               type={type}
@@ -151,6 +155,7 @@ const Input = ({
               height={height}
               Padding={Padding}
               value={value}
+              name={name}
             />
           ))}
     </>
