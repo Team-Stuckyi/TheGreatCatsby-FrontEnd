@@ -1,3 +1,9 @@
+/**
+ * @filename    : Showmethemoney.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : 결제 페이지
+ */
+
 import React from 'react';
 // 사용자 페이지 모듈
 import Header from 'components/users/Header.js';
@@ -17,6 +23,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getReviewProdInfo } from 'slices/users/ShowProdSlice.js';
 import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
+import { postOrder } from 'slices/users/ShowOrderSlice.js';
 
 // 전체 div
 const Wrapper = styled.div`
@@ -115,6 +122,7 @@ font-family: 'InfinitySansR-Regular';
 
 const Showmethemoney = () => {
 
+    /** 상품조회를 위해 값 받아오기 */
     let { prodId } = useParams();
 
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
@@ -134,16 +142,14 @@ const Showmethemoney = () => {
     }, [item])
 
     /** RecentAdress의 값 받아오기 */
-    let { oldaddrId } = useParams();
-
     const { rt2, rtmsg2, item2, loading2 } = useSelector(state => state.recentMember);
     const [recent, setRecent] = React.useState([]);
 
     const dispatch2 = useDispatch();
 
     React.useEffect(() => {
-        dispatch2(getAdressMember(oldaddrId));
-    }, [oldaddrId]);
+        dispatch2(getAdressMember(prodId));
+    }, [prodId]);
 
     React.useEffect(() => {
         if (rt2 === 200) {
@@ -177,17 +183,17 @@ const Showmethemoney = () => {
 
     // NewAdress에 보낼 state
     const [name, setName] = React.useState()
-    const [tel, setTel] = React.useState()
-    const [addr1, setAddr1] = React.useState()
-    const [addr2, setAddr2] = React.useState()
+    const [phone, setPhone] = React.useState()
+    const [addrr1, setAddrr1] = React.useState()
+    const [addrr2, setAddrr2] = React.useState()
 
     // 값 저장을 위한 onChange 함수
     const AddressPut = async () => {
         const formData = new FormData()
         formData.append('name', name);
-        formData.append('tel', tel);
-        formData.append('addr1', addr1);
-        formData.append('addr2', addr2);
+        formData.append('phone', phone);
+        formData.append('addrr1', addrr1);
+        formData.append('addrr2', addrr2);
 
         dispatch(getAdressMember(formData));
     };
@@ -220,9 +226,9 @@ const Showmethemoney = () => {
                 desc: '세부 부가정보'
             },
             buyer_name: '전찬민',    // 구매자 이름
-            buyer_tel: `${recent.tel}`,   // 구매자 번호
+            buyer_tel: `${setView() === true ? recent.tel : phone}`,   // 구매자 번호
             buyer_email: '12@gmail.com',   // 구매자 이메일
-            buyer_addr: `${recent.addr1}`,    // 구매자 주소
+            buyer_addr: `${setView() === true ? item2.addr1 : addrr1}`,    // 구매자 주소
             buyer_postalcode: '04042',    // 구매자 우편번호
             m_redirect_url: `/thankyou/${prodId}`
         };
@@ -234,14 +240,14 @@ const Showmethemoney = () => {
         const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status } = response;
         if (success) {
             axios({
-                url: ServerUrl + `/orders/post/${prodId}`,
+                url: 'thankyou',
                 method: "post",
                 headers: { "Content-type": "application/json" },
                 data: {
                     imp_uid: response.imp_uid,
                     merchant_uid: response.merchant_uid,
                     pay_method: response.pay_method,
-                    paid_amount: response.paid_amount
+                    paid_amount: response.paid_amount,
                 }
             }).then((data) => {
                 switch (data.status) {
@@ -288,7 +294,7 @@ const Showmethemoney = () => {
                         </DeliveryBox>
                         <div>
                             {view ? <RecentAdress recent={recent} /> : <NewAdress
-                                setOnAddress={setOnAddress} onaddress={onaddress} name={name} setName={setName} tel={tel} setTel={setTel} addr1={addr1} setAddr1={setAddr1} addr2={addr2} setAddr2={setAddr2}
+                                setOnAddress={setOnAddress} onaddress={onaddress} name={name} setName={setName} phone={phone} setPhone={setPhone} addrr1={addrr1} setAddrr1={setAddrr1} addrr2={addrr2} setAddrr2={setAddrr2}
                             />}
                         </div>
                         <ProdOrder orderItem={orderItem} />
@@ -297,7 +303,10 @@ const Showmethemoney = () => {
                     </CenterBox>
                     <ButtonBox>
                         <ButtonText>위 주문을 확인하였으며 결제에 동의합니다.</ButtonText>
-                        <Button size={'lg'} width={'420px'} onClick={() => { onClickpayment(); AddressPut(); }} >
+                        <Button size={'lg'} width={'420px'} onClick={() => {
+                            onClickpayment()
+                            AddressPut()
+                        }} >
                             <ButtonsubText>결제하기</ButtonsubText>
                         </Button>
 

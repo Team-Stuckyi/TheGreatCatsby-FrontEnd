@@ -15,7 +15,8 @@ import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getReviewProdInfo } from 'slices/users/ShowProdSlice.js';
-/** 나중에 Link to 수정해서 넣을 것. */
+import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
+
 // 전체 div
 const Wrapper = styled.div`
 width: 100%;
@@ -93,13 +94,28 @@ const ThankYou = () => {
     React.useEffect(() => {
         dispatch(getReviewProdInfo(orderId));
     }, [orderId]);
-
     React.useEffect(() => {
         if (rt === 200) {
             setOrderItem(item[0]);
         }
 
     }, [item])
+
+    const { rt2, rtmsg2, item2, loading2 } = useSelector(state => state.recentMember);
+    const [recent, setRecent] = React.useState([]);
+
+    const dispatch2 = useDispatch();
+
+    React.useEffect(() => {
+        dispatch2(getAdressMember(orderId));
+    }, [orderId]);
+
+    React.useEffect(() => {
+        if (rt2 === 200) {
+            setRecent(item2[0]);
+        }
+        console.log(item2);
+    }, [item2])
 
     return (
         <>
@@ -116,13 +132,13 @@ const ThankYou = () => {
                     </Adress>
                     <AdressSuccess>주문접수가 완료되었습니다.</AdressSuccess>
                     <AdressCenter>
-                        <PayAdress />
+                        <PayAdress recent={recent} />
                         <ProdBill proPrice={orderItem.price} delivery={3000} />
                     </AdressCenter>
                 </Container>
             </Wrapper>
             <ButtonBox>
-                <Link to="/">
+                <Link to="/Main">
                     <Button size={'lg'} width={'420px'}><ButtonText>쇼핑 계속하기</ButtonText></Button>
                 </Link>
             </ButtonBox>
