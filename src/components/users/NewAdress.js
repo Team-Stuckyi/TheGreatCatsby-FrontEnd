@@ -1,3 +1,9 @@
+/**
+ * @filename    : NewAdress.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : 신규배송지 컴포넌트
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 import Input from 'components/common/Input.js';
@@ -124,12 +130,11 @@ border: 1px solid var(--black);
         color: var(--gray500);
     }
 `;
-const NewAdress = ({ onaddress, setOnAddress, name, setName, tel, setTel, addr1, setAddr1, addr2, setAddr2 }) => {
+const NewAdress = ({ onaddress, setOnAddress, name, setName, phone, setPhone, addrr1, setAddrr1, addrr2, setAddrr2 }) => {
 
     let { addrId } = useParams();
     const { rt, rtmsg, item, loading } = useSelector(state => state.AdressMember);
     const [newAddress, setNewAdress] = React.useState([]);
-    const [addressInfo, setAddressInfo] = React.useState();
     const dispatch = useDispatch();
 
     const onChangeAddress = (event) => {
@@ -139,12 +144,13 @@ const NewAdress = ({ onaddress, setOnAddress, name, setName, tel, setTel, addr1,
         if (name === 'rcname') {
             setName(value);
         } else if (name === 'rctel') {
-            setTel(value);
+            setPhone(value);
         } else if (name === 'rcaddr1') {
-            setAddr1(value);
+            setAddrr1(value);
         } else if (name === 'rcaddr2') {
-            setAddr2(value);
+            setAddrr2(value);
         }
+        console.log(value);
     };
 
     React.useEffect(() => {
@@ -217,21 +223,21 @@ const NewAdress = ({ onaddress, setOnAddress, name, setName, tel, setTel, addr1,
                             <TextBox>
                                 <PayText>휴대 전화</PayText>
                                 <InputBox>
-                                    <Input Inptype={'full'} Radius={'0px'} borderColor={'black'} placeholder={'휴대전화 번호를 입력하세요.'} onChange={onChangeAddress} value={tel} name='rctel' />
+                                    <Input Inptype={'full'} Radius={'0px'} borderColor={'black'} placeholder={'휴대전화 번호를 입력하세요.'} onChange={onChangeAddress} value={phone} name='rctel' />
                                 </InputBox>
                             </TextBox>
                             <TextBox>
                                 <PayText>배송 주소</PayText>
                                 <InputButtonBox>
                                     <AddressBox>
-                                        <p onChange={onChangeAddress} value={addr1} name='rcaddr1' >{onaddress}</p>
+                                        <p onChange={onChangeAddress} value={addrr1} name='rcaddr1' >{onaddress}</p>
                                     </AddressBox>
                                     <ButtonBox>
                                         <Button size={'lg'} width={'95px'} onClick={onChangeOpenPost} >우편번호</Button>
                                     </ButtonBox>
                                 </InputButtonBox>
                                 <InputsubBox>
-                                    <Input Inptype={'full'} Radius={'0px'} borderColor={'black'} placeholder={'상세주소를 입력하세요.'} onChange={onChangeAddress} value={addr2} name='rcaddr2' />
+                                    <Input Inptype={'full'} Radius={'0px'} borderColor={'black'} placeholder={'상세주소를 입력하세요.'} onChange={onChangeAddress} value={addrr2} name='rcaddr2' />
                                 </InputsubBox>
 
                             </TextBox>

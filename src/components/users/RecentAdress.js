@@ -1,9 +1,12 @@
+/**
+ * @filename    : RecentAdress.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : 최근배송지 컴포넌트
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
-import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
 
 const Wrapper = styled.div`
 width: 100%;

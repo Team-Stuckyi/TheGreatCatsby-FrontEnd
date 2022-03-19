@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+/**
+ * @filename    : PayMent.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : 결제 컴포넌트
+ */
+
+import React from 'react';
 import styled from 'styled-components';
 import Toss from 'img/toss-logo.png';
 import Kakao from 'img/kakaopay-logo.png';

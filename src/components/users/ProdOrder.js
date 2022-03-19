@@ -1,6 +1,11 @@
+/**
+ * @filename    : ProdOrder.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : 상품 컴포넌트
+ */
+
 import React from 'react';
 import styled from 'styled-components';
-import OrderItem from 'img/pay-item.jpg';
 
 
 const Wrapper = styled.div`
@@ -72,11 +77,11 @@ const NumberText = styled.p`
 color: var(--gray500);
 `;
 
-const ProdOrder = ({orderItem}) => {
-    
+const ProdOrder = ({ orderItem }) => {
+
     return (
         <>
-            <Wrapper>                   
+            <Wrapper>
                 <Container>
                     <OrderText>주문상품</OrderText>
                     <PayContainer>
@@ -94,7 +99,7 @@ const ProdOrder = ({orderItem}) => {
                             </TextBox>
                         </ProdSub>
                     </ProdContainer>
-                </Container>                
+                </Container>
             </Wrapper>
         </>
     )
