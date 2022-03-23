@@ -22,7 +22,7 @@ export const login = createAsyncThunk("POST_LOGIN", async(payload, { rejectWithV
 })
 
 
-export const loginSlice = createSlice({
+export const userLoginSlice = createSlice({
         name: 'login',
         initialState: {
             rt: null, //HTTP 상태 코드 (200, 404, 500등)
@@ -57,4 +57,4 @@ export const loginSlice = createSlice({
         }
 });
 
-export default loginSlice.reducer;
+export default userLoginSlice.reducer;

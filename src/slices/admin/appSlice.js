@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const appSlice = createSlice({
+export const adminAppSlice = createSlice({
     name: 'appLogin',
     initialState: {
         loginSuccess: false,
@@ -21,4 +21,4 @@ export const appSlice = createSlice({
     },
 });
 
-export default appSlice.reducer;
+export default adminAppSlice.reducer;
