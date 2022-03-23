@@ -12,7 +12,7 @@ import ProdBill from 'components/common/ProdBill.js';
 import Button from 'components/common/Button.js';
 import styled from 'styled-components';
 
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getReviewProdInfo } from 'slices/users/ShowProdSlice.js';
 import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
@@ -83,39 +83,42 @@ font-family: 'InfinitySansR-Regular';
 `;
 
 const ThankYou = () => {
+    /** 상품조회를 위해 값 받아오기 */
+    let { prodId } = useParams();
+    /** Showmethmoney페이지에서 useNavigate로 인자 받아온 값 */
+    // PayAdress넘겨 주기
+    const location = useLocation();
+    const { pg_provider } = location.state;
 
-    let { orderId } = useParams();
-
+    /** 상품 정보 받아오기 */
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
     const [orderItem, setOrderItem] = React.useState([]);
 
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        dispatch(getReviewProdInfo(orderId));
-    }, [orderId]);
+        dispatch(getReviewProdInfo(prodId));
+    }, [prodId]);
     React.useEffect(() => {
         if (rt === 200) {
             setOrderItem(item[0]);
         }
-
     }, [item])
 
+    /** RecentAdress의 값 받아오기 */
     const { rt2, rtmsg2, item2, loading2 } = useSelector(state => state.recentMember);
     const [recent, setRecent] = React.useState([]);
 
-    const dispatch2 = useDispatch();
-
     React.useEffect(() => {
-        dispatch2(getAdressMember(orderId));
-    }, [orderId]);
+        dispatch(getAdressMember(prodId));
+    }, [prodId]);
 
     React.useEffect(() => {
         if (rt2 === 200) {
             setRecent(item2[0]);
         }
-        console.log(item2);
     }, [item2])
+
 
     return (
         <>
@@ -132,7 +135,7 @@ const ThankYou = () => {
                     </Adress>
                     <AdressSuccess>주문접수가 완료되었습니다.</AdressSuccess>
                     <AdressCenter>
-                        <PayAdress recent={recent} />
+                        <PayAdress recent={recent} pg_provider={pg_provider} />
                         <ProdBill proPrice={orderItem.price} delivery={3000} />
                     </AdressCenter>
                 </Container>
