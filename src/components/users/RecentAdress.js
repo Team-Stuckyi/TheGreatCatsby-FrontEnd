@@ -96,7 +96,7 @@ const RecentAdress = ({ recent }) => {
                         <AdressText>
                             <TextBox>
                                 <PayText>받는 사람</PayText>
-                                <PaySub>전찬민</PaySub>
+                                <PaySub>{recent.name}</PaySub>
                             </TextBox>
                             <TextBox>
                                 <PayText>휴대 전화</PayText>

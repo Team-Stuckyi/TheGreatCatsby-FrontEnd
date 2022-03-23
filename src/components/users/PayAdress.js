@@ -42,7 +42,7 @@ font-size: 17px;
 float: left;
 `;
 
-const PayAdress = ({ recent }) => {
+const PayAdress = ({ recent, pg_provider }) => {
 
     return (
         <>
@@ -51,7 +51,7 @@ const PayAdress = ({ recent }) => {
                 <PayBox>
                     <TextBox>
                         <PayText>받는 사람</PayText>
-                        <PaySub>전찬민</PaySub>
+                        <PaySub>{recent.name}</PaySub>
                     </TextBox>
                     <TextBox>
                         <PayText>휴대 전화</PayText>
@@ -63,7 +63,7 @@ const PayAdress = ({ recent }) => {
                     </TextBox>
                     <TextBox>
                         <PayText>결제 방법</PayText>
-                        <PaySub>카카오</PaySub>
+                        <PaySub>{pg_provider === 'tosspay' ? '토스결제' : '카카오결제'}</PaySub>
                     </TextBox>
                 </PayBox>
             </Container>

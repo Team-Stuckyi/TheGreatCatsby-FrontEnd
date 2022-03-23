@@ -12,7 +12,7 @@ import Button from 'components/common/Button.js';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { putAdressMember } from 'slices/users/NewMemberSlice.js';
-import { getAdressMember } from 'slices/users/NewMemberSlice.js';
+import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
 
 import DaumPostcode from 'react-daum-postcode';
 
@@ -122,15 +122,17 @@ font-family: InfinitySansR-Regular;
 const AddressBox = styled.div`
 width: 260px;
 height: 70px;
-border: 1px solid var(--black);
-// 우편번호 text
-    >p {
-        font-size: 14px;
-        padding: 10px;
-        color: var(--gray500);
-    }
+    >textarea {
+    border: 1px solid var(--black);
+    resize: none;
+    width: 260px;
+    height: 70px;
+    font-family: InfinitySansR-Regular;
+    font-size: 14px;
+    padding: 10px;
+}
 `;
-const NewAdress = ({ onaddress, setOnAddress, name, setName, phone, setPhone, addrr1, setAddrr1, addrr2, setAddrr2 }) => {
+const NewAdress = ({ onaddress, setOnAddress, foreName, setForeName, phone, setPhone, addrr1, setAddrr1, addrr2, setAddrr2 }) => {
 
     let { addrId } = useParams();
     const { rt, rtmsg, item, loading } = useSelector(state => state.AdressMember);
@@ -142,7 +144,7 @@ const NewAdress = ({ onaddress, setOnAddress, name, setName, phone, setPhone, ad
             target: { name, value },
         } = event;
         if (name === 'rcname') {
-            setName(value);
+            setForeName(value);
         } else if (name === 'rctel') {
             setPhone(value);
         } else if (name === 'rcaddr1') {
@@ -150,15 +152,11 @@ const NewAdress = ({ onaddress, setOnAddress, name, setName, phone, setPhone, ad
         } else if (name === 'rcaddr2') {
             setAddrr2(value);
         }
-        console.log(value);
     };
+
 
     React.useEffect(() => {
         dispatch(putAdressMember(addrId));
-    }, [addrId]);
-
-    React.useEffect(() => {
-        dispatch(getAdressMember(addrId));
     }, [addrId]);
 
     React.useEffect(() => {
@@ -217,7 +215,7 @@ const NewAdress = ({ onaddress, setOnAddress, name, setName, phone, setPhone, ad
                             <TextBox>
                                 <PayText>받는 사람</PayText>
                                 <InputBox>
-                                    <Input Inptype={'full'} Radius={'0px'} borderColor={'black'} placeholder={'받으시는 분의 성함을 입력하세요.'} onChange={onChangeAddress} value={name} name='rcname' />
+                                    <Input Inptype={'full'} Radius={'0px'} borderColor={'black'} placeholder={'받으시는 분의 성함을 입력하세요.'} onChange={onChangeAddress} value={foreName} name='rcname' />
                                 </InputBox>
                             </TextBox>
                             <TextBox>
@@ -230,7 +228,7 @@ const NewAdress = ({ onaddress, setOnAddress, name, setName, phone, setPhone, ad
                                 <PayText>배송 주소</PayText>
                                 <InputButtonBox>
                                     <AddressBox>
-                                        <p onChange={onChangeAddress} value={addrr1} name='rcaddr1' >{onaddress}</p>
+                                        <textarea placeholder={onaddress} onChange={onChangeAddress} value={addrr1} name='rcaddr1'>{onaddress}</textarea>
                                     </AddressBox>
                                     <ButtonBox>
                                         <Button size={'lg'} width={'95px'} onClick={onChangeOpenPost} >우편번호</Button>
