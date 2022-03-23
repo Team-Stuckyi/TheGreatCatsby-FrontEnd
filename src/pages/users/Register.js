@@ -1,3 +1,9 @@
+/**
+ * @filename    : JoinSlice.js
+ * @author      : 노희재 (heejj1206@naver.com)
+ * @description : 회원가입 페이지
+ */
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from "react-redux";
@@ -64,6 +70,7 @@ const Register = () => {
 
     const onNameChange = (e) => {
         setName(e.target.value);
+        // 이름 입력창 정규표현식
         let regExp = /^[ㄱ-ㅎ가-힣]*$/;
         if(!regExp.test(e.target.value) || e.target.value.length > 8 && e.target.value.length > 0) {
             setShowNameText("1");
@@ -74,6 +81,7 @@ const Register = () => {
 
     const onEmailChange = (e) => {
         setEmail(e.target.value);
+        // 이메일 입력창 정규표현식
         let regExp = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         if(!regExp.test(e.target.value) && e.target.value.length > 0) {
             setShowEmailText("1");
@@ -84,6 +92,7 @@ const Register = () => {
 
     const onPasswordChange = (e) => {
         setPassword(e.target.value);
+        // 비밀번호 입력창 정규표현식
         let regExp = /^[a-zA-Z0-9]*$/;
         if(!regExp.test(e.target.value) || (e.target.value.length < 8 || e.target.value.length > 16) && e.target.value.length > 0) {
             setShowPasswordText("1");
@@ -94,6 +103,7 @@ const Register = () => {
 
     const onCompareChange = (e) => {
         setPwCompare(e.target.value);
+        // 비밀번호 입력값과 비교
         if(e.target.value != password && e.target.value.length > 0) {
             setShowCompareText("1");
         } else {
@@ -102,7 +112,7 @@ const Register = () => {
     }
 
     const onSubmit = (e) => {
-        dispatch(postMember ({name: name, email: email, password: password}));
+        dispatch(postMember({name: name, email: email, password: password}));
     }
 
     useEffect(() => {
