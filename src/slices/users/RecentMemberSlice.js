@@ -5,14 +5,12 @@ import { ServerUrl } from 'key';
 export const getAdressMember = createAsyncThunk('/adress/getAdressMember', async (payload, { rejectWithValue }) => {
     let result = null;
     try {
-        console.log();
         result = await axios.get(ServerUrl + `/members/address/${payload}`, {
 
         });
     } catch (e) {
         result = rejectWithValue(e.response);
     }
-    console.log(result);
     return result;
 });
 
@@ -22,7 +20,7 @@ export const RecentAdressSlice = createSlice({
     initialState: {
         rt2: null,
         rtmsg2: null,
-        item2: {},
+        item2: [],
         loading2: false,
     },
     reducers: {},
