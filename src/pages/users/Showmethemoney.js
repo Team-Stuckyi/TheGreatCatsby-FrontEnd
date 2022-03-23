@@ -17,12 +17,11 @@ import ProdBill from 'components/common/ProdBill.js';
 import Button from 'components/common/Button.js';
 
 import styled from 'styled-components';
-import axios from 'axios';
-import { ServerUrl } from 'key';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getReviewProdInfo } from 'slices/users/ShowProdSlice.js';
 import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
+import { putAdressMember } from 'slices/users/NewMemberSlice.js';
 import { postOrder } from 'slices/users/ShowOrderSlice.js';
 
 // 전체 div
@@ -120,11 +119,11 @@ font-family: 'InfinitySansR-Regular';
 `;
 
 
-const Showmethemoney = () => {
+const Showmethemoney = ({ user_id, email }) => {
 
     /** 상품조회를 위해 값 받아오기 */
     let { prodId } = useParams();
-
+    let { count } = useParams();
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
     const [orderItem, setOrderItem] = React.useState([]);
 
@@ -145,10 +144,8 @@ const Showmethemoney = () => {
     const { rt2, rtmsg2, item2, loading2 } = useSelector(state => state.recentMember);
     const [recent, setRecent] = React.useState([]);
 
-    const dispatch2 = useDispatch();
-
     React.useEffect(() => {
-        dispatch2(getAdressMember(prodId));
+        dispatch(getAdressMember(prodId));
     }, [prodId]);
 
     React.useEffect(() => {
@@ -158,31 +155,30 @@ const Showmethemoney = () => {
         console.log(item2);
     }, [item2])
 
+    /** Thankyou페이지로 이동 */
+    const navigate = useNavigate();
+
     // 버튼 클릭시 컴포넌트 변화에 대한 useState
     const [view, setView] = React.useState(true)
     // PayMent에 보내는 useState
     const [marvel, setMarvel] = React.useState([]);
-
     const [ment, setMent] = React.useState([]);
 
     React.useEffect(() => {
         setMent(marvel);
     }, [ment]);
     console.log(marvel);
+
     // NewAdress에 보낼 useState
     const [save, setSave] = React.useState([]);
-
     const [onaddress, setOnAddress] = React.useState([]);
 
     React.useEffect(() => {
         setSave(onaddress);
     }, [save]);
 
-    // 페이지 이동을 위한 navigate 추가
-    const navigate = useNavigate()
-
     // NewAdress에 보낼 state
-    const [name, setName] = React.useState()
+    const [foreName, setForeName] = React.useState()
     const [phone, setPhone] = React.useState()
     const [addrr1, setAddrr1] = React.useState()
     const [addrr2, setAddrr2] = React.useState()
@@ -190,12 +186,20 @@ const Showmethemoney = () => {
     // 값 저장을 위한 onChange 함수
     const AddressPut = async () => {
         const formData = new FormData()
-        formData.append('name', name);
+        formData.append('foreName', foreName);
         formData.append('phone', phone);
         formData.append('addrr1', addrr1);
         formData.append('addrr2', addrr2);
-
-        dispatch(getAdressMember(formData));
+        /** putAdress에 데이터 수정 값 보내기 */
+        dispatch(
+            putAdressMember({
+                prodId,
+                name: foreName,
+                tel: phone,
+                addr1: onaddress,
+                addr2: addrr2
+            }));
+        console.log('test', addrr1);
     };
 
     /** 아임포트 결제 창  */
@@ -215,7 +219,7 @@ const Showmethemoney = () => {
     const onClickpayment = () => {
         const { IMP } = window;
         IMP.init('imp20942408');
-        const data = {
+        const dataOne = {
             pg: `${marvel === 'Toss' ? 'tosspay' : 'kakaopay'}`,   // PG사
             pay_method: 'trans',  // 결제수단
             merchant_uid: `mid_${new Date().getTime()}`,
@@ -225,45 +229,38 @@ const Showmethemoney = () => {
                 name: '부가정보',
                 desc: '세부 부가정보'
             },
-            buyer_name: '전찬민',    // 구매자 이름
+            count: 1,
+            buyer_name: `${setView() === true ? recent.name : foreName}`,    // 구매자 이름
             buyer_tel: `${setView() === true ? recent.tel : phone}`,   // 구매자 번호
-            buyer_email: '12@gmail.com',   // 구매자 이메일
-            buyer_addr: `${setView() === true ? item2.addr1 : addrr1}`,    // 구매자 주소
+            buyer_email: `${email}`,   // 구매자 이메일
+            buyer_addr: `${setView() === true ? recent.addr1 : onaddress}`,    // 구매자 주소
             buyer_postalcode: '04042',    // 구매자 우편번호
             m_redirect_url: `/thankyou/${prodId}`
-        };
-        IMP.request_pay(data, callback);
-        console.log(data);
+        }
+        IMP.request_pay(dataOne, callback);
     }
 
     const callback = (response) => {
-        const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status } = response;
+        const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status, pg_provider } = response;
+
         if (success) {
-            axios({
-                url: 'thankyou',
-                method: "post",
-                headers: { "Content-type": "application/json" },
-                data: {
-                    imp_uid: response.imp_uid,
-                    merchant_uid: response.merchant_uid,
-                    pay_method: response.pay_method,
-                    paid_amount: response.paid_amount,
-                }
-            }).then((data) => {
-                switch (data.status) {
-                    // case: "vbankIssued":
-                    // break;
-                    // case "success":
-                    // break;
-                }
-            })
-                .finally(() => {
-                    navigate(`/thankyou/${prodId}`)
+            dispatch(
+                postOrder({
+                    order_price: response.paid_amount,
+                    order_select: `${marvel === 'Toss' ? 'T' : 'K'}`,
+                    prod_id: `${prodId}`,
+                    user_id: `${user_id}`,
+                    order_count: `${count}`,
                 })
+            )
 
             alert('결제 성공');
             console.log('성공');
-
+            navigate(`/thankyou/${prodId}`, {
+                state: {
+                    pg_provider: pg_provider
+                },
+            });
         } else {
             alert(`결제 실패 : ${error_msg}`);
             console.log('실패');
@@ -294,7 +291,7 @@ const Showmethemoney = () => {
                         </DeliveryBox>
                         <div>
                             {view ? <RecentAdress recent={recent} /> : <NewAdress
-                                setOnAddress={setOnAddress} onaddress={onaddress} name={name} setName={setName} phone={phone} setPhone={setPhone} addrr1={addrr1} setAddrr1={setAddrr1} addrr2={addrr2} setAddrr2={setAddrr2}
+                                setOnAddress={setOnAddress} onaddress={onaddress} foreName={foreName} setForeName={setForeName} phone={phone} setPhone={setPhone} addrr1={addrr1} setAddrr1={setAddrr1} addrr2={addrr2} setAddrr2={setAddrr2}
                             />}
                         </div>
                         <ProdOrder orderItem={orderItem} />
@@ -303,13 +300,13 @@ const Showmethemoney = () => {
                     </CenterBox>
                     <ButtonBox>
                         <ButtonText>위 주문을 확인하였으며 결제에 동의합니다.</ButtonText>
+
                         <Button size={'lg'} width={'420px'} onClick={() => {
                             onClickpayment()
                             AddressPut()
                         }} >
                             <ButtonsubText>결제하기</ButtonsubText>
                         </Button>
-
                     </ButtonBox>
                 </Container>
             </Wrapper>
