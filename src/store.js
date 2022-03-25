@@ -5,15 +5,14 @@ import { appSlice } from 'slices/users/AppSlice';
 import { userLoginSlice } from 'slices/users/LoginSlice';
 import { joinMemberSlice } from 'slices/users/JoinSlice';
 import { mainProductSlice } from 'slices/users/MainProductSlice';
-import { GetOrderSlice } from './slices/users/GetOrderSlice.js';
-import { newAdressSlice } from './slices/users/NewMemberSlice.js';
-import { RecentAdressSlice } from './slices/users/RecentMemberSlice.js';
-import { ShowOrderSlice } from './slices/users/ShowOrderSlice.js';
+import { newAdressSlice } from 'slices/users/NewMemberSlice.js';
+import { RecentAdressSlice } from 'slices/users/RecentMemberSlice.js';
+import { ShowOrderSlice } from 'slices/users/ShowOrderSlice.js';
 import { reviewListSlice } from 'slices/users/ReviewListSlice';
 import { reviewProdInfoSlice } from 'slices/users/ReviewProdInfoSlice';
 import { ReviewWriteSlice } from 'slices/users/ReviewWriteSlice';
 //관리자 페이지
-import { adminAppSlice } from 'slices/admin/appSlice';
+import { adminAppSlice } from 'slices/admin/adminAppSlice';
 import { adminLoginSlice } from 'slices/admin/LoginSlice';
 import { adminUserSlice } from 'slices/admin/AdminUserSlice';
 import { memberSlice } from 'slices/admin/MemberSlice';
@@ -31,7 +30,6 @@ const store = configureStore({
         userLogin: userLoginSlice.reducer,
         joinMember: joinMemberSlice.reducer,
         mainprod: mainProductSlice.reducer,
-        getOrder: GetOrderSlice.reducer,
         showOrder: ShowOrderSlice.reducer,
         AdressMember: newAdressSlice.reducer,
         recentMember: RecentAdressSlice.reducer,

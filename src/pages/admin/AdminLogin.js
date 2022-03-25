@@ -17,7 +17,7 @@ import Input from 'components/common/Input';
 import Alert from 'components/common/Alert';
 
 import { login } from 'slices/admin/LoginSlice';
-import { appSlice } from 'slices/admin/appSlice';
+import { adminAppSlice } from 'slices/admin/adminAppSlice';
 
 // Styles
 import 'css/AdminLogin.css';
@@ -88,7 +88,7 @@ const AdminLogin = () => {
     useEffect(() => {
         if (rt === 200) {
             dispatch(
-                appSlice.actions.changeLoginState({
+                adminAppSlice.actions.changeLoginState({
                     loginSuccess: true,
                     email: data.email,
                     name: data.name,

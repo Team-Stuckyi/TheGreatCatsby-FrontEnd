@@ -13,73 +13,73 @@ import Button from 'components/common/Button.js';
 import styled from 'styled-components';
 
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
-import { getReviewProdInfo } from 'slices/users/ShowProdSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { getReviewProdInfo } from 'slices/users/ReviewProdInfoSlice.js';
 import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
 
 // 전체 div
 const Wrapper = styled.div`
-width: 100%;
-height: 600px;
-width: 1200px;
-margin: 0 auto;
+    width: 100%;
+    height: 600px;
+    width: 1200px;
+    margin: 0 auto;
 `;
 // border를 위한 div
 const Container = styled.div`
-border: 1px solid var(--gray200);
-width: 1200px;
-margin-top: 80px;
-padding-bottom: 40px;
+    border: 1px solid var(--gray200);
+    width: 1200px;
+    margin-top: 80px;
+    padding-bottom: 40px;
 `;
 // Text를 감싸는 div
 const Adress = styled.div`
-height: 60px;
-width: 1150px;
-margin: 0 auto;
+    height: 60px;
+    width: 1150px;
+    margin: 0 auto;
 `;
 // 주문결제 Text
 const AdressTitle = styled.p`
-font-size: 18px;
-font-family: InfinitySansR-Bold;
-margin-top: 20px;
+    font-size: 18px;
+    font-family: InfinitySansR-Bold;
+    margin-top: 20px;
 `;
 // float처리를 위한 div
 const AdressSubtitle = styled.div`
-float: right;
-margin-top: -20px;
+    float: right;
+    margin-top: -20px;
 `;
 // 주문결제 Text
 const AdressSub = styled.p`
-font-size: 14px;
-float: left;
+    font-size: 14px;
+    float: left;
 `;
 // 결제완료 Text
 const AdressSubtext = styled.p`
-color: var(--primary);
-float: right;
+    color: var(--primary);
+    float: right;
 `;
 // 주문접수 완료 Text
 const AdressSuccess = styled.p`
-font-size: 18px;
-font-family: InfinitySansR-Bold;
-text-align: center;
-margin-bottom: 25px;
+    font-size: 18px;
+    font-family: InfinitySansR-Bold;
+    text-align: center;
+    margin-bottom: 25px;
 `;
 // 가운데 정렬을 위한 div
 const AdressCenter = styled.div`
-width: 1100px;
-margin: 0 auto;
+    width: 1100px;
+    margin: 0 auto;
 `;
 // 버튼 div
 const ButtonBox = styled.div`
-width: 420px;
-height: 50px;
-margin: 0 auto;
+    width: 420px;
+    height: 50px;
+    margin: 0 auto;
 `;
 // 버튼 Text
 const ButtonText = styled.p`
-font-size: 18px;
-font-family: 'InfinitySansR-Regular';
+    font-size: 18px;
+    font-family: 'InfinitySansR-Regular';
 `;
 
 const ThankYou = () => {
@@ -103,7 +103,7 @@ const ThankYou = () => {
         if (rt === 200) {
             setOrderItem(item[0]);
         }
-    }, [item])
+    }, [item]);
 
     /** RecentAdress의 값 받아오기 */
     const { rt2, rtmsg2, item2, loading2 } = useSelector(state => state.recentMember);
@@ -117,8 +117,7 @@ const ThankYou = () => {
         if (rt2 === 200) {
             setRecent(item2[0]);
         }
-    }, [item2])
-
+    }, [item2]);
 
     return (
         <>
@@ -128,7 +127,8 @@ const ThankYou = () => {
                     <Adress>
                         <AdressTitle>주문결제</AdressTitle>
                         <AdressSubtitle>
-                            <AdressSub>01) 주문결제 &gt; &nbsp;
+                            <AdressSub>
+                                01) 주문결제 &gt; &nbsp;
                                 <AdressSubtext>02) 결제완료</AdressSubtext>
                             </AdressSub>
                         </AdressSubtitle>
@@ -142,13 +142,13 @@ const ThankYou = () => {
             </Wrapper>
             <ButtonBox>
                 <Link to="/Main">
-                    <Button size={'lg'} width={'420px'}><ButtonText>쇼핑 계속하기</ButtonText></Button>
+                    <Button size={'lg'} width={'420px'}>
+                        <ButtonText>쇼핑 계속하기</ButtonText>
+                    </Button>
                 </Link>
             </ButtonBox>
             <Footer />
-
         </>
-
     );
 };
 
