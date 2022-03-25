@@ -8,6 +8,7 @@ import Search from 'components/common/Search';
 import Container from 'components/common/Container';
 import Title from 'components/common/Title';
 import TableList from 'components/common/TableList';
+import Button from 'components/common/Button';
 import Alert from 'components/common/Alert';
 
 const ManageAdmin = () => {
@@ -182,6 +183,18 @@ const ManageAdmin = () => {
             <AdminHeader />
             <Container>
                 <Title content={'일반 회원관리'}></Title>
+                <div style={{ float: 'right', marginTop: '45px', marginRight: '610px' }}>
+                    <Button
+                        onClick={onDataReset}
+                        width="100px"
+                        bgColor="var(--white)"
+                        border="1px solid var(--primary)"
+                        fontColor="var(--primary)"
+                        size="11px"
+                    >
+                        초기화
+                    </Button>
+                </div>
                 <Search
                     categoryName={'전체회원'}
                     categoryCount={item.length}
