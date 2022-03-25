@@ -1,5 +1,5 @@
 /**
- * @filename    : UserHeader.js
+ * @filename    : Header.js
  * @author      : 전찬민 (https://github.com/cksals3753)
  * @description : 사용자 페이지 헤더
  */
@@ -52,15 +52,15 @@ const Header = () => {
         <HeaderContainer>
             <TitleBar>
                 <LogoBox>
-
-                    <Logo Imgtype="light" Imgwidth="220px" />
-
+                    <Link to="/main">
+                        <Logo Imgtype="light" Imgwidth="220px" />
+                    </Link>
                 </LogoBox>
                 <LoginBox>
-
-                    <Img src={Login} />
-                    <P>Login</P>
-
+                    <Link to="/login">
+                        <Img src={Login} />
+                        <P>Login</P>
+                    </Link>
                 </LoginBox>
             </TitleBar>
         </HeaderContainer>

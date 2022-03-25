@@ -1,3 +1,8 @@
+/**
+ * @filename    : Logo.js
+ * @author      : 전찬민 (https://github.com/cksals3753)
+ * @description : Logo 컴포넌트
+ */
 import React from 'react';
 import styled from 'styled-components';
 import CenterLogo from 'img/TheGreatCatsby-Center-Pink-logo.png';
