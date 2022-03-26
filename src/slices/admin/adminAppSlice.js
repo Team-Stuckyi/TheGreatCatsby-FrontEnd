@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const adminAppSlice = createSlice({
-    name: 'appLogin',
+    name: 'adminAppLogin',
     initialState: {
         loginSuccess: false,
         email: null,

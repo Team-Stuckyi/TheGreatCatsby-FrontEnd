@@ -8,15 +8,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
-import Alert from 'components/common/Alert';
 
-import { login } from 'slices/admin/LoginSlice';
+import { adminlogin } from 'slices/admin/adminLoginSlice';
 import { adminAppSlice } from 'slices/admin/adminAppSlice';
 
 // Styles
@@ -58,7 +56,7 @@ const AdminLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { rt, rtmsg, data, loading } = useSelector(state => state.login);
+    const { rt, rtmsg, data, loading } = useSelector(state => state.adminLogin);
 
     // User email, password Input 변경 핸들러 함수
     const onChangeEmail = e => setEmail(e.target.value);
@@ -67,7 +65,6 @@ const AdminLogin = () => {
     // 잘못된 로그인 시도시 실행할 함수
     const badLoginRequest = err => {
         alert('존재하지 않는 이메일 혹은 잘못된 패스워드입니다.');
-        console.log(err);
     };
 
     // 성공적인 로그인 시도시 실행할 함수
@@ -78,7 +75,7 @@ const AdminLogin = () => {
     // Login 요청 함수
     const requestLogin = e => {
         dispatch(
-            login({
+            adminlogin({
                 email: email,
                 password: password,
             }),

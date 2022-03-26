@@ -34,9 +34,6 @@ const ProdList = () => {
     // ProdInfo
     const [prodInfoData, setProdInfoData] = useState([]);
 
-    // console.log(useSelector(state => state.reviewDataList));
-    // const reviewList = useSelector(state => state.reviewDataList);
-
     const reviewList = useSelector(state => state.reviewDataList);
     const reviewProdInfo = useSelector(state => state.reviewProdInfo);
 
@@ -48,15 +45,14 @@ const ProdList = () => {
     useEffect(() => {
         // Set State
         setReviewData(reviewList.item);
-    }, [reviewList]);
+    }, [reviewList, prod_id]);
 
     useEffect(() => {
         // Set State
         setProdInfoData(reviewProdInfo.item);
     }, [reviewProdInfo]);
 
-    console.log(reviewData[0]);
-    if (reviewData[0] && prodInfoData[0])
+    if (prodInfoData[0])
         return (
             <>
                 <Header />
@@ -68,7 +64,10 @@ const ProdList = () => {
                     />
                     <ProdInfo prod_characteristic={prodInfoData[0].prod_feature} prod_explain={prodInfoData[0].prod_info} />
                     <ProdImg prodInfoImageURL={prodInfoData[0].info_photo} />
-                    <ProdReview review_data={[reviewData[0], reviewData[1]]} prod_id={prod_id} />
+                    {/* 리뷰 데이터가 존재 할 경우 리뷰 리스트 출력 */}
+                    {reviewData[0] && <ProdReview review_data={[reviewData[0], reviewData[1]]} isProdDataNull={false} prod_id={prod_id} />}
+                    {/* 리뷰 데이터가 존재하지 않을 경우 없다고 출력 */}
+                    {!reviewData[0] && <ProdReview isProdDataNull={true} prod_id={prod_id} />}
                 </ProdListContainer>
                 <Footer />
             </>
