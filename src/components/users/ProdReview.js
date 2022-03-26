@@ -69,7 +69,15 @@ const ReviewCountText = styled('span')`
     left: 182px;
 `;
 
-const ProdReview = ({ review_data, stars_avg = '4.8', review_count = '(1,842)', stars = 4, star_size = '24px', prod_id }) => {
+const ProdReview = ({
+    review_data,
+    stars_avg = '4.8',
+    review_count = '(1,842)',
+    stars = 4,
+    star_size = '24px',
+    isProdDataNull,
+    prod_id,
+}) => {
     return (
         <ReviewContainer>
             <ReviewTitle>구매후기</ReviewTitle>
@@ -77,12 +85,17 @@ const ProdReview = ({ review_data, stars_avg = '4.8', review_count = '(1,842)', 
                 <ReviewPlus>+</ReviewPlus>
             </Link>
             <StarContainer>
-                <StarBox>
-                    <Stars starCount={stars} starSize={star_size} />
-                    <StarAvgText>{stars_avg}</StarAvgText>
-                    <ReviewCountText>{review_count}</ReviewCountText>
-                </StarBox>
-                <ReviewList reviewData={review_data} />
+                {isProdDataNull && <h1>작성된 리뷰가 없습니다.</h1>}
+                {!isProdDataNull && (
+                    <>
+                        <StarBox>
+                            <Stars starCount={stars} starSize={star_size} />
+                            <StarAvgText>{stars_avg}</StarAvgText>
+                            <ReviewCountText>{review_count}</ReviewCountText>
+                        </StarBox>
+                        <ReviewList reviewData={review_data} />
+                    </>
+                )}
             </StarContainer>
         </ReviewContainer>
     );
