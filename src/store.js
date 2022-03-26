@@ -13,7 +13,7 @@ import { reviewProdInfoSlice } from 'slices/users/ReviewProdInfoSlice';
 import { ReviewWriteSlice } from 'slices/users/ReviewWriteSlice';
 //관리자 페이지
 import { adminAppSlice } from 'slices/admin/adminAppSlice';
-import { adminLoginSlice } from 'slices/admin/LoginSlice';
+import { adminLoginSlice } from 'slices/admin/adminLoginSlice';
 import { adminUserSlice } from 'slices/admin/AdminUserSlice';
 import { memberSlice } from 'slices/admin/MemberSlice';
 import { manageProdSlice } from 'slices/admin/ManageProdSlice';
@@ -36,6 +36,7 @@ const store = configureStore({
         reviewDataList: reviewListSlice.reducer,
         reviewProdInfo: reviewProdInfoSlice.reducer,
         ReviewWrite: ReviewWriteSlice.reducer,
+
         //관리자 페이지
         adminLogin: adminLoginSlice.reducer,
         adminAppLogin: adminAppSlice.reducer,
