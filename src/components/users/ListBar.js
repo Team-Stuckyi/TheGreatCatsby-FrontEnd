@@ -52,6 +52,10 @@ const ListBar = ({ TabList }) => {
 
     const [page, setPage] = useState(1);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page, selected]);
+
     //기본 빈 배열에 받아온 props를 담아서 바뀔때마다 렌더링
     useEffect(() => {
         setSortList(TabList);
