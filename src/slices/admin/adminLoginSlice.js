@@ -2,20 +2,18 @@ import { ServerUrl } from 'key';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const login = createAsyncThunk('POST_LOGIN', async (payload, { rejectWithValue }) => {
+export const adminlogin = createAsyncThunk('POST_ADMINLOGIN', async (payload, { rejectWithValue }) => {
     let result = null;
-
     try {
         result = await axios.post(ServerUrl + '/admins/login', payload);
     } catch (err) {
         result = rejectWithValue(err.response);
     }
-
     return result;
 });
 
 export const adminLoginSlice = createSlice({
-    name: 'login',
+    name: 'adminLogin',
     initialState: {
         rt: null, //HTTP 상태 코드 (200, 404, 500등)
         rtmsg: null, //에러메시지
@@ -26,10 +24,10 @@ export const adminLoginSlice = createSlice({
     reducers: {},
 
     extraReducers: {
-        [login.pending]: (state, { payload }) => {
+        [adminlogin.pending]: (state, { payload }) => {
             return { ...state, loading: true };
         },
-        [login.fulfilled]: (state, { payload }) => {
+        [adminlogin.fulfilled]: (state, { payload }) => {
             return {
                 ...state,
                 rt: payload.status,
@@ -38,7 +36,7 @@ export const adminLoginSlice = createSlice({
                 loading: false,
             };
         },
-        [login.rejected]: (state, { payload }) => {
+        [adminlogin.rejected]: (state, { payload }) => {
             return {
                 ...state,
                 rt: payload?.status ? payload.status : '500',
