@@ -18,10 +18,10 @@ export const getAdressMember = createAsyncThunk('/adress/getAdressMember', async
 export const RecentAdressSlice = createSlice({
     name: 'recentMember',
     initialState: {
-        rt2: null,
-        rtmsg2: null,
-        item2: [],
-        loading2: false,
+        recentRt: null,
+        recentRtmsg: null,
+        recentItem: [],
+        recentLoading: false,
     },
     reducers: {},
     extraReducers: {
@@ -32,19 +32,19 @@ export const RecentAdressSlice = createSlice({
         [getAdressMember.fulfilled]: (state, { payload }) => {
             return {
                 ...state,
-                rt2: payload.status,
-                rtmsg2: payload.statusText,
-                item2: payload.data.item,
-                loading2: false,
+                recentRt: payload.status,
+                recentRtmsg: payload.statusText,
+                recentItem: payload.data.item,
+                recentLoading: false,
             };
         },
         [getAdressMember.rejected]: (state, { payload }) => {
             return {
                 ...state,
-                rt2: payload.status,
-                rtmsg2: payload.statusText,
-                item2: payload.data,
-                loading2: false,
+                recentRt: payload.status,
+                recentRtmsg: payload.statusText,
+                recentItem: payload.data,
+                recentLoading: false,
             };
         },
     },
