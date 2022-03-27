@@ -4,9 +4,9 @@
  * @description : 상위 컴포넌트인 ListBar에게 전달받은 상품 정보를 토대로 상품 카드를 출력하는 컴포넌트
  */
 
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Stars from 'components/common/Stars';
-import { Link } from 'react-router-dom';
 
 const CardListContainer = styled.div`
     width: 100%;
@@ -49,7 +49,6 @@ const Flex = styled.div`
 
 const ProdCard = ({ content, page }) => {
     const offset = (page - 1) * 20;
-    console.log(content);
     return (
         <>
             <CardListContainer>

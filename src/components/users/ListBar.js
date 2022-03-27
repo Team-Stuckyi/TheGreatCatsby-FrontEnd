@@ -4,8 +4,8 @@
  * @description : 상위 컴포넌트인 Tabs에서 분류된 상품 정보를 받아온 후, 최근 등록순, 가격낮은순, 가격높은순, 리뷰많은순으로 정렬하며, 하위 컴포넌트인 ProdCard에게 전달하는 컴포넌트
  */
 
-import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import ProdCard from 'components/users/ProdCard';
 import Pagination from 'components/common/Pagination';
 
@@ -49,7 +49,6 @@ const ListBar = ({ TabList }) => {
     //새로 sort되어 담길 배열
     const [sortList, setSortList] = useState();
     const [selected, setSelected] = useState('선택 하세요');
-
     const [page, setPage] = useState(1);
 
     useEffect(() => {
