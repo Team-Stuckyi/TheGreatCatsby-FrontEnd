@@ -135,7 +135,7 @@ height: 70px;
 const NewAdress = ({ onaddress, setOnAddress, foreName, setForeName, phone, setPhone, addrr1, setAddrr1, addrr2, setAddrr2 }) => {
 
     let { addrId } = useParams();
-    const { rt, rtmsg, item, loading } = useSelector(state => state.AdressMember);
+    const { putrt, putrtmsg, putitem, putloading } = useSelector(state => state.AdressMember);
     const [newAddress, setNewAdress] = React.useState([]);
     const dispatch = useDispatch();
 
@@ -160,8 +160,8 @@ const NewAdress = ({ onaddress, setOnAddress, foreName, setForeName, phone, setP
     }, [addrId]);
 
     React.useEffect(() => {
-        setNewAdress(item);
-    }, [item]);
+        setNewAdress(putitem);
+    }, [putitem]);
 
     /** 우편번호 */
     const [addressDetail, setAddressDetail] = React.useState(''); // 상세주소
