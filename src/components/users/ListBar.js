@@ -46,26 +46,34 @@ const Select = styled.select`
 `;
 
 const ListBar = ({ TabList }) => {
-    //새로 sort되어 담길 배열
+    //카테고리 별로 정렬된 항목을 조건에 따라 재정렬하여 담길 리스트
     const [sortList, setSortList] = useState();
+    //선택된 조건 - 기본값 '선택하세요'
     const [selected, setSelected] = useState('선택 하세요');
+    //페이지네이션 - 기본값 1페이지
     const [page, setPage] = useState(1);
 
+    //페이지와 조건값이 변할 때마다 스크롤이 최상단으로 고정된다.
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page, selected]);
 
-    //기본 빈 배열에 받아온 props를 담아서 바뀔때마다 렌더링
+    //카테고리가 바뀔 때마다 새로 렌더링된다.
     useEffect(() => {
         setSortList(TabList);
         setPage(1);
     }, [TabList]);
 
-    //정렬 상태 => 기본값 "선택하세요"
+    //조건 값을 바꿔주는 함수
     const handleSelect = event => {
         setSelected(event.target.value);
     };
 
+    /*
+     * 오름차순으로 정렬해주는 함수
+     * @param   {string} choice 선택된 조건값
+     * @param   {index} field 조건에 따라 정렬될 값
+     */
     const ascSortHandler = (choice, field) => {
         if (selected === choice) {
             setSortList(
@@ -76,6 +84,11 @@ const ListBar = ({ TabList }) => {
         }
     };
 
+    /*
+     * 내림차순으로 정렬해주는 함수
+     * @param   {string} choice 선택된 조건값
+     * @param   {index} field 조건에 따라 정렬될 값
+     */
     const dscSortHandler = (choice, field) => {
         if (selected === choice) {
             setSortList(
@@ -86,6 +99,7 @@ const ListBar = ({ TabList }) => {
         }
     };
 
+    //조건 값이 바뀔 떄마다 렌더링한다.
     useEffect(() => {
         if (selected === '최근 등록순') {
             ascSortHandler('최근 등록순', 'prod_id');

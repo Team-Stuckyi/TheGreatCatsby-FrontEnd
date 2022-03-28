@@ -35,12 +35,16 @@ const Tab = styled.button`
 `;
 
 const Tabs = ({ Prod }) => {
+    //상품 카테고리
     const tabTitle = ['전체', '사료', '간식', '모래', '캣타워'];
+    //분류 전 상품 리스트
     const [list, setList] = useState(Prod);
+    //분류 후 담길 상품 리스트
     const [cateList, setCateList] = useState(Prod);
     //페이지 진입 시 탭
     const [focus, setFocus] = useState(0);
 
+    //카테고리 클릭 시 상품을 정렬해주는 함수
     const onClickTab = idx => {
         const value = tabTitle[`${idx}`];
         if (idx === 0) {
