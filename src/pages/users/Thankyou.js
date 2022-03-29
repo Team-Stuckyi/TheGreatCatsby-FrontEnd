@@ -4,13 +4,14 @@
  * @description : 결제완료 페이지
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/users/Header.js';
 import Footer from 'components/users/Footer.js';
 import PayAdress from 'components/users/PayAdress.js';
 import ProdBill from 'components/common/ProdBill.js';
 import Button from 'components/common/Button.js';
 import styled from 'styled-components';
+import Loading from 'components/common/Loading';
 
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -92,14 +93,14 @@ const ThankYou = () => {
 
     /** 상품 정보 받아오기 */
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
-    const [orderItem, setOrderItem] = React.useState([]);
+    const [orderItem, setOrderItem] = useState([]);
 
     const dispatch = useDispatch();
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(getReviewProdInfo(prodId));
     }, [prodId]);
-    React.useEffect(() => {
+    useEffect(() => {
         if (rt === 200) {
             setOrderItem(item[0]);
         }
@@ -107,13 +108,13 @@ const ThankYou = () => {
 
     /** RecentAdress의 값 받아오기 */
     const { recentRt, recentRtmsg, recentItem, recentLoading } = useSelector(state => state.recentMember);
-    const [recent, setRecent] = React.useState([]);
+    const [recent, setRecent] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(getAdressMember(prodId));
     }, [prodId]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (recentRt === 200) {
             setRecent(recentItem[0]);
         }
@@ -135,8 +136,8 @@ const ThankYou = () => {
                     </Adress>
                     <AdressSuccess>주문접수가 완료되었습니다.</AdressSuccess>
                     <AdressCenter>
-                        <PayAdress recent={recent} pg_provider={pg_provider} />
-                        <ProdBill proPrice={orderItem.price} delivery={3000} />
+                        {recentLoading ? <Loading /> : <PayAdress recent={recent} pg_provider={pg_provider} />}
+                        {loading ? <Loading /> : <ProdBill proPrice={orderItem.price} delivery={3000} />}
                     </AdressCenter>
                 </Container>
             </Wrapper>

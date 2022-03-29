@@ -4,7 +4,7 @@
  * @description : 결제 페이지
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // 사용자 페이지 모듈
 import Header from 'components/users/Header.js';
 import Footer from 'components/users/Footer.js';
@@ -15,9 +15,10 @@ import PayMent from 'components/users/PayMent.js';
 // 공통 컴포넌트 모듈
 import ProdBill from 'components/common/ProdBill.js';
 import Button from 'components/common/Button.js';
+import Loading from 'components/common/Loading';
 
 import styled from 'styled-components';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getReviewProdInfo } from 'slices/users/ReviewProdInfoSlice.js';
 import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
@@ -123,15 +124,15 @@ const Showmethemoney = ({ user_id, email }) => {
     let { prodId } = useParams();
     let { count } = useParams();
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
-    const [orderItem, setOrderItem] = React.useState([]);
+    const [orderItem, setOrderItem] = useState([]);
 
     const dispatch = useDispatch();
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(getReviewProdInfo(prodId));
     }, [prodId]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (rt === 200) {
             setOrderItem(item[0]);
         }
@@ -139,13 +140,13 @@ const Showmethemoney = ({ user_id, email }) => {
 
     /** RecentAdress의 값 받아오기 */
     const { recentRt, recentRtmsg, recentItem, recentLoading } = useSelector(state => state.recentMember);
-    const [recent, setRecent] = React.useState([]);
+    const [recent, setRecent] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(getAdressMember(prodId));
     }, [prodId]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (recentRt === 200) {
             setRecent(recentItem[0]);
         }
@@ -155,29 +156,29 @@ const Showmethemoney = ({ user_id, email }) => {
     const navigate = useNavigate();
 
     // 버튼 클릭시 컴포넌트 변화에 대한 useState
-    const [view, setView] = React.useState(true);
+    const [view, setView] = useState(true);
     // PayMent에 보내는 useState
-    const [marvel, setMarvel] = React.useState([]);
-    const [ment, setMent] = React.useState([]);
+    const [marvel, setMarvel] = useState([]);
+    const [ment, setMent] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setMent(marvel);
     }, [ment]);
     console.log(marvel);
 
     // NewAdress에 보낼 useState
-    const [save, setSave] = React.useState([]);
-    const [onaddress, setOnAddress] = React.useState([]);
+    const [save, setSave] = useState([]);
+    const [onaddress, setOnAddress] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setSave(onaddress);
     }, [save]);
 
     // NewAdress에 보낼 state
-    const [foreName, setForeName] = React.useState();
-    const [phone, setPhone] = React.useState();
-    const [addrr1, setAddrr1] = React.useState();
-    const [addrr2, setAddrr2] = React.useState();
+    const [foreName, setForeName] = useState();
+    const [phone, setPhone] = useState();
+    const [addrr1, setAddrr1] = useState();
+    const [addrr2, setAddrr2] = useState();
 
     // 값 저장을 위한 onChange 함수
     const AddressPut = async () => {
@@ -197,9 +198,13 @@ const Showmethemoney = ({ user_id, email }) => {
             }),
         );
     };
-
+    // user_id 를 저장하는 state
+    const [user, setUser] = useState();
+    useEffect(() => {
+        setUser(user_id);
+    }, [user_id]);
     /** 아임포트 결제 창  */
-    React.useEffect(() => {
+    useEffect(() => {
         const jquery = document.createElement('script');
         jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
         const iamport = document.createElement('script');
@@ -245,7 +250,7 @@ const Showmethemoney = ({ user_id, email }) => {
                     order_price: response.paid_amount,
                     order_select: `${marvel === 'Toss' ? 'T' : 'K'}`,
                     prod_id: `${prodId}`,
-                    user_id: `${user_id}`,
+                    user_id: `${user}`,
                     order_count: `${count}`,
                 }),
             );
@@ -253,6 +258,7 @@ const Showmethemoney = ({ user_id, email }) => {
             alert('결제 성공');
             console.log('성공');
             navigate(`/thankyou/${prodId}`, {
+                // thankyou페이지에 보낼 props 값
                 state: {
                     pg_provider: pg_provider,
                 },
