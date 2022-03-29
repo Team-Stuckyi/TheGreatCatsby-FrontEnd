@@ -8,6 +8,7 @@ import { getReviewList } from 'slices/users/ReviewListSlice';
 
 import Header from 'components/users/Header';
 import Footer from 'components/users/Footer';
+import Loading from 'components/common/Loading';
 
 import ProdBuy from 'components/users/ProdBuy';
 import ProdInfo from 'components/users/ProdInfo';
@@ -52,6 +53,10 @@ const ProdList = () => {
         setProdInfoData(reviewProdInfo.item);
     }, [reviewProdInfo]);
 
+    if (reviewProdInfo.loading) return <Loading />;
+
+    if (prodInfoData) console.log(prodInfoData[0]);
+
     if (prodInfoData[0])
         return (
             <>
@@ -61,11 +66,21 @@ const ProdList = () => {
                         prodName={prodInfoData[0].name}
                         prodSellPrice={setCommas(prodInfoData[0].price)}
                         prodThumbnailImage={prodInfoData[0].thumbnail_photo}
+                        reviewCount={prodInfoData[0].review_count.toLocaleString()}
+                        starCount={prodInfoData[0].stars_avg}
                     />
                     <ProdInfo prod_characteristic={prodInfoData[0].prod_feature} prod_explain={prodInfoData[0].prod_info} />
                     <ProdImg prodInfoImageURL={prodInfoData[0].info_photo} />
                     {/* 리뷰 데이터가 존재 할 경우 리뷰 리스트 출력 */}
-                    {reviewData[0] && <ProdReview review_data={[reviewData[0], reviewData[1]]} isProdDataNull={false} prod_id={prod_id} />}
+                    {reviewData[0] && (
+                        <ProdReview
+                            review_data={[reviewData[0], reviewData[1]]}
+                            isProdDataNull={false}
+                            prod_id={prod_id}
+                            stars={prodInfoData[0].stars_avg}
+                            review_count={'(' + prodInfoData[0].review_count.toLocaleString() + ')'}
+                        />
+                    )}
                     {/* 리뷰 데이터가 존재하지 않을 경우 없다고 출력 */}
                     {!reviewData[0] && <ProdReview isProdDataNull={true} prod_id={prod_id} />}
                 </ProdListContainer>
