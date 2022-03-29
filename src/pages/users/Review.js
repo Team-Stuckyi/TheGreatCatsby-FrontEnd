@@ -49,6 +49,10 @@ const Review = () => {
         setReviewDataFilter(reviewData.filter((number, index) => index >= page * limit - 10 && index < page * limit));
     }, [reviewData, page]);
 
+    useEffect(() => {
+        window.scroll(0, 500);
+    }, [page]);
+
     return (
         <>
             <Header />
