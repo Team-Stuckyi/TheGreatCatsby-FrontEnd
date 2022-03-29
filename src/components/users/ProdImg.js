@@ -52,7 +52,7 @@ const ProdImg = ({ prodInfoImageURL = NotFoundImage }) => {
                 style={{ position: 'relative', marginTop: '25px' }}
                 onClick={onClickViewMore}
             >
-                상품정보 더보기
+                {viewMore ? '상품정보 더보기' : '상품정보 더보기 닫기'}
             </Button>
         </ImageContainer>
     );
