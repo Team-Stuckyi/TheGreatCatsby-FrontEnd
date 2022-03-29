@@ -4,7 +4,7 @@ import { getMemberList } from 'slices/admin/MemberSlice';
 import { editMemberList } from 'slices/admin/MemberSlice';
 import { delMemberList } from 'slices/admin/MemberSlice';
 import AdminHeader from 'components/admin/AdminHeader';
-import Search from 'components/common/Search';
+import Search from 'components/admin/Search';
 import Container from 'components/common/Container';
 import Title from 'components/common/Title';
 import TableList from 'components/common/TableList';

@@ -5,7 +5,7 @@ import { getAdminReviewList } from 'slices/admin/AdminReviewListSlice';
 import axios from 'axios';
 import AdminHeader from 'components/admin/AdminHeader';
 import Container from 'components/common/Container';
-import Search from 'components/common/Search';
+import Search from 'components/admin/Search';
 import Title from 'components/common/Title';
 import TableList from 'components/common/TableList';
 import Button from 'components/common/Button';
