@@ -24,7 +24,6 @@ export const mainProductSlice = createSlice({
     initialState: {
         rt: null,
         rtmsg: null,
-        item: [],
         loading: false,
         prod: null,
     },
@@ -39,7 +38,6 @@ export const mainProductSlice = createSlice({
                 ...state,
                 rt: payload.status,
                 rtmsg: payload.statusText,
-                item: payload.data,
                 prods: payload.data.item,
                 loading: false,
             };
@@ -49,7 +47,6 @@ export const mainProductSlice = createSlice({
                 ...state,
                 rt: payload.status,
                 rtmsg: payload.statusText,
-                item: payload.data,
                 prods: payload.data.item,
                 loading: false,
             };
