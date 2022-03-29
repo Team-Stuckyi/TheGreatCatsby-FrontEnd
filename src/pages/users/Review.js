@@ -16,6 +16,7 @@ import ReviewList from 'components/common/ReviewList';
 import Pagination from 'components/common/Pagination';
 import ReviewWrite from 'components/users/ReviewWrite';
 import { getReviewList } from 'slices/users/ReviewListSlice';
+import Loading from 'components/common/Loading';
 
 const PaginationContainer = styled.div`
     text-align: center;
@@ -59,7 +60,7 @@ const Review = () => {
             <Container>
                 <ProdReviewInfo prodId={prodId} />
                 <ReviewWrite prodId={prodId} />
-                <ReviewList reviewData={reviewDataFilter} />
+                {loading ? <Loading /> : <ReviewList reviewData={reviewDataFilter} />}
                 <PaginationContainer>
                     <Pagination total={total} limit={limit} page={page} setPage={setPage} />
                 </PaginationContainer>
