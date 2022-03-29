@@ -31,11 +31,8 @@ function App() {
                 <Route path="/" element={<Main />} />
                 <Route path="/product/:prod_id" element={<ProdList />} />
                 <Route path="/review/:prodId" element={<Review />} />
-                <Route path="/PayAdress/:prodId" element={<ThankYou />} />
                 <Route path="/thankyou/:prodId" element={<ThankYou />} />
-                <Route path="/Showmethemoney/:prodId/:count" element={<Showmethemoney />} />
-                <Route path="/NewAdress/:addrId" element={<Showmethemoney />} />
-                <Route path="/RecentAdress/:prodId" element={<Showmethemoney />} />
+                <Route path="/Showmethemoney/:prodId/:count" element={<Showmethemoney user_id={user_id} />} />
                 <Route path="/members/login" element={<Login />} />
                 <Route path="/members/join" element={<Register />} />
                 <Route path="/regsuccess" element={<RegSuccess />} />
