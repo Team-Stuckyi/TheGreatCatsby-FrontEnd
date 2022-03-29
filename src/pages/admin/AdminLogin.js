@@ -13,12 +13,10 @@ import { useDispatch, useSelector } from 'react-redux';
 // Components
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
+import Loading from 'components/common/Loading';
 
 import { adminlogin } from 'slices/admin/adminLoginSlice';
 import { adminAppSlice } from 'slices/admin/adminAppSlice';
-
-// Styles
-import 'css/AdminLogin.css';
 
 // Resources
 import AdminLoginLogo from 'img/TheGreatCatsby-Center-Pink-logo.png';
@@ -45,6 +43,10 @@ const InputWrapper = styled('div')`
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    > Input {
+        margin-bottom: 10px;
+    }
 `;
 
 const AdminLogin = () => {
@@ -99,17 +101,19 @@ const AdminLogin = () => {
         }
     }, [rt]);
 
+    if (loading) return <Loading />;
+
     return (
         <>
             <LoginFormContainer>
                 <img src={AdminLoginLogo} alt="AdminLoginLogoImage" width="260px" height="100px" />
                 <InputWrapper>
                     <InputTitle>이메일</InputTitle>
-                    <Input Inptype="full" borderColor="var(--white)" type="email" name="email" onChange={onChangeEmail} />
+                    <Input Inptype="full" InpColor="var(--white)" type="email" name="email" onChange={onChangeEmail} />
                 </InputWrapper>
                 <InputWrapper>
                     <InputTitle>패스워드</InputTitle>
-                    <Input Inptype="full" borderColor="var(--white)" type="password" name="password" onChange={onChangePassword} />
+                    <Input Inptype="full" InpColor="var(--white)" type="password" name="password" onChange={onChangePassword} />
                 </InputWrapper>
                 <Button onClick={requestLogin}>로그인</Button>
             </LoginFormContainer>
