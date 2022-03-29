@@ -79,6 +79,11 @@ color: var(--gray500);
 
 const ProdOrder = ({ orderItem }) => {
 
+    // 3자리단위 콤마찍기 함수 구현
+    function setCommas(number) {
+        var formNumber = "" + number;
+        return formNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
     return (
         <>
             <Wrapper>
@@ -94,7 +99,7 @@ const ProdOrder = ({ orderItem }) => {
                             </ImgBox>
                             <TextBox>
                                 <TitleText>{orderItem.name}</TitleText>
-                                <PriceText>{orderItem.price}원</PriceText>
+                                <PriceText>{setCommas(orderItem.price)}원</PriceText>
                                 <NumberText>수량 1개</NumberText>
                             </TextBox>
                         </ProdSub>
