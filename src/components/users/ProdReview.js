@@ -29,10 +29,10 @@ const ReviewTitle = styled('h2')`
 const ReviewPlus = styled('span')`
     display: inline-block;
     position: absolute;
-    color: var(--black) !important;
+    color: var(--black);
     top: 5px;
-    left: 70px;
-    width: 23px;
+    right: 60px;
+    width: 100px;
     height: 23px;
     text-align: center;
     font-size: 0.875rem;
@@ -81,8 +81,8 @@ const ProdReview = ({
     return (
         <ReviewContainer>
             <ReviewTitle>구매후기</ReviewTitle>
-            <Link to={`/product/${prod_id}/review`}>
-                <ReviewPlus>+</ReviewPlus>
+            <Link to={`/review/${prod_id}`}>
+                <ReviewPlus>리뷰 작성 +</ReviewPlus>
             </Link>
             <StarContainer>
                 {isProdDataNull && <h1>작성된 리뷰가 없습니다.</h1>}
