@@ -43,24 +43,31 @@ const PriceSub = styled.span`
  * @param   {string} payPrice 총 결제 금액(만약 총 결제 금액을 props로 받지 못할 시 '총 상품 금액 + 배송비'를 계산하여 출력)
  */
 
+// 3자리단위 콤마찍기 함수 구현
+function setCommas(number) {
+    var formNumber = "" + number;
+    return formNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 const ProdBill = ({ proPrice, delivery, payPrice }) => {
     if (!payPrice) {
         payPrice = parseInt(proPrice) + parseInt(delivery);
     }
+
     return (
         <>
             <Container>
                 <PriceBox>
                     <PriceTitle>총 상품 금액</PriceTitle>
-                    <PriceSub>{proPrice} 원</PriceSub>
+                    <PriceSub>{setCommas(proPrice)} 원</PriceSub>
                 </PriceBox>
                 <PriceBox>
                     <PriceTitle>배송비</PriceTitle>
-                    <PriceSub>{delivery} 원</PriceSub>
+                    <PriceSub>{setCommas(delivery)} 원</PriceSub>
                 </PriceBox>
                 <PriceBox>
                     <PriceTitle>총 결제 금액</PriceTitle>
-                    <PriceSub last="last">{payPrice} 원</PriceSub>
+                    <PriceSub last="last">{setCommas(payPrice)} 원</PriceSub>
                 </PriceBox>
             </Container>
         </>
