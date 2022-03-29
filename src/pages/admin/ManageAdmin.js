@@ -10,6 +10,7 @@ import Title from 'components/common/Title';
 import TableList from 'components/common/TableList';
 import Button from 'components/common/Button';
 import Alert from 'components/common/Alert';
+import Loading from 'components/common/Loading';
 
 const ManageAdmin = () => {
     // ------------------ 데이터 연동 ------------------ //
@@ -176,46 +177,52 @@ const ManageAdmin = () => {
         <>
             <AdminHeader />
             <Container>
-                <Title content={'관리자 회원관리'}></Title>
-                <div style={{ float: 'right', marginTop: '45px', marginRight: '610px' }}>
-                    <Button
-                        onClick={onDataReset}
-                        width="100px"
-                        bgColor="var(--white)"
-                        border="1px solid var(--primary)"
-                        fontColor="var(--primary)"
-                        size="11px"
-                    >
-                        초기화
-                    </Button>
-                </div>
-                <Search
-                    categoryName={'전체회원'}
-                    categoryCount={item.length}
-                    unit={'명'}
-                    selectBoxItems={['아이디', '이름', '상태']}
-                    onChange={onChangeSelect}
-                    onSubmit={onSubmit}
-                    onQueryChange={onQueryChange}
-                    onDataReset={onDataReset}
-                />
-                {delAlert && <Alert text={'탈퇴시키겠습니까?'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
-                {editAlert && <Alert text={'수정하시겠습니까?'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
-                {warning && <Alert text={'수정한 값이 없습니다.'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
-                <TableList
-                    columns={columns}
-                    data={filterData}
-                    columnsWidth={columnsWidth}
-                    columnSpecial={columnSpecial}
-                    objLen={objLen}
-                    onChange={onChange}
-                    onClick1={onClick1}
-                    onClick2={onClick2}
-                    total={total}
-                    limit={limit}
-                    page={page}
-                    setPage={setPage}
-                />
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <Title content={'관리자 회원관리'}></Title>
+                        <div style={{ float: 'right', marginTop: '45px', marginRight: '610px' }}>
+                            <Button
+                                onClick={onDataReset}
+                                width="100px"
+                                bgColor="var(--white)"
+                                border="1px solid var(--primary)"
+                                fontColor="var(--primary)"
+                                size="11px"
+                            >
+                                초기화
+                            </Button>
+                        </div>
+                        <Search
+                            categoryName={'전체회원'}
+                            categoryCount={item.length}
+                            unit={'명'}
+                            selectBoxItems={['아이디', '이름', '상태']}
+                            onChange={onChangeSelect}
+                            onSubmit={onSubmit}
+                            onQueryChange={onQueryChange}
+                            onDataReset={onDataReset}
+                        />
+                        {delAlert && <Alert text={'탈퇴시키겠습니까?'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
+                        {editAlert && <Alert text={'수정하시겠습니까?'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
+                        {warning && <Alert text={'수정한 값이 없습니다.'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
+                        <TableList
+                            columns={columns}
+                            data={filterData}
+                            columnsWidth={columnsWidth}
+                            columnSpecial={columnSpecial}
+                            objLen={objLen}
+                            onChange={onChange}
+                            onClick1={onClick1}
+                            onClick2={onClick2}
+                            total={total}
+                            limit={limit}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    </>
+                )}
             </Container>
         </>
     );

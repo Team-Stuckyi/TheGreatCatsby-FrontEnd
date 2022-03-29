@@ -10,6 +10,7 @@ import Title from 'components/common/Title';
 import TableList from 'components/common/TableList';
 import Button from 'components/common/Button';
 import Alert from 'components/common/Alert';
+import Loading from 'components/common/Loading';
 
 const ManageReview = () => {
     // redux 데이터 가져오기
@@ -227,44 +228,50 @@ const ManageReview = () => {
         <>
             <AdminHeader />
             <Container>
-                <Title content="리뷰 관리" />
-                <div style={{ float: 'right', marginTop: '45px', marginRight: '610px' }}>
-                    <Button
-                        onClick={onDataReset}
-                        width="100px"
-                        bgColor="var(--white)"
-                        border="1px solid var(--primary)"
-                        fontColor="var(--primary)"
-                        size="11px"
-                    >
-                        초기화
-                    </Button>
-                </div>
-                <Search
-                    categoryName={'전체리뷰'}
-                    categoryCount={item.length}
-                    unit={'개'}
-                    selectBoxItems={['상품명', '작성자', '평점', '작성날짜']}
-                    onChange={onChangeSelect}
-                    onQueryChange={onQueryChange}
-                    onSubmit={onSubmit}
-                    onDataReset={onDataReset}
-                />
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <Title content="리뷰 관리" />
+                        <div style={{ float: 'right', marginTop: '45px', marginRight: '610px' }}>
+                            <Button
+                                onClick={onDataReset}
+                                width="100px"
+                                bgColor="var(--white)"
+                                border="1px solid var(--primary)"
+                                fontColor="var(--primary)"
+                                size="11px"
+                            >
+                                초기화
+                            </Button>
+                        </div>
+                        <Search
+                            categoryName={'전체리뷰'}
+                            categoryCount={item.length}
+                            unit={'개'}
+                            selectBoxItems={['상품명', '작성자', '평점', '작성날짜']}
+                            onChange={onChangeSelect}
+                            onQueryChange={onQueryChange}
+                            onSubmit={onSubmit}
+                            onDataReset={onDataReset}
+                        />
 
-                {onAlert ? <Alert text="삭제하시겠습니까?" onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} /> : <></>}
+                        {onAlert ? <Alert text="삭제하시겠습니까?" onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} /> : <></>}
 
-                <TableList
-                    columns={columns}
-                    data={filterData}
-                    columnsWidth={columnsWidth}
-                    columnSpecial={columnSpecial}
-                    objLen={objLen}
-                    onClick1={onClick1}
-                    total={total}
-                    limit={limit}
-                    page={page}
-                    setPage={setPage}
-                />
+                        <TableList
+                            columns={columns}
+                            data={filterData}
+                            columnsWidth={columnsWidth}
+                            columnSpecial={columnSpecial}
+                            objLen={objLen}
+                            onClick1={onClick1}
+                            total={total}
+                            limit={limit}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    </>
+                )}
             </Container>
         </>
     );
