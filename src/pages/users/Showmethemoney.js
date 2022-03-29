@@ -323,8 +323,8 @@ const Showmethemoney = ({ user_id, email }) => {
                                 />
                             )}
                         </div>
-                        <ProdOrder orderItem={orderItem} />
-                        <ProdBill proPrice={orderItem.price} delivery={3000} />
+                        {loading ? <Loading /> : <ProdOrder orderItem={orderItem} />}
+                        {loading ? <Loading /> : <ProdBill proPrice={orderItem.price} delivery={3000} />}
                         <PayMent setMarvel={setMarvel} marvel={marvel} />
                     </CenterBox>
                     <ButtonBox>
