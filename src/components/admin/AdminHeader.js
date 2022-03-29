@@ -117,7 +117,7 @@ const AdminHeader = () => {
             <Wrapper>
                 <Container>
                     <LogoBox>
-                        <Link to={'/'}>
+                        <Link to={'/admin/manageadmin'}>
                             <Logo Imgwidth="50px" />
                         </Link>
                     </LogoBox>
@@ -151,4 +151,3 @@ const AdminHeader = () => {
 };
 
 export default AdminHeader;
-
