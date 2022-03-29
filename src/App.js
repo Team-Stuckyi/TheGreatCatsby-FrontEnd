@@ -17,6 +17,7 @@ import AdminLogin from 'pages/admin/AdminLogin';
 
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import NotFound from 'pages/common/NotFound';
 
 function App() {
     /* Login 관련 */
@@ -35,16 +36,18 @@ function App() {
                 <Route path="/Showmethemoney/:prodId/:count" element={<Showmethemoney />} />
                 <Route path="/NewAdress/:addrId" element={<Showmethemoney />} />
                 <Route path="/RecentAdress/:prodId" element={<Showmethemoney />} />
-                <Route path="/orders/all" element={<ManageOrder />} />
-                <Route path="/products/all" element={<ManageProd />} />
                 <Route path="/members/login" element={<Login />} />
                 <Route path="/members/join" element={<Register />} />
                 <Route path="/regsuccess" element={<RegSuccess />} />
 
                 <Route path="/admin/manageadmin" element={<ManageAdmin />} />
                 <Route path="/admin/managemember" element={<ManageMember />} />
+                <Route path="/admin/manageprod" element={<ManageProd />} />
+                <Route path="/admin/manageorder" element={<ManageOrder />} />
                 <Route path="/admin/ManageReview" element={<ManageReview />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
+
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </>
     );
