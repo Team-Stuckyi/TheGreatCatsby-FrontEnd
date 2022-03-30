@@ -18,7 +18,8 @@ import Button from 'components/common/Button.js';
 import Loading from 'components/common/Loading';
 
 import styled from 'styled-components';
-import { useParams, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getReviewProdInfo } from 'slices/users/ReviewProdInfoSlice.js';
 import { getAdressMember } from 'slices/users/RecentMemberSlice.js';
@@ -120,9 +121,20 @@ const ButtonsubText = styled.p`
  `;
 
 const Showmethemoney = ({ user_id, email }) => {
-    /** 상품조회를 위해 값 받아오기 */
+
+    /** useParams를 통해 값 받아오기 */
     let { prodId } = useParams();
-    let { count } = useParams();
+    let { prodCount } = useParams();
+
+    // URL에 표시될 값 설정하기
+    const location = useLocation();
+    const query = queryString.parse(location.search, {
+        ignereQueryPrefix: true
+    })
+    const detail = query.prod_count === { prodCount }
+    // 수량을 변수로 저장
+    const orderCount = query.prod_count;
+    /** 상품조회 값 받아오기 */
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
     const [orderItem, setOrderItem] = useState([]);
 
@@ -230,7 +242,7 @@ const Showmethemoney = ({ user_id, email }) => {
                 name: '부가정보',
                 desc: '세부 부가정보',
             },
-            count: `${count}`,
+            count: `${prodCount}`,
             buyer_name: `${setView() === true ? recent.name : foreName}`, // 구매자 이름
             buyer_tel: `${setView() === true ? recent.tel : phone}`, // 구매자 번호
             buyer_email: `${email}`, // 구매자 이메일
@@ -251,7 +263,7 @@ const Showmethemoney = ({ user_id, email }) => {
                     order_select: `${marvel === 'Toss' ? 'T' : 'K'}`,
                     prod_id: `${prodId}`,
                     user_id: `${user}`,
-                    order_count: `${count}`,
+                    order_count: `${prodCount}`,
                 }),
             );
 
@@ -323,8 +335,8 @@ const Showmethemoney = ({ user_id, email }) => {
                                 />
                             )}
                         </div>
-                        {loading ? <Loading /> : <ProdOrder orderItem={orderItem} />}
-                        {loading ? <Loading /> : <ProdBill proPrice={orderItem.price} delivery={3000} />}
+                        {loading ? <Loading /> : <ProdOrder orderItem={orderItem} orderCount={orderCount} />}
+                        {loading ? <Loading /> : <ProdBill proPrice={orderItem.price * orderCount} delivery={3000} />}
                         <PayMent setMarvel={setMarvel} marvel={marvel} />
                     </CenterBox>
                     <ButtonBox>
