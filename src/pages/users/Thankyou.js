@@ -87,10 +87,11 @@ const ThankYou = () => {
     /** 상품조회를 위해 값 받아오기 */
     let { prodId } = useParams();
     /** Showmethmoney페이지에서 useNavigate로 인자 받아온 값 */
-    // PayAdress넘겨 주기
     const location = useLocation();
+    // PayAdress넘겨 주기
     const { pg_provider } = location.state;
-
+    // ProdBill에 넘겨주기
+    const { orderCount } = location.state;
     /** 상품 정보 받아오기 */
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewProdInfo);
     const [orderItem, setOrderItem] = useState([]);
@@ -137,7 +138,7 @@ const ThankYou = () => {
                     <AdressSuccess>주문접수가 완료되었습니다.</AdressSuccess>
                     <AdressCenter>
                         {recentLoading ? <Loading /> : <PayAdress recent={recent} pg_provider={pg_provider} />}
-                        {loading ? <Loading /> : <ProdBill proPrice={orderItem.price} delivery={3000} />}
+                        {loading ? <Loading /> : <ProdBill proPrice={orderItem.price * orderCount} delivery={3000} />}
                     </AdressCenter>
                 </Container>
             </Wrapper>

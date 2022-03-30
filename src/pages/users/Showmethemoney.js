@@ -237,7 +237,7 @@ const Showmethemoney = ({ user_id, email }) => {
             pay_method: 'trans', // 결제수단
             merchant_uid: `mid_${new Date().getTime()}`,
             name: `${orderItem.name}`, // 상품명
-            amount: `${orderItem.price + 3000}`, // 상품가격 + 배송비
+            amount: `${(orderItem.price * orderCount) + 3000}`, // 상품가격 + 배송비
             custom_data: {
                 name: '부가정보',
                 desc: '세부 부가정보',
@@ -273,6 +273,7 @@ const Showmethemoney = ({ user_id, email }) => {
                 // thankyou페이지에 보낼 props 값
                 state: {
                     pg_provider: pg_provider,
+                    orderCount: orderCount,
                 },
             });
         } else {
