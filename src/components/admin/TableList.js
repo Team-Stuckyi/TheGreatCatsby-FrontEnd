@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import Pagination from './Pagination';
+import Pagination from 'components/common/Pagination';
 
 const Table = styled.table`
     text-align: center;

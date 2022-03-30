@@ -7,7 +7,7 @@ import AdminHeader from 'components/admin/AdminHeader';
 import Search from 'components/admin/Search';
 import Container from 'components/common/Container';
 import Title from 'components/common/Title';
-import TableList from 'components/common/TableList';
+import TableList from 'components/admin/TableList';
 import Button from 'components/common/Button';
 import Alert from 'components/common/Alert';
 import Loading from 'components/common/Loading';
