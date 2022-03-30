@@ -44,9 +44,11 @@ export const manageOrderSlice = createSlice({
  
     initialState: {
         rt: null,
+        rtmsg: null,
         orders: [],
         actionType: "",
-        totalCount: 10
+        totalCount: 10,
+        loading: false
     },
  
     reducers: {changeOrders: (state, action) => {
@@ -54,10 +56,15 @@ export const manageOrderSlice = createSlice({
     }},
  
     extraReducers: {
+        [getOrders.pending]: (state, { payload }) => {
+            return { ...state, loading: true };
+        },
         [getOrders.fulfilled]: (state, {payload}) => {
             return{
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 orders: payload.data.item.map(i => {
                     return {
                         order_id: i.order_id,
@@ -76,13 +83,20 @@ export const manageOrderSlice = createSlice({
             return {
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 actionType: "GET_ORDERS"
             }
+        },
+        [putOrders.pending]: (state, { payload }) => {
+            return { ...state, loading: true };
         },
         [putOrders.fulfilled]: (state, {payload}) => {
             return{
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 actionType: "PUT_ORDERS"
             }
         },
@@ -90,6 +104,8 @@ export const manageOrderSlice = createSlice({
             return {
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 actionType: "PUT_ORDERS"
             }
         },

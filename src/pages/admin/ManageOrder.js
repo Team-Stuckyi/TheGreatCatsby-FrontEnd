@@ -9,9 +9,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import Container from 'components/common/Container';
+import Loading from 'components/common/Loading';
 import AdminHeader from 'components/admin/AdminHeader';
 import Search from 'components/admin/Search';
-import TableListWithoutPagination from 'components/common/TableListWithoutPagination';
+import TableListWithoutPagination from 'components/admin/TableListWithoutPagination';
 import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
 
@@ -33,7 +34,7 @@ const Notice = styled.div`
 
 const ManageOrder = () => {
     const [page, setPage] = useState(1);
-    const { rt, orders, actionType, totalCount } = useSelector(state => state.manageOrder);
+    const { rt, orders, actionType, totalCount, loading } = useSelector(state => state.manageOrder);
     const dispatch = useDispatch();
 
     const columns = ['주문 번호', '주문 상품', '주문 날짜', '이메일', '주문 금액', '주문 상태'];
@@ -139,8 +140,11 @@ const ManageOrder = () => {
     };
 
     return (
+        <>
+        <AdminHeader />
         <Container>
-            <AdminHeader />
+            { loading ? (<Loading />) : (
+            <>
             <TitleContainer>
                 <Title content={'주문 관리'} />
             </TitleContainer>
@@ -167,7 +171,10 @@ const ManageOrder = () => {
                 onModifyButtonClick={onModifyButtonClick}
             />
             <Pagination total={totalCount} limit={10} page={page} setPage={setPage} />
+            </>
+        )}
         </Container>
+        </>
     );
 };
 

@@ -44,9 +44,11 @@ export const manageProdSlice = createSlice({
  
     initialState: {
         rt: null,
+        rtmsg: null,
         products: [],
         actionType: "",
-        totalCount: 10
+        totalCount: 10,
+        loading: false
     },
  
     reducers: {changeProducts: (state, action) => {
@@ -54,10 +56,15 @@ export const manageProdSlice = createSlice({
     }},
  
     extraReducers: {
+        [getProducts.pending]: (state, { payload }) => {
+            return { ...state, loading: true };
+        },
         [getProducts.fulfilled]: (state, {payload}) => {
             return{
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 products: payload.data.item.map(i => {
                     return {
                             prod_id: i.prod_id,
@@ -74,13 +81,20 @@ export const manageProdSlice = createSlice({
             return {
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 actionType: "GET_PRODUCTS"
             }
+        },
+        [putProducts.pending]: (state, { payload }) => {
+            return { ...state, loading: true };
         },
         [putProducts.fulfilled]: (state, {payload}) => {
             return{
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 actionType: "PUT_PRODUCTS"
             }
         },
@@ -88,6 +102,8 @@ export const manageProdSlice = createSlice({
             return {
                 ...state,
                 rt: payload.status,
+                rtmsg: payload.statusText,
+                loading: false,
                 actionType: "PUT_PRODUCTS"
             }
         },

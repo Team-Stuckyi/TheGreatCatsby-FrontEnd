@@ -30,13 +30,16 @@
     },
     reducers: {},
     extraReducers: {
+        [postMember.pending]: (state, { payload }) => {
+            return { ...state, loading: true };
+        },
         [postMember.fulfilled]: (state, { payload }) => {
             return {
                 ...state,
                 rt: payload.status,
                 rtmsg: payload.statusText,
                 item: payload.data.item,
-                loading: false,
+                loading: false
             };
         },
         [postMember.rejected]: (state, { payload }) => {
@@ -45,7 +48,7 @@
                 rt: payload.status,
                 rtmsg: payload.statusText,
                 item: payload.data,
-                loading: false,
+                loading: false
             };
         },
     },

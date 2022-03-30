@@ -23,10 +23,10 @@ export const login = createAsyncThunk("POST_LOGIN", async(payload, { rejectWithV
 
 
 export const userLoginSlice = createSlice({
-        name: 'login',
+        name: 'userLogin',
         initialState: {
-            rt: null, //HTTP 상태 코드 (200, 404, 500등)
-            rtmsg: null, //에러메시지
+            rt: null,
+            rtmsg: null,
             data: null,
             loading: false
         },

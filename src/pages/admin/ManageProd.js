@@ -9,10 +9,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import Container from 'components/common/Container';
+import Loading from 'components/common/Loading';
 import AdminHeader from 'components/admin/AdminHeader';
 import Search from 'components/admin/Search';
 import AddProd from 'components/admin/AddProd';
-import TableListWithoutPagination from 'components/common/TableListWithoutPagination';
+import TableListWithoutPagination from 'components/admin/TableListWithoutPagination';
 import Pagination from 'components/common/Pagination';
 import Title from 'components/common/Title';
 
@@ -36,7 +37,7 @@ const AddProdButton = styled.button`
 `;
 
 const ManageProd = () => {
-    const { rt, products, actionType, totalCount } = useSelector(state => state.manageProd);
+    const { rt, products, actionType, totalCount, loading } = useSelector(state => state.manageProd);
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
@@ -151,8 +152,11 @@ const ManageProd = () => {
     };
 
     return (
+        <>
+        <AdminHeader />
         <Container>
-            <AdminHeader />
+            { loading ? (<Loading />) : (
+            <>
             <TitleContainer>
                 <Title content={'상품 관리'} />
             </TitleContainer>
@@ -178,7 +182,10 @@ const ManageProd = () => {
                 onModifyButtonClick={onModifyButtonClick}
             />
             <Pagination total={totalCount} limit={10} page={page} setPage={setPage} />
+            </>
+        )}
         </Container>
+        </>
     );
 };
 

@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import Container from 'components/common/Container';
 import Header from 'components/users/Header';
 import Footer from 'components/users/Footer';
+import Loading from 'components/common/Loading';
 import Logo from 'components/common/Logo';
 import Input from 'components/common/Input';
 import Button from 'components/common/Button';
@@ -54,15 +55,20 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
-    const { rt, rtmsg, data, loading } = useSelector(state => state.login);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const { rt, data, loading } = useSelector(state => state.userLogin);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onClick = (e) => {
+    const onClickLogin = (e) => {
         dispatch(login({
             email: email,
             password: password
         }))
+    }
+
+    const onClickJoin = (e) => {
+        navigate('/members/join');
     }
 
     const onEmailChange = (e) => {
@@ -88,8 +94,18 @@ const Login = () => {
         }
     }, [rt]);
 
+    useEffect(() => {
+        if (loading) {
+            setIsLoaded(true);
+        } else {
+            setIsLoaded(false);
+        }
+    }, [loading]);
+
     return (
-    <>    
+    <>  {
+        isLoaded? <Loading /> :
+        <>
         <Header />
         <Container>
             <LoginWrapper>
@@ -103,12 +119,14 @@ const Login = () => {
                     <Input type="password" Inptype='full' borderColor={'var(--gray400)'} placeholder="비밀번호를 입력하세요" onChange={onPasswordChange} />
                 </InputWrapper>
                 <ButtonWrapper>
-                    <Button width='296px' size='12px' bgColor={'var(--primary)'} onClick={onClick} >로그인</Button>
-                    <Button width='296px' size='12px' bgColor={'var(--white)'} fontColor={'var(--gray500)'}>회원가입</Button> 
+                    <Button width='296px' size='12px' bgColor={'var(--primary)'} onClick={onClickLogin} >로그인</Button>
+                    <Button width='296px' size='12px' bgColor={'var(--white)'} fontColor={'var(--gray500)'} onClick={onClickJoin}>회원가입</Button> 
                 </ButtonWrapper>
-            </LoginWrapper>  
+            </LoginWrapper>
         </Container>
         <Footer />
+        </>
+        }  
     </>
     );
 };

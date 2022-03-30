@@ -13,6 +13,7 @@ import { postMember } from 'slices/users/JoinSlice';
 import Container from 'components/common/Container';
 import Header from 'components/users/Header';
 import Footer from 'components/users/Footer';
+import Loading from 'components/common/Loading';
 import Logo from 'components/common/Logo';
 import Input from 'components/common/Input';
 import Button from 'components/common/Button';
@@ -63,10 +64,11 @@ const Register = () => {
     const [showEmailText, setShowEmailText] = useState('0');
     const [showPasswordText, setShowPasswordText] = useState('0');
     const [showCompareText, setShowCompareText] = useState('0');
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {rt} = useSelector(state => state.joinMember);
+    const { rt, loading } = useSelector(state => state.joinMember);
 
     const onNameChange = (e) => {
         setName(e.target.value);
@@ -123,8 +125,18 @@ const Register = () => {
         }
     }, [rt]);
 
+    useEffect(() => {
+        if (loading) {
+            setIsLoaded(true);
+        } else {
+            setIsLoaded(false);
+        }
+    }, [loading]);
+
     return (
-        <>
+        <>  {
+            isLoaded? <Loading /> :
+            <>
             <Header />
             <Container>
                 <JoinWrapper>
@@ -159,6 +171,8 @@ const Register = () => {
                 </JoinWrapper>
             </Container>
             <Footer />
+            </>
+            }  
         </>
     );
 };
