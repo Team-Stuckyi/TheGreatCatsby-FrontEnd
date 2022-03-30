@@ -77,7 +77,7 @@ const NumberText = styled.p`
 color: var(--gray500);
 `;
 
-const ProdOrder = ({ orderItem }) => {
+const ProdOrder = ({ orderItem, orderCount }) => {
 
     // 3자리단위 콤마찍기 함수 구현
     function setCommas(number) {
@@ -99,8 +99,8 @@ const ProdOrder = ({ orderItem }) => {
                             </ImgBox>
                             <TextBox>
                                 <TitleText>{orderItem.name}</TitleText>
-                                <PriceText>{setCommas(orderItem.price)}원</PriceText>
-                                <NumberText>수량 1개</NumberText>
+                                <PriceText>{setCommas(orderItem.price * orderCount)}원</PriceText>
+                                <NumberText>수량 {orderCount}개</NumberText>
                             </TextBox>
                         </ProdSub>
                     </ProdContainer>
