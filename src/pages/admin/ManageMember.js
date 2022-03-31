@@ -14,7 +14,6 @@ import Loading from 'components/common/Loading';
 
 const ManageAdmin = () => {
     // ------------------ 데이터 연동 ------------------ //
-
     useEffect(() => console.clear(), []);
     const { rt, rtmsg, item, loading } = useSelector(state => state.member);
     const dispatch = useDispatch();
@@ -24,9 +23,10 @@ const ManageAdmin = () => {
     }, []);
 
     // ------------------ 테이블 ------------------ //
-
-    const [objLen, setObjLen] = useState();
+    //원본 데이터를 저장할 상태변수
     const [originData, setOriginData] = useState();
+    //데이터 key값을 구하여 저장하는 상태변수
+    const [objLen, setObjLen] = useState();
 
     useEffect(() => {
         if (rt === 200) {
@@ -35,12 +35,12 @@ const ManageAdmin = () => {
         }
     }, [item]);
 
-    //테이블 컬럼
-    const columns = ['no', '아이디', '이름', '연락처', '주소', '상태', '가입일자'];
-    //테이블 수정 삭제 버튼
-    const columnSpecial = ['관리', '2', '수정', 'var(--blue300)', '탈퇴', 'var(--primary)'];
-
+    //테이블 width 설정
     const columnsWidth = ['50px', '180px', '100px', '150px', '260px', '80px', '160px'];
+    //테이블 컬럼명
+    const columns = ['no', '아이디', '이름', '연락처', '주소', '상태', '가입일자'];
+    //테이블 관리 파트
+    const columnSpecial = ['관리', '2', '수정', 'var(--blue300)', '탈퇴', 'var(--primary)'];
 
     //페이지네이션
     const [filterData, setFilterData] = useState([]);
@@ -49,6 +49,7 @@ const ManageAdmin = () => {
     const [limit, setLimit] = useState(10);
     const [pageOption, setPageOption] = useState();
 
+    //검색 전
     useEffect(() => {
         if (originData) {
             setTotal(item.length);
@@ -56,13 +57,14 @@ const ManageAdmin = () => {
         }
     }, [originData, page]);
 
+    //페이지 이동 시
     useEffect(() => {
         if (pageOption === 0) {
             setFilterData(originData.filter((number, index) => index >= page * limit - 10 && index < page * limit));
         }
     }, [page]);
 
-    // ------------------ search ------------------ //
+    // ------------------ 검색 ------------------ //
 
     const [searchQuery, setSearchQuery] = useState();
     const onQueryChange = e => {
@@ -89,6 +91,7 @@ const ManageAdmin = () => {
         }
     };
 
+    //검색 후 페이지네이션
     useEffect(() => {
         if (searchData) {
             setPageOption(1);
@@ -134,7 +137,7 @@ const ManageAdmin = () => {
     };
 
     //수정 버튼
-    const onClick1 = e => {
+    const onEditMemberInfo = e => {
         setEditAlert(true);
         console.log(e.target.value);
         let num = e.target.dataset.id;
@@ -151,8 +154,15 @@ const ManageAdmin = () => {
         );
     };
 
+    //탈퇴 시 화면 리렌더링
+    useEffect(() => {
+        if (delAlert === true) {
+            dispatch(getMemberList());
+        }
+    }, [delAlert]);
+
     //탈퇴 버튼
-    const onClick2 = e => {
+    const onMemberWithdrawal = e => {
         setDelAlert(true);
         console.log(e.target);
         let num = e.target.dataset.id;
@@ -162,9 +172,9 @@ const ManageAdmin = () => {
     //Alert
     const onClickConfirm = e => {
         if (e.target.value === 'btn1' && name && email && tel) {
-            onClick1();
+            onEditMemberInfo();
         } else if (e.target.value === 'btn2') {
-            onClick2();
+            onMemberWithdrawal();
         }
         // 알럿창 끄기
         setEditAlert(false);
@@ -220,8 +230,8 @@ const ManageAdmin = () => {
                             columnSpecial={columnSpecial}
                             objLen={objLen}
                             onChange={onChange}
-                            onClick1={onClick1}
-                            onClick2={onClick2}
+                            onClick1={onEditMemberInfo}
+                            onClick2={onMemberWithdrawal}
                             total={total}
                             limit={limit}
                             page={page}
