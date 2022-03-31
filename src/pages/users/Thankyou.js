@@ -83,7 +83,7 @@ const ButtonText = styled.p`
      font-family: 'InfinitySansR-Regular';
  `;
 
-const ThankYou = () => {
+const ThankYou = ({ user_id }) => {
     /** 상품조회를 위해 값 받아오기 */
     let { prodId } = useParams();
     /** Showmethmoney페이지에서 useNavigate로 인자 받아온 값 */
@@ -112,8 +112,8 @@ const ThankYou = () => {
     const [recent, setRecent] = useState([]);
 
     useEffect(() => {
-        dispatch(getAdressMember(prodId));
-    }, [prodId]);
+        dispatch(getAdressMember(user_id));
+    }, [user_id]);
 
     useEffect(() => {
         if (recentRt === 200) {

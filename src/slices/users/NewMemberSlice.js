@@ -5,7 +5,7 @@ import { ServerUrl } from 'key';
 export const putAdressMember = createAsyncThunk('/adress/putAdressMember', async (payload, { rejectWithValue }) => {
     let result = null;
     try {
-        result = await axios.put(ServerUrl + `/members/newaddr/${payload.prodId}`, {
+        result = await axios.put(ServerUrl + `/members/newaddr/${payload.user_id}`, {
             name: payload.name,
             tel: payload.tel,
             addr1: payload.addr1,

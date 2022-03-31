@@ -22,7 +22,6 @@ import NotFound from 'pages/common/NotFound';
 function App() {
     /* Login 관련 */
     const { loginSuccess, email, name, tel, user_id } = useSelector(state => state.appLogin);
-
     return (
         <>
             <GlobalStyles />
@@ -31,8 +30,8 @@ function App() {
                 <Route path="/" element={<Main />} />
                 <Route path="/product/:prod_id" element={<ProdList />} />
                 <Route path="/review/:prodId" element={<Review />} />
-                <Route path="/thankyou/:prodId" element={<ThankYou />} />
-                <Route path="/Showmethemoney/:prodId" element={<Showmethemoney user_id={user_id} />} />
+                <Route path="/thankyou/:prodId" element={<ThankYou user_id={user_id} />} />
+                <Route path="/Showmethemoney/:prodId" element={<Showmethemoney user_id={user_id} name={name} email={email} />} tel={tel} />
                 <Route path="/members/login" element={<Login />} />
                 <Route path="/members/join" element={<Register />} />
                 <Route path="/regsuccess" element={<RegSuccess />} />
