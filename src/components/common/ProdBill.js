@@ -59,15 +59,15 @@ const ProdBill = ({ proPrice, delivery, payPrice }) => {
             <Container>
                 <PriceBox>
                     <PriceTitle>총 상품 금액</PriceTitle>
-                    <PriceSub>{setCommas(proPrice)} 원</PriceSub>
+                    <PriceSub>{setCommas(proPrice)}원</PriceSub>
                 </PriceBox>
                 <PriceBox>
                     <PriceTitle>배송비</PriceTitle>
-                    <PriceSub>{setCommas(delivery)} 원</PriceSub>
+                    <PriceSub>{setCommas(delivery)}원</PriceSub>
                 </PriceBox>
                 <PriceBox>
                     <PriceTitle>총 결제 금액</PriceTitle>
-                    <PriceSub last="last">{setCommas(payPrice)} 원</PriceSub>
+                    <PriceSub last="last">{setCommas(payPrice)}원</PriceSub>
                 </PriceBox>
             </Container>
         </>
