@@ -123,7 +123,7 @@ const ManageAdmin = () => {
     const [warning, setWarning] = useState(false);
 
     //input 값 변경
-    const onChange = e => {
+    const onValueChange = e => {
         console.log(e.target.id);
         if (e.target.id === '1') {
             setEmail(e.target.value);
@@ -229,7 +229,7 @@ const ManageAdmin = () => {
                             columnsWidth={columnsWidth}
                             columnSpecial={columnSpecial}
                             objLen={objLen}
-                            onChange={onChange}
+                            onChange={onValueChange}
                             onClick1={onEditMemberInfo}
                             onClick2={onMemberWithdrawal}
                             total={total}
