@@ -195,7 +195,7 @@ const ReviewWrite = ({ prodId }) => {
         setReviewComment(value);
     };
 
-    /** 버튼 클릭시 알럿창을 띄운다. */
+    /** Alert 버튼 클릭시 알럿창 닫기 */
     const alertHandler = () => {
         setIsAlert(false);
     };
@@ -213,6 +213,7 @@ const ReviewWrite = ({ prodId }) => {
             // ReviewWriteSlice로 리뷰 추가
             dispatch(getReviewWrite(formData));
         } else {
+            /** 위의 조건을 만족시키지 못할 경우 알럿창 닫기 */
             setIsAlert(true);
         }
     };
@@ -247,7 +248,7 @@ const ReviewWrite = ({ prodId }) => {
                     </Button>
                 </Box>
             </WriterBox>
-            {isAlert ? <Alert text="상품을 구매한 고객만 작성하실수 있습니다." onClick={alertHandler} /> : <></>}
+            {isAlert ? <Alert text="상품을 구매한 고객만 작성하실수 있습니다." onClickConfirm={alertHandler} /> : <></>}
         </Container>
     );
 };
