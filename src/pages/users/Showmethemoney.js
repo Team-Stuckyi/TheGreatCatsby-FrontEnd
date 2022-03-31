@@ -120,7 +120,7 @@ const ButtonsubText = styled.p`
      font-family: 'InfinitySansR-Regular';
  `;
 
-const Showmethemoney = ({ user_id, email }) => {
+const Showmethemoney = ({ user_id, email, name, tel }) => {
 
     /** useParams를 통해 값 받아오기 */
     let { prodId } = useParams();
@@ -154,16 +154,15 @@ const Showmethemoney = ({ user_id, email }) => {
     const { recentRt, recentRtmsg, recentItem, recentLoading } = useSelector(state => state.recentMember);
     const [recent, setRecent] = useState([]);
 
+    // 로그인 시 user_id 받아와서 user_id에 따른 주소 useEffect로 받기
     useEffect(() => {
-        dispatch(getAdressMember(prodId));
-    }, [prodId]);
-
+        dispatch(getAdressMember(user_id));
+    }, [user_id]);
     useEffect(() => {
         if (recentRt === 200) {
             setRecent(recentItem[0]);
         }
     }, [recentItem]);
-
     /** Thankyou페이지로 이동 */
     const navigate = useNavigate();
 
@@ -176,7 +175,6 @@ const Showmethemoney = ({ user_id, email }) => {
     useEffect(() => {
         setMent(marvel);
     }, [ment]);
-    console.log(marvel);
 
     // NewAdress에 보낼 useState
     const [save, setSave] = useState([]);
@@ -202,7 +200,7 @@ const Showmethemoney = ({ user_id, email }) => {
         /** putAdress에 데이터 수정 값 보내기 */
         dispatch(
             putAdressMember({
-                prodId,
+                user_id,
                 name: foreName,
                 tel: phone,
                 addr1: onaddress,
@@ -210,11 +208,6 @@ const Showmethemoney = ({ user_id, email }) => {
             }),
         );
     };
-    // user_id 를 저장하는 state
-    const [user, setUser] = useState();
-    useEffect(() => {
-        setUser(user_id);
-    }, [user_id]);
     /** 아임포트 결제 창  */
     useEffect(() => {
         const jquery = document.createElement('script');
@@ -242,9 +235,9 @@ const Showmethemoney = ({ user_id, email }) => {
                 name: '부가정보',
                 desc: '세부 부가정보',
             },
-            count: `${prodCount}`,
-            buyer_name: `${setView() === true ? recent.name : foreName}`, // 구매자 이름
-            buyer_tel: `${setView() === true ? recent.tel : phone}`, // 구매자 번호
+            count: `${orderCount === 0 ? 1 : orderCount}`,
+            buyer_name: `${setView() === true ? name : foreName}`, // 구매자 이름
+            buyer_tel: `${setView() === true ? tel : phone}`, // 구매자 번호
             buyer_email: `${email}`, // 구매자 이메일
             buyer_addr: `${setView() === true ? recent.addr1 : onaddress}`, // 구매자 주소
             buyer_postalcode: '04042', // 구매자 우편번호
@@ -262,8 +255,8 @@ const Showmethemoney = ({ user_id, email }) => {
                     order_price: response.paid_amount,
                     order_select: `${marvel === 'Toss' ? 'T' : 'K'}`,
                     prod_id: `${prodId}`,
-                    user_id: `${user}`,
-                    order_count: `${prodCount}`,
+                    user_id: `${user_id}`,
+                    order_count: `${orderCount === 0 ? 1 : orderCount}`,
                 }),
             );
 
