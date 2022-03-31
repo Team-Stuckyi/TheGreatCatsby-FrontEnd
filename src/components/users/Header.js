@@ -4,13 +4,14 @@
  * @description : 사용자 페이지 헤더
  */
 
- import React from 'react';
- import Logo from 'components/common/Logo';
- import { Link } from 'react-router-dom'
- import styled from 'styled-components';
- import Login from 'img/login.png';
- 
- const HeaderContainer = styled.div`
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Logo from 'components/common/Logo';
+import { Link } from 'react-router-dom'
+import styled from 'styled-components';
+import Login from 'img/login.png';
+
+const HeaderContainer = styled.div`
  width: 100%;
  height: 100px;
  justify-content: center;
@@ -19,51 +20,53 @@
  background-color: var(--white);
  margin-bottom: 50px;
  `;
- 
- const TitleBar = styled.div`
+
+const TitleBar = styled.div`
  width: 1200px;
  margin: auto;
  `;
- 
- const LogoBox = styled.div`
+
+const LogoBox = styled.div`
  float: left;
  `;
- 
- const LoginBox = styled.div`
+
+const LoginBox = styled.div`
  float: right;
  margin-top: 15px;
  `;
- 
- const Img = styled.img`
+
+const Img = styled.img`
  width: 35px;
  float: right;
  margin-right: 3px;
  `;
- 
- const P = styled.p`
+
+const P = styled.p`
  color: var(--black);
  `;
- 
- 
- const Header = () => {
-     return (
-         <HeaderContainer>
-             <TitleBar>
-                 <LogoBox>
-                     <Link to="/">
-                         <Logo Imgtype="light" Imgwidth="220px" />
-                     </Link>
-                 </LogoBox>
-                 <LoginBox>
-                     <Link to="/members/login">
-                         <Img src={Login} />
-                         <P>Login</P>
-                     </Link>
-                 </LoginBox>
-             </TitleBar>
-         </HeaderContainer>
-     )
- 
- }
- 
- export default Header;
+
+
+const Header = () => {
+    // 로그인 성공 시 텍스트 변경을 위한 props값 가져오기
+    const { loginSuccess } = useSelector(state => state.appLogin);
+    return (
+        <HeaderContainer>
+            <TitleBar>
+                <LogoBox>
+                    <Link to="/">
+                        <Logo Imgtype="light" Imgwidth="220px" />
+                    </Link>
+                </LogoBox>
+                <LoginBox>
+                    <Link to="/members/login">
+                        <Img src={Login} />
+                        {loginSuccess === false ? <P>Login</P> : <P>Logout</P>}
+                    </Link>
+                </LoginBox>
+            </TitleBar>
+        </HeaderContainer>
+    )
+
+}
+
+export default Header;
