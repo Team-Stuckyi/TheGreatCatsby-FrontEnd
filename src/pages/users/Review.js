@@ -24,7 +24,7 @@ const PaginationContainer = styled.div`
     margin: 50px auto;
 `;
 
-const Review = () => {
+const Review = ({ user_id }) => {
     let { prodId } = useParams();
     const [reviewData, setReviewData] = useState([]);
     const { rt, rtmsg, item, loading } = useSelector(state => state.reviewDataList);
@@ -59,7 +59,7 @@ const Review = () => {
             <Header />
             <Container>
                 <ProdReviewInfo prodId={prodId} />
-                <ReviewWrite prodId={prodId} />
+                <ReviewWrite prodId={prodId} user_id={user_id} />
                 {loading ? <Loading /> : <ReviewList reviewData={reviewDataFilter} />}
                 <PaginationContainer>
                     <Pagination total={total} limit={limit} page={page} setPage={setPage} />

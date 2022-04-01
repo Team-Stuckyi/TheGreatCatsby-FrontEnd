@@ -71,7 +71,7 @@ const ClickStar = styled.span`
 `;
 // star 부분
 
-const ReviewWrite = ({ prodId }) => {
+const ReviewWrite = ({ prodId, user_id }) => {
     /**  로그인 정보를 가져와서 저장할 state */
     const [login, setLogin] = useState();
     /**  주문 확인에 사용하는 state */
@@ -114,7 +114,7 @@ const ReviewWrite = ({ prodId }) => {
     // 로그인 값을 가져와서 login state에 저장한다.
     useEffect(() => {
         // user_id를 저장
-        setLogin('2');
+        setLogin(user_id);
     }, []);
 
     /** 별 생성 */

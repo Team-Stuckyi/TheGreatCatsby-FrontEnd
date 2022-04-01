@@ -29,7 +29,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/product/:prod_id" element={<ProdList />} />
-                <Route path="/review/:prodId" element={<Review />} />
+                <Route path="/review/:prodId" element={<Review user_id={user_id} />} />
                 <Route path="/thankyou/:prodId" element={<ThankYou user_id={user_id} />} />
                 <Route path="/Showmethemoney/:prodId" element={<Showmethemoney user_id={user_id} name={name} email={email} />} tel={tel} />
                 <Route path="/members/login" element={<Login />} />
