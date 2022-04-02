@@ -166,8 +166,8 @@ const ManageAdmin = () => {
                         tel: tel,
                     }),
                 );
-                setEditAlert(false);
                 setSucess(true);
+                setEditAlert(false);
             } else if (!userId || !email || !name || !tel) {
                 setWarning(true);
             }
