@@ -29,18 +29,18 @@
 ### 1. 메인페이지
 
 - 구현 화면
-    |기본 화면|
+    |<div align="center">기본 화면</div>|
     |-----|
     |로그인 페이지, 각 상품 상세 정보 페이지로 접근이 가능함. 페이지네이션(화면당 상품 20개)이 적용되어 있으며, 페이지 넘김 시 스크롤이 최상단으로 고정됨. <br/><br/><img src="./readmeImg/users/mainPage/main.gif">|
 
-    |카테고리별 정렬<br />(전체/사료/모래/장난감/캣타워)|조건별 정렬 <br />(최근 등록순/가격낮은순/가격높은순/리뷰 많은순)|
+    |<div align="center">카테고리별 필터링<br />(전체/사료/모래/장난감/캣타워)</div>|<div align="center">조건별 정렬 <br />(최근 등록순/가격낮은순/가격높은순/리뷰 많은순)</div>|
     |----|-----|
     |<img src="./readmeImg/users/mainPage/category.gif" />|<img src="./readmeImg/users/mainPage/ascdesc.gif" />|
 
 <br />
 
 -  구성 요소
-   |구분|파일명 (*.js)|설명|
+   |<div align="center">구분</div>|<div align="center">파일명 (*.js)</div>|<div align="center">설 명</div>|
    |---|---|---|
    |서버 연동|MainProductSlice|GET : /products/main|
    |공통 컴포넌트|Loading|로딩 시 출력|
@@ -58,18 +58,18 @@
 ## 🔍관리자 페이지
 ### 1. 관리자 회원 관리
 - 구현 화면
-  |회원 검색|회원 탈퇴|
+  |<div align="center">회원 검색</div>|<div align="center">회원 탈퇴</div>|
     |----|-----|
     |<img src="./readmeImg/admins/manageAdmin/adminSearch.gif" />|<img src="./readmeImg/admins/manageAdmin/adminGetout.gif" />|
 
-    |회원 정보 수정|수정된 값 없음|
+    |<div align="center">회원 정보 수정</div>|<div align="center">수정된 값 없음</div>|
     |----|-----|
     |<img src="./readmeImg/admins/manageAdmin/adminEdit.gif" /> |<img src="./readmeImg/admins/manageAdmin/adminWarning.gif" />|
 
 <br />
 
 -  구성 요소
-   |구분|파일명 (*.js)|설명|
+   |<div align="center">구분</div>|<div align="center">파일명 (*.js)</div>|<div align="center">설 명</div>|
    |---|---|---|
    |서버 연동|AdminUserSlice|GET : /admins/all, <br />PUT : /admins/edit/:user_id, /admims/getout/user_id|
    |공통 컴포넌트|Loading|로딩 시 출력|
@@ -85,18 +85,18 @@
 
 ### 2. 일반 회원 관리  
 - 구현 화면
-  |회원 검색|회원 탈퇴|
+  |<div align="center">회원 검색</div>|<div align="center">회원 탈퇴</div>|
     |----|-----|
     |<img src="./readmeImg/admins/manageMember/memberSearch.gif" />|<img src="./readmeImg/admins/manageMember/memberGetout.gif" />|
 
-    |회원 정보 수정|수정된 값 없음|
+    |<div align="center">회원 정보 수정</div>|<div align="center">수정된 값 없음</div>|
     |----|-----|
     |<img src="./readmeImg/admins/manageMember/memberEdit.gif" /> |<img src="./readmeImg/admins/manageMember/memberWarning.gif" />|
 
 <br />
 
 -  구성 요소
-   |구분|파일명 (*.js)|설명|
+   |<div align="center">구분</div>|<div align="center">파일명 (*.js)</div>|<div align="center">설 명</div>|
    |---|---|---|
    |서버 연동|MemberSlice|GET : /members/all, <br />PUT : /members/edit/:user_id, /members/getout/user_id|
    |공통 컴포넌트|Loading|로딩 시 출력|
