@@ -13,16 +13,18 @@ import Alert from 'components/common/Alert';
 import Loading from 'components/common/Loading';
 
 const ManageAdmin = () => {
-    // ------------------ 데이터 연동 ------------------ //
+    // * 데이터 연동 -------------------- * //
     useEffect(() => console.clear(), []);
     const { rt, rtmsg, item, loading } = useSelector(state => state.adminuser);
     const dispatch = useDispatch();
+    //회원 수정, 탈퇴에 따라 화면을 리렌더링 하기 위한 환경변수
+    const [success, setSucess] = useState(false);
 
     useEffect(() => {
         dispatch(getAdminUserList());
-    }, []);
+    }, [success]);
 
-    // ------------------ 테이블 ------------------ //
+    // * 테이블 데이터 출력 및 페이지네이션 -------------------- * //
     //원본 데이터를 저장할 상태변수
     const [originData, setOriginData] = useState();
     //데이터 key값을 구하여 저장하는 상태변수
@@ -64,12 +66,13 @@ const ManageAdmin = () => {
         }
     }, [page]);
 
-    // ------------------ 검색 ------------------ //
+    // * 검색 기능 -------------------- * //
+    //검색 필드 : 아이디, 이름, 상태 (기본값 아이디)
+    const [selectQuery, setSelectQuery] = useState('아이디');
     const [searchQuery, setSearchQuery] = useState();
     const onQueryChange = e => {
         setSearchQuery(e.target.value);
     };
-    const [selectQuery, setSelectQuery] = useState('아이디');
     const onChangeSelect = e => {
         setSelectQuery(e.target.value);
     };
@@ -113,12 +116,13 @@ const ManageAdmin = () => {
         setFilterData(originData.filter((number, index) => index >= page * limit - 10 && index < page * limit));
     };
 
-    // ------------------ 수정, 탈퇴 ------------------ //
+    // * 관리자 회원 정보 수정 및 탈퇴 -------------------- * //
     const [email, setEmail] = useState();
     const [name, setName] = useState();
     const [delAlert, setDelAlert] = useState(false);
     const [editAlert, setEditAlert] = useState(false);
     const [warning, setWarning] = useState(false);
+    const [userId, setUserId] = useState();
 
     //input 값 변경
     const onValueChange = e => {
@@ -130,52 +134,56 @@ const ManageAdmin = () => {
         }
     };
 
-    //수정 버튼
-    const onEditAdminInfo = e => {
-        setEditAlert(true);
-        console.log(e.target.value);
-        let num = e.target.dataset.id;
-        if (!name || !email) {
-            setWarning(true);
+    //버튼을 클릭할 경우 Alert 창을 여는 함수
+    const onOpenAlert = e => {
+        setSucess(false);
+        setUserId(e.target.dataset.id);
+        if (e.target.innerText === '수정') {
+            setEditAlert(true);
+            onEditConfirm(e);
+        } else if (e.target.innerText === '탈퇴') {
+            setDelAlert(true);
+            onDelConfirm(e);
         }
-        dispatch(
-            editAdminUserList({
-                user_id: num,
-                name: name,
-                email: email,
-            }),
-        );
     };
 
-    //탈퇴 시 화면 리렌더링
-    useEffect(() => {
-        if (delAlert === true) {
-            dispatch(getAdminUserList());
+    //수정 => 확인 시
+    // 1. 아이디와 이름을 수정했을 경우 승인된다.
+    // 2. 수정한 값이 없을 경우 경고창이 뜬다.
+    //수정 => 취소 시 알럿창 꺼짐
+    const onEditConfirm = e => {
+        if (e.target.innerText === '확인') {
+            if (userId && email && name) {
+                dispatch(
+                    editAdminUserList({
+                        user_id: userId,
+                        name: name,
+                        email: email,
+                    }),
+                );
+                setEditAlert(false);
+                setSucess(true);
+            } else if (!userId || !email || !name) {
+                setWarning(true);
+            }
+        } else if (e.target.innerText === '취소') {
+            onClickCancel();
         }
-    }, [delAlert]);
-
-    //탈퇴 버튼
-    const onAdminWithdrawal = e => {
-        setDelAlert(true);
-        console.log(e.target);
-        let num = e.target.dataset.id;
-        dispatch(delAdminUserList(num));
     };
 
-    //Alert
-    const onClickConfirm = e => {
-        if (e.target.value === 'btn1' && name && email) {
-            onEditAdminInfo();
-        } else if (e.target.value === 'btn2') {
-            onAdminWithdrawal();
+    //탈퇴 => 확인 시 status 값 'N' 변경
+    //탈퇴 => 취소 시 알럿창 꺼짐
+    const onDelConfirm = e => {
+        if (e.target.innerText === '확인') {
+            dispatch(delAdminUserList(userId));
+            setDelAlert(false);
+            setSucess(true);
+        } else if (e.target.innerText === '취소') {
+            onClickCancel();
         }
-        // Alert 창 끄기
-        setEditAlert(false);
-        setDelAlert(false);
-        setWarning(false);
     };
 
-    /** Alert 취소 버튼 클릭시 */
+    // 알럿창 취소
     const onClickCancel = () => {
         setEditAlert(false);
         setDelAlert(false);
@@ -213,9 +221,9 @@ const ManageAdmin = () => {
                             onQueryChange={onQueryChange}
                             onDataReset={onDataReset}
                         />
-                        {delAlert && <Alert text={'탈퇴시키겠습니까?'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
-                        {editAlert && <Alert text={'수정하시겠습니까?'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
-                        {warning && <Alert text={'수정한 값이 없습니다.'} onClickConfirm={onClickConfirm} onClickCancel={onClickCancel} />}
+                        {delAlert && <Alert text={'탈퇴시키겠습니까?'} onClickConfirm={onDelConfirm} onClickCancel={onClickCancel} />}
+                        {editAlert && <Alert text={'수정하시겠습니까?'} onClickConfirm={onEditConfirm} onClickCancel={onClickCancel} />}
+                        {warning && <Alert text={'수정한 값이 없습니다.'} onClickConfirm={onClickCancel} />}
                         <TableList
                             columns={columns}
                             data={filterData}
@@ -223,8 +231,8 @@ const ManageAdmin = () => {
                             columnSpecial={columnSpecial}
                             objLen={objLen}
                             onChange={onValueChange}
-                            onClick1={onEditAdminInfo}
-                            onClick2={onAdminWithdrawal}
+                            onClick1={onOpenAlert}
+                            onClick2={onOpenAlert}
                             total={total}
                             limit={limit}
                             page={page}
