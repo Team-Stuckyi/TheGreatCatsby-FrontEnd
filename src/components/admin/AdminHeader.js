@@ -4,9 +4,12 @@
  * @description : 관리자 페이지 헤더
  */
 
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { adminlogin } from 'slices/admin/adminLoginSlice';
+import { adminAppSlice } from 'slices/admin/adminAppSlice';
+import styled from 'styled-components';
 import Logo from 'components/common/Logo';
 
 const Wrapper = styled.div`
@@ -107,17 +110,44 @@ const Box = styled.div`
     height: 120px;
 `;
 
-const AdminHeader = () => {
+const AdminHeader = ({ setIsAdminLogin, isAdminLogin }) => {
     const navigate = useNavigate();
-    const onClickLogOut = () => {
-        navigate('/admin');
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // 로그아웃시 로그인 페이지로 이동
+        if (!isAdminLogin) {
+            navigate('/admin/login');
+        }
+    }, [isAdminLogin]);
+
+    const onClickLogOut = async () => {
+        // 로그인시 값초기화
+        await dispatch(
+            adminAppSlice.actions.changeLoginState({
+                loginSuccess: false,
+                email: null,
+                name: null,
+                tel: null,
+                user_id: null,
+            }),
+        );
+        await dispatch(
+            adminlogin({
+                email: null,
+                password: null,
+            }),
+        );
+        // 로그인 값 false로 변경
+        setIsAdminLogin(false);
     };
+
     return (
         <>
             <Wrapper>
                 <Container>
                     <LogoBox>
-                        <Link to={'/admin/manageadmin'}>
+                        <Link to={'/admin/login'}>
                             <Logo Imgwidth="50px" />
                         </Link>
                     </LogoBox>
@@ -138,11 +168,9 @@ const AdminHeader = () => {
                             <Menu last="last">주문 관리</Menu>
                         </Link>
                     </MenuContainer>
-                    <Link to="/admin">
-                        <LogOut last="last" onClick={onClickLogOut}>
-                            로그아웃
-                        </LogOut>
-                    </Link>
+                    <LogOut last="last" onClick={onClickLogOut}>
+                        로그아웃
+                    </LogOut>
                 </Container>
             </Wrapper>
             <Box />
