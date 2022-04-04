@@ -49,7 +49,7 @@ const InputWrapper = styled('div')`
     }
 `;
 
-const AdminLogin = () => {
+const AdminLogin = ({ isAdminLogin, setIsAdminLogin }) => {
     // useNavigate, useDispatch 객체 초기화
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -95,11 +95,19 @@ const AdminLogin = () => {
                     user_id: data.user_id,
                 }),
             );
-            successLoginRequest();
+            // 로그인값 true
+            setIsAdminLogin(true);
         } else if (rt !== null) {
             badLoginRequest();
         }
     }, [rt]);
+
+    useEffect(() => {
+        // 로그인시 값 요청
+        // 로그인이 아닐경우 /admin/* 경로를 모드 /admin/login으로 이동
+        if (isAdminLogin) successLoginRequest();
+        else if (!isAdminLogin) navigate('/admin/login');
+    }, [isAdminLogin]);
 
     if (loading) return <Loading />;
 
