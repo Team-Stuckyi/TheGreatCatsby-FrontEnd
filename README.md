@@ -55,6 +55,42 @@
 
 <br />
 
+### 2. 상품 정보 페이지
+- 구현 화면
+    |<div align="center">기본 화면</div>|
+    |-----|
+    |<img src="./readmeImg/users/prodListPage/ProdListPage.gif">|
+
+    |<div align="center">상품 수량 선택 기능</div>|
+    |-----|
+    |<img src="./readmeImg/users/prodListPage/ProdCount.gif">|
+
+    |<div align="center">작성된 리뷰가 존재할 경우</div>|
+    |-----|
+    |<img src="./readmeImg/users/prodListPage/ExistReviews.jpg">|
+
+    |<div align="center">작성된 리뷰가 존재하지 않을 경우</div>|
+    |-----|
+    |<img src="./readmeImg/users/prodListPage/NoneExistReviews.jpg">|
+
+<br />
+
+-  구성 요소
+   |<div align="center">구분</div>|<div align="center">파일명 (*.js)</div>|<div align="center">설 명</div>|
+   |---|---|---|
+   |서버 연동|ReviewListSlice|GET : /review/:prod_id|
+   |서버 연동|ReviewProdInfoSlice|GET : /products/:prod_id|
+   |공통 컴포넌트|Loading|로딩 시 출력|
+   |공통 컴포넌트|Container|1200px 고정|
+   |공통 컴포넌트|Header|사용자 페이지 Header|
+   |공통 컴포넌트|Footer|사용자 페이지 Footer|
+   |공통 컴포넌트|Button|버튼 UI|
+   |하위 컴포넌트|ProdImg|상품이미지를 가져오는 컴포넌트|
+   |하위 컴포넌트|ProdInfo|상품정보를 가져오는 컴포넌트|
+   |하위 컴포넌트|ProdReview|상품리뷰를 가져오는 컴포넌트|
+   |하위 컴포넌트|ProdBuy|상품 구매(수량 선택등) UI 컴포넌트|
+<br />
+
 ## 🔍관리자 페이지
 ### 1. 관리자 회원 관리
 - 구현 화면
@@ -80,7 +116,6 @@
    |공통 컴포넌트|Title|관리자 페이지 제목|
    |공통 컴포넌트|Search|관리자 페이지 검색|
    |공통 컴포넌트|TableList|관리자 페이지 테이블|
-   |공통 컴포넌트|Pagination|한 페이지당 10명 출력|
 <br />
 
 ### 2. 일반 회원 관리  
@@ -109,6 +144,24 @@
    |공통 컴포넌트|TableList|관리자 페이지 테이블|
    |공통 컴포넌트|Pagination|한 페이지당 10명 출력|
 
+<br />
+
+### 3. 관리자 로그인 페이지
+- 구현 화면
+   |<div align="center">기본 화면</div>|
+   |-----|
+   |<img src="./readmeImg/admins/AdminLogin/AdminLogin.gif">|
+
+<br />
+
+-  구성 요소
+   |<div align="center">구분</div>|<div align="center">파일명 (*.js)</div>|<div align="center">설 명</div>|
+   |---|---|---|
+   |서버 연동|adminLoginSlice, adminAppSlice|POST : /admins/login|
+   |공통 컴포넌트|Loading|로딩 시 출력|
+   |공통 컴포넌트|Container|1200px 고정|
+   |공통 컴포넌트|Button|버튼|
+   |공통 컴포넌트|Input|입력폼|
 <br />
 
 ## ⚙️ 파일 구조
