@@ -150,7 +150,7 @@
 - 구현 화면
    |<div align="center">기본 화면</div>|
    |-----|
-   |<img src="./readmeImg/admins/AdminLogin/AdminLogin.gif">|
+   |<img src="./readmeImg/admins/adminLogin/AdminLogin.gif?raw=true">|
 
 <br />
 
