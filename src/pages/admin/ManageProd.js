@@ -36,7 +36,7 @@ const AddProdButton = styled.button`
     cursor: pointer;
 `;
 
-const ManageProd = () => {
+const ManageProd = ({ isAdminLogin, setIsAdminLogin }) => {
     const { rt, products, actionType, totalCount, loading } = useSelector(state => state.manageProd);
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
@@ -153,38 +153,40 @@ const ManageProd = () => {
 
     return (
         <>
-        <AdminHeader />
-        <Container>
-            { loading ? (<Loading />) : (
-            <>
-            <TitleContainer>
-                <Title content={'상품 관리'} />
-            </TitleContainer>
-            <Search
-                selectBoxItems={selectBoxItems}
-                categoryName={'전체 상품'}
-                categoryCount={totalCount}
-                unit={'개'}
-                selectBoxItems={['상품 번호', '상품명', '재고', '판매']}
-                onChange={onChangeSelect}
-                onQueryChange={onQueryChange}
-                onSubmit={onSubmit}
-            />
-            <AddProdButton onClick={ClickAddProd}>+</AddProdButton>
-            {openModal && <AddProd closeModal={setOpenModal} />}
-            <TableListWithoutPagination
-                columns={columns}
-                data={products}
-                isModifiable={true}
-                isRemovable={false}
-                onChange={onChange}
-                onChecked={onChecked}
-                onModifyButtonClick={onModifyButtonClick}
-            />
-            <Pagination total={totalCount} limit={10} page={page} setPage={setPage} />
-            </>
-        )}
-        </Container>
+            <AdminHeader setIsAdminLogin={setIsAdminLogin} isAdminLogin={isAdminLogin} />
+            <Container>
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <TitleContainer>
+                            <Title content={'상품 관리'} />
+                        </TitleContainer>
+                        <Search
+                            selectBoxItems={selectBoxItems}
+                            categoryName={'전체 상품'}
+                            categoryCount={totalCount}
+                            unit={'개'}
+                            selectBoxItems={['상품 번호', '상품명', '재고', '판매']}
+                            onChange={onChangeSelect}
+                            onQueryChange={onQueryChange}
+                            onSubmit={onSubmit}
+                        />
+                        <AddProdButton onClick={ClickAddProd}>+</AddProdButton>
+                        {openModal && <AddProd closeModal={setOpenModal} />}
+                        <TableListWithoutPagination
+                            columns={columns}
+                            data={products}
+                            isModifiable={true}
+                            isRemovable={false}
+                            onChange={onChange}
+                            onChecked={onChecked}
+                            onModifyButtonClick={onModifyButtonClick}
+                        />
+                        <Pagination total={totalCount} limit={10} page={page} setPage={setPage} />
+                    </>
+                )}
+            </Container>
         </>
     );
 };

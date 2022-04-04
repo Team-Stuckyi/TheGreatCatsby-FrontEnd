@@ -12,7 +12,7 @@ import Button from 'components/common/Button';
 import Alert from 'components/common/Alert';
 import Loading from 'components/common/Loading';
 
-const ManageReview = () => {
+const ManageReview = ({ isAdminLogin, setIsAdminLogin }) => {
     // redux 데이터 가져오기
     const { rt, rtmsg, item, loading } = useSelector(state => state.adminReviewList);
     const dispatch = useDispatch();
@@ -226,7 +226,7 @@ const ManageReview = () => {
 
     return (
         <>
-            <AdminHeader />
+            <AdminHeader setIsAdminLogin={setIsAdminLogin} isAdminLogin={isAdminLogin} />
             <Container>
                 {loading ? (
                     <Loading />

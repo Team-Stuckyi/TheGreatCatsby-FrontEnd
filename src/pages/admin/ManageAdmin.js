@@ -12,7 +12,7 @@ import Button from 'components/common/Button';
 import Alert from 'components/common/Alert';
 import Loading from 'components/common/Loading';
 
-const ManageAdmin = () => {
+const ManageAdmin = ({ isAdminLogin, setIsAdminLogin }) => {
     // * 데이터 연동 -------------------- * //
     useEffect(() => console.clear(), []);
     const { rt, rtmsg, item, loading } = useSelector(state => state.adminuser);
@@ -192,7 +192,7 @@ const ManageAdmin = () => {
 
     return (
         <>
-            <AdminHeader />
+            <AdminHeader setIsAdminLogin={setIsAdminLogin} isAdminLogin={isAdminLogin} />
             <Container>
                 {loading ? (
                     <Loading />

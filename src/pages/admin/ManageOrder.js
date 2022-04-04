@@ -32,7 +32,7 @@ const Notice = styled.div`
     }
 `;
 
-const ManageOrder = () => {
+const ManageOrder = ({ isAdminLogin, setIsAdminLogin }) => {
     const [page, setPage] = useState(1);
     const { rt, orders, actionType, totalCount, loading } = useSelector(state => state.manageOrder);
     const dispatch = useDispatch();
@@ -141,39 +141,41 @@ const ManageOrder = () => {
 
     return (
         <>
-        <AdminHeader />
-        <Container>
-            { loading ? (<Loading />) : (
-            <>
-            <TitleContainer>
-                <Title content={'주문 관리'} />
-            </TitleContainer>
-            <Search
-                selectBoxItems={selectBoxItems}
-                categoryName={'주문 번호'}
-                categoryCount={totalCount}
-                unit={'건'}
-                selectBoxItems={['주문 번호', '주문 상품', '주문 날짜', '이메일', '주문 금액', '주문 상태']}
-                onChange={onChangeSelect}
-                onQueryChange={onQueryChange}
-                onSubmit={onSubmit}
-            />
-            <Notice>
-                <p>*주문 상품명, 주문자 이메일은 현재페이지에서 수정이 불가합니다.</p>
-            </Notice>
-            <TableListWithoutPagination
-                columns={columns}
-                data={orders}
-                isModifiable={true}
-                isRemovable={false}
-                onChange={onChange}
-                onChecked={onChecked}
-                onModifyButtonClick={onModifyButtonClick}
-            />
-            <Pagination total={totalCount} limit={10} page={page} setPage={setPage} />
-            </>
-        )}
-        </Container>
+            <AdminHeader setIsAdminLogin={setIsAdminLogin} isAdminLogin={isAdminLogin} />
+            <Container>
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <TitleContainer>
+                            <Title content={'주문 관리'} />
+                        </TitleContainer>
+                        <Search
+                            selectBoxItems={selectBoxItems}
+                            categoryName={'주문 번호'}
+                            categoryCount={totalCount}
+                            unit={'건'}
+                            selectBoxItems={['주문 번호', '주문 상품', '주문 날짜', '이메일', '주문 금액', '주문 상태']}
+                            onChange={onChangeSelect}
+                            onQueryChange={onQueryChange}
+                            onSubmit={onSubmit}
+                        />
+                        <Notice>
+                            <p>*주문 상품명, 주문자 이메일은 현재페이지에서 수정이 불가합니다.</p>
+                        </Notice>
+                        <TableListWithoutPagination
+                            columns={columns}
+                            data={orders}
+                            isModifiable={true}
+                            isRemovable={false}
+                            onChange={onChange}
+                            onChecked={onChecked}
+                            onModifyButtonClick={onModifyButtonClick}
+                        />
+                        <Pagination total={totalCount} limit={10} page={page} setPage={setPage} />
+                    </>
+                )}
+            </Container>
         </>
     );
 };
