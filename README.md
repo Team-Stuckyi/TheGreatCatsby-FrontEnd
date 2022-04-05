@@ -172,6 +172,73 @@
 
 <br />
 
+### 🏷️ 결제 페이지
+
+-   구현 화면
+
+    | <div align="center">최근배송지 화면</div>                   | <div align="center">신규배송지 화면</div>                      |
+    | ----------------------------------------------------------- | -------------------------------------------------------------- |
+    | <img src="./readmeImg/users/showmethemoneyPage/recent.png"> | <img src="./readmeImg/users/showmethemoneyPage/newadress.png"> |
+
+<br />
+
+-   결제 화면
+
+    | <div align="center">토스결제</div>                        | <div align="center">카카오결제</div>                       |
+    | --------------------------------------------------------- | ---------------------------------------------------------- |
+    | <img src="./readmeImg/users/showmethemoneyPage/toss.png"> | <img src="./readmeImg/users/showmethemoneyPage/kakao.png"> |
+
+<br />
+
+<br />
+
+-   구성 요소
+
+    | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div> |
+    | ------------------------------ | ---------------------------------------- | ------------------------------- |
+    | 서버 연동                      | RecentMemberSlice                        | GET : /members/address/:user_id |
+    | 서버 연동                      | ReviewProdInfoSlice                      | GET : /products/:prod_id        |
+    | 서버 연동                      | NewMemberSlice                           | PUT : /members/newaddr/:user_id |
+    | 서버 연동                      | ShowOrderSlice                           | POST : /orders/post             |
+    | 공통 컴포넌트                  | Loading                                  | 로딩 시 출력                    |
+    | 공통 컴포넌트                  | Container                                | 1200px 고정                     |
+    | 공통 컴포넌트                  | Header                                   | 사용자 페이지 Header            |
+    | 공통 컴포넌트                  | Footer                                   | 사용자 페이지 Footer            |
+    | 공통 컴포넌트                  | Button                                   | 버튼 UI                         |
+    | 공통 컴포넌트                  | ProdBill                                 | 결제 금액 영수증 컴포넌트       |
+    | 하위 컴포넌트                  | ProdOrder                                | 상품정보를 가져오는 컴포넌트    |
+    | 하위 컴포넌트                  | RecentAdress                             | 최근배송지를 가져오는 컴포넌트  |
+    | 하위 컴포넌트                  | NewAdress                                | 신규배송지를 가져오는 컴포넌트  |
+    | 하위 컴포넌트                  | PayMent                                  | 결제방법을 가져오는 컴포넌트    |
+
+<br />
+
+### 🏷️ 결제완료 페이지
+
+-   구현 화면
+
+    | <div align="center">기본 화면</div>                           |
+    | ------------------------------------------------------------- |
+    | <img src="./readmeImg/users/showmethemoneyPage/thankyou.png"> |
+
+<br />
+
+-   구성 요소
+
+    | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div> |
+    | ------------------------------ | ---------------------------------------- | ------------------------------- |
+    | 서버 연동                      | RecentMemberSlice                        | GET : /members/address/:user_id |
+    | 서버 연동                      | ReviewProdInfoSlice                      | GET : /products/:prod_id        |
+    | 공통 컴포넌트                  | Loading                                  | 로딩 시 출력                    |
+    | 공통 컴포넌트                  | Container                                | 1200px 고정                     |
+    | 공통 컴포넌트                  | Header                                   | 사용자 페이지 Header            |
+    | 공통 컴포넌트                  | Footer                                   | 사용자 페이지 Footer            |
+    | 공통 컴포넌트                  | Button                                   | 버튼 UI                         |
+    | 공통 컴포넌트                  | ProdBill                                 | 결제 금액 영수증 컴포넌트       |
+    | 하위 컴포넌트                  | PayAdress                                | 주문사항을 가져오는 컴포넌트    |
+
+<br />
+
 ## 🔍관리자 페이지
 
 ### 🏷️ 관리자 로그인 페이지
