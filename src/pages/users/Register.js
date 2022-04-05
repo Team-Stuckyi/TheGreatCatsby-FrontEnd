@@ -1,5 +1,5 @@
 /**
- * @filename    : JoinSlice.js
+ * @filename    : Register.js
  * @author      : 노희재 (heejj1206@naver.com)
  * @description : 회원가입 페이지
  */
