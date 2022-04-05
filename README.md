@@ -277,7 +277,7 @@
 -   구현 화면
     | <div align="center">기본 화면</div> |
     ------------------------------------------------------- |
-    | 홈으로 버튼 클릭 시 메인 화면으로 이동 <br />   <br /> <img src="./readmeImg/users/regsuccess/regSuccess.gif"> |
+    | 홈으로 버튼 클릭 시 메인 화면으로 이동 <br />   <br /> <img src="./readmeImg/users/regSuccess/regSuccess.gif"> |
 
 <br />
 
@@ -488,8 +488,8 @@
     | <div align="center">상품 추가<div> |
     --------------------------------- |
     | + 버튼 클릭 시 모달창 켜짐 <img src="./readmeImg/admins/manageProd/openAddProd.gif" />
-    <br /> 모든 입력 사항을 기입하고 상품 등록 버튼을 누르면 alert 창 출력 후 페이지가 새로고침 됨 <br /> (업로드 가능한 파일 용량은 10MB로 제한) <img src="./readmeImg/admins/manageProd/AddProd.gif" /> |
-    <br />마지막 항목으로 데이터가 추가된 모습 <img src="./readmeImg/admins/manageProd/AddProdSuc.gif" /> |
+    <br /> 모든 입력 사항을 기입하고 상품 등록 버튼을 누르면 alert 창 출력 후 페이지가 새로고침 됨 <br /> (업로드 가능한 파일 용량은 10MB로 제한) <img src="./readmeImg/admins/manageProd/AddProd.gif" />
+    <br /> 마지막 항목으로 데이터가 추가된 모습 <img src="./readmeImg/admins/manageProd/AddProdSuc.gif" /> |
 <br />
 
 -   구성 요소
