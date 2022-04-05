@@ -237,6 +237,85 @@
     | 공통 컴포넌트                  | ProdBill                                 | 결제 금액 영수증 컴포넌트       |
     | 하위 컴포넌트                  | PayAdress                                | 주문사항을 가져오는 컴포넌트    |
 
+***
+
+<br />
+
+### 🏷️ 회원가입 페이지
+
+-   구현 화면
+    | <div align="center">기본 화면</div> |
+    ------------------------------------------------------- |
+    |정규표현식으로 검사하여 형식이 맞지 않을 경우 경고 메세지가 하단에 표시되고, <br /> 형식과 맞을 경우 경고 메세지가 사라짐 <br />   <br /> <img src="./readmeImg/users/join/JoinAlert.gif"> |
+
+    <br /> 
+
+    | <div align="center">가입 완료</div> |
+    ------------------------------------------------------- |
+    |가입 완료 시 환영 페이지로 넘어가게 됨 <br /> <br /> <img src="./readmeImg/users/join/Join.gif"> |
+
+<br />
+
+-   구성 요소
+
+    | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div>    |
+    | ------------------------------ | ---------------------------------------- | ---------------------------------- |
+    | 서버 연동                      | JoinSlice                          | POST : /members/join             |
+    | 공통 컴포넌트                  | Container                                 | 1200px 고정                       |
+    | 공통 컴포넌트                  | Loading                                | 로딩 시 출력                        |
+    | 공통 컴포넌트                  | Header                                   | 사용자 페이지 Header               |
+    | 공통 컴포넌트                  | Footer                                   | 사용자 페이지 Footer               |
+    | 공통 컴포넌트                  | Logo                                   | 로고 UI                            |
+    | 공통 컴포넌트                  | Input                                   | 인풋 UI                            |
+    | 공통 컴포넌트                  | Button                                   | 버튼 UI                            |
+                             
+
+***
+<br />
+
+### 🏷️ 가입 완료 페이지
+-   구현 화면
+    | <div align="center">기본 화면</div> |
+    ------------------------------------------------------- |
+    | 홈으로 버튼 클릭 시 메인 화면으로 이동 <br />   <br /> <img src="./readmeImg/users/regsuccess/regSuccess.gif"> |
+
+<br />
+
+-   구성 요소
+
+    | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div>    |
+    | ------------------------------ | ---------------------------------------- | ---------------------------------- |
+    | 공통 컴포넌트                  | Container                                 | 1200px 고정                       |
+    | 공통 컴포넌트                  | Header                                   | 사용자 페이지 Header               |
+    | 공통 컴포넌트                  | Footer                                   | 사용자 페이지 Footer               |
+    | 하위 컴포넌트                  | Success                                   | 가입 완료 페이지 UI                            |
+
+***
+<br />
+
+### 🏷️ 로그인 페이지
+-   구현 화면
+    | <div align="center">로그인 화면</div> |
+    ------------------------------------------------------- |
+    | 로그인 성공 시 메인 화면으로 자동 이동 <br />   <br /> <img src="./readmeImg/users/login/login.gif"> |
+    
+<br />
+
+-   구성 요소
+
+    | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div>    |
+    | ------------------------------ | ---------------------------------------- | ---------------------------------- |
+    | 서버 연동                      | AppSlice                          | 로그인 된 회원 정보를 넘겨주기 위한 슬라이스             |
+    | 서버 연동                      | LoginSlice                          | POST : /members/login             |
+    | 공통 컴포넌트                  | Container                                 | 1200px 고정                       |
+    | 공통 컴포넌트                  | Loading                                | 로딩 시 출력                        |
+    | 공통 컴포넌트                  | Header                                   | 사용자 페이지 Header               |
+    | 공통 컴포넌트                  | Footer                                   | 사용자 페이지 Footer               |
+    | 공통 컴포넌트                  | Logo                                   | 로고 UI                            |
+    | 공통 컴포넌트                  | Input                                   | 인풋 UI                            |
+    | 공통 컴포넌트                  | Button                                   | 버튼 UI                            |
+
+***
 <br />
 
 ## 🔍관리자 페이지
@@ -344,7 +423,7 @@
 
     | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div> |
     | ------------------------------ | ---------------------------------------- | ------------------------------- |
-    | 서버 연동                      | AdminReviewListSlice                     | GET : /review/admin             |
+    | 서버 연동                      | AdminReviewListSlice                     | GET : /review/admin <br />             |
     | 서버 연동                      | ManageReview                             | DELETE : /reviews/del/:reviewId |
     | 공통 컴포넌트                  | Loading                                  | 로딩 시 출력                    |
     | 공통 컴포넌트                  | Container                                | 1200px 고정                     |
@@ -355,6 +434,80 @@
     | 공통 컴포넌트                  | Search                                   | 관리자 페이지 검색              |
     | 공통 컴포넌트                  | TableList                                | 관리자 페이지 테이블            |
     | 공통 컴포넌트                  | Pagination                               | 한 페이지당 10개 리뷰 출력      |
+
+***
+
+<br />
+
+### 🏷️ 주문 관리
+
+-   구현 화면
+
+    | <div align="center">주문 검색<div> |
+    --------------------------------- |
+    | <img src="./readmeImg/admins/manageOrder/OrderSearch.gif" /> |
+    <br />
+
+    | <div align="center">주문 수정<div> |
+    --------------------------------- |
+    | <img src="./readmeImg/admins/manageOrder/ManageOrder.gif" /> |
+
+<br />
+
+-   구성 요소
+
+    | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div> |
+    | ------------------------------ | ---------------------------------------- | ------------------------------- |
+    | 서버 연동                      | ManageOrderSlice                     | GET : /orders/all <br /> PUT : /orders/:order_id <br /> 페이지네이션 계산            |
+    | 공통 컴포넌트                  | Loading                                  | 로딩 시 출력                    |
+    | 공통 컴포넌트                  | Container                                | 1200px 고정                     |
+    | 공통 컴포넌트                  | AdminHeader                              | 관리자 페이지 Header            |
+    | 공통 컴포넌트                  | Title                                    | 관리자 페이지 제목              |
+    | 공통 컴포넌트                  | Search                                   | 관리자 페이지 검색              |
+    | 공통 컴포넌트                  | TableListWithoutPagination                                | 관리자 페이지 테이블 UI            |
+    | 공통 컴포넌트                  | Pagination                               | 페이지네이션 UI      |
+
+***
+
+<br />
+
+### 🏷️ 상품 관리
+
+-   구현 화면
+
+    | <div align="center">상품 검색<div> |
+    --------------------------------- |
+    | <img src="./readmeImg/admins/manageProd/prodSearch.gif" /> |
+    <br />
+
+    | <div align="center">상품 수정<div> |
+    --------------------------------- |
+    | <img src="./readmeImg/admins/manageProd/manageProd.gif" /> |
+    <br />
+
+    | <div align="center">상품 추가<div> |
+    --------------------------------- |
+    | + 버튼 클릭 시 모달창 켜짐 <img src="./readmeImg/admins/manageProd/openAddProd.gif" />
+    <br /> 모든 입력 사항을 기입하고 상품 등록 버튼을 누르면 alert 창 출력 후 페이지가 새로고침 됨 <br /> (업로드 가능한 파일 용량은 10MB로 제한) <img src="./readmeImg/admins/manageProd/AddProd.gif" /> |
+    <br />마지막 항목으로 데이터가 추가된 모습 <img src="./readmeImg/admins/manageProd/AddProdSuc.gif" /> |
+<br />
+
+-   구성 요소
+
+    | <div align="center">구분</div> | <div align="center">파일명 (\*.js)</div> | <div align="center">설 명</div> |
+    | ------------------------------ | ---------------------------------------- | ------------------------------- |
+    | 서버 연동                      | ManageProdSlice                     | GET : /products/all <br /> PUT : /products/:prod_id <br /> 페이지네이션 계산            |
+    | 서버 연동                      | AddProdSlice                     | POST : /products  |
+    | 공통 컴포넌트                  | Loading                                  | 로딩 시 출력                    |
+    | 공통 컴포넌트                  | Container                                | 1200px 고정                     |
+    | 공통 컴포넌트                  | AdminHeader                              | 관리자 페이지 Header            |
+    | 공통 컴포넌트                  | Title                                    | 관리자 페이지 제목              |
+    | 공통 컴포넌트                  | Search                                   | 관리자 페이지 검색              |
+    | 공통 컴포넌트                  | TableListWithoutPagination                                | 관리자 페이지 테이블 UI            |
+    | 공통 컴포넌트                  | Pagination                               | 페이지네이션 UI      |
+    | 하위 컴포넌트                  | AddProd                               | 상품 추가 모달창      |
+
+***
 
 <br />
 
