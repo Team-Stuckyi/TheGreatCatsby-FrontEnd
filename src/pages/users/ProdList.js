@@ -1,3 +1,9 @@
+/**
+ * @filename    : ProdList.js
+ * @author      : 김우영 (https://github.com/0x000613)
+ * @description : 상품 정보 페이지 (구매 단계 이전)
+ */
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
@@ -20,7 +26,7 @@ const ProdListContainer = styled.div`
     margin: 0 auto;
 `;
 
-// 3자리단위 콤마찍기 함수 구현
+// 3자리단위 콤마찍기 함수
 function setCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }

@@ -1,3 +1,9 @@
+/**
+ * @filename    : ProdImg.js
+ * @author      : 김우영 (https://github.com/0x000613)
+ * @description : 상품 상세정보(이미지) 자세히 보기 컴포넌트
+ */
+
 // Core
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -25,7 +31,9 @@ const ImageContainer = styled.div`
 const InfoImage = styled.div`
     height: 100%;
     max-height: ${props => {
+        // isHidden Props가 true일 경우 상품 상세정보 이미지를 700px만 출력
         if (props.isHidden) return '700px';
+        // isHidden Props가 false일 경우 상품 상세정보 이미지를 100% 모두 출력
         else if (!props.isHidden) return '100%';
     }};
     overflow: hidden;
@@ -52,6 +60,7 @@ const ProdImg = ({ prodInfoImageURL = NotFoundImage }) => {
                 style={{ position: 'relative', marginTop: '25px' }}
                 onClick={onClickViewMore}
             >
+                {/* 상품정보 더보기 버튼이 클릭되었을때와 되지 않았을 때 케이스별로 버튼 내용을 변경 */}
                 {viewMore ? '상품정보 더보기' : '상품정보 더보기 닫기'}
             </Button>
         </ImageContainer>
